@@ -10,14 +10,14 @@ const Counter1 = () => {
 
     return (
         
-        <div className="counter-section fix">
+        <div className="counter-section fix ">
             <div className="counter-container-wrapper style1">
                 <div className="container">
                     <div className="counter-wrapper style1 section-padding"
                         data-background="/assets/images/shape/counterShape1_1.png">
                         <div className="shape"></div>
                         <div className="container">
-                            <div className="row gy-5">
+                            {/* <div className="row gy-5">
                                 <div className="col-xl-3 col-md-6 d-flex justify-content-center">
                                     <div className="counter-box style1 wow fadeInUp" data-wow-delay=".2s">
                                         <div className="counter">
@@ -50,7 +50,7 @@ const Counter1 = () => {
                                         <p className="text">Satisfaction rate from our customers.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

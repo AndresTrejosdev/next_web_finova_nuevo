@@ -5,59 +5,41 @@ export default function Nav({ setMobileToggle }) {
   return (
     <ul className="cs_nav_list fw-medium">
       <li className="menu-item-has-children">
-        <Link href="/">Home</Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link href="/" onClick={() => setMobileToggle(false)}>
-              Home Version 1
-              </Link>
-            </li>
-            <li>
-              <Link href="/home2" onClick={() => setMobileToggle(false)}>
-              Home Version 2
-              </Link>
-            </li>
-            <li>
-              <Link href="/home3" onClick={() => setMobileToggle(false)}>
-                Home Version 3
-              </Link>
-            </li>            
-          </ul>
-        </DropDown>
+        <Link href="/">Inicio</Link>
+        
       </li>
       <li className="menu-item-has-children">
-        <Link href="#">Pages</Link>
+        <Link href="#">Alianzas</Link>
         <DropDown>
           <ul>
             <li>
               <Link href="/about" onClick={() => setMobileToggle(false)}>
-                About Us
+                Alianzas
               </Link>
             </li>
             <li>
               <Link href="/team" onClick={() => setMobileToggle(false)}>
-               Our Team
+               Creditos
               </Link>
             </li>            
             <li>
               <Link href="/team/team-details" onClick={() => setMobileToggle(false)}>
-                Team Details
+                Beneficios
               </Link>
             </li>             
             <li>
               <Link href="/pricing" onClick={() => setMobileToggle(false)}>
-              Pricing
+              Nosotros
               </Link>
             </li> 
             <li>
               <Link href="/faq" onClick={() => setMobileToggle(false)}>
-              Faq
+              Preguntas frecuentes
               </Link>
             </li> 
             <li>
               <Link href="/contact" onClick={() => setMobileToggle(false)}>
-              Contact
+              Contacto
               </Link>
             </li>                         
           </ul>
@@ -66,7 +48,7 @@ export default function Nav({ setMobileToggle }) {
 
       <li className="menu-item-has-children">
         <Link href="/project" onClick={() => setMobileToggle(false)}>
-        Project
+        Creditos
         </Link>
         <DropDown>
           <ul>
@@ -91,7 +73,7 @@ export default function Nav({ setMobileToggle }) {
       
       <li className="menu-item-has-children">
         <Link href="/service" onClick={() => setMobileToggle(false)}>
-          Services
+          Beneficios
         </Link>
         <DropDown>
           <ul>
@@ -111,7 +93,7 @@ export default function Nav({ setMobileToggle }) {
       </li>      
       <li className="menu-item-has-children">
         <Link href="/blog" onClick={() => setMobileToggle(false)}>
-          Blog
+          Nosotros
         </Link>
         <DropDown>
           <ul>
@@ -143,7 +125,12 @@ export default function Nav({ setMobileToggle }) {
       </li>
       <li>
         <Link href="/contact" onClick={() => setMobileToggle(false)}>
-          Contact
+          Preguntas frecuentes
+        </Link>
+      </li>
+      <li>
+        <Link href="/contact" onClick={() => setMobileToggle(false)}>
+          Contacto
         </Link>
       </li>
     </ul>

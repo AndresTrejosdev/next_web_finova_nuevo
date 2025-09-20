@@ -1,8 +1,8 @@
-"use client"
-import { useEffect, useState } from 'react';
-import Nav from './Nav';
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+import { useEffect, useState } from "react";
+import Nav from "./Nav";
+import Link from "next/link";
+import Image from "next/image";
 export default function Header1({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
   const [isSticky, setIsSticky] = useState();
@@ -13,46 +13,51 @@ export default function Header1({ variant }) {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       if (currentScrollPos > prevScrollPos) {
-        setIsSticky('cs-gescout_sticky'); // Scrolling down
+        setIsSticky("cs-gescout_sticky"); // Scrolling down
       } else if (currentScrollPos !== 0) {
-        setIsSticky('cs-gescout_show cs-gescout_sticky'); // Scrolling up
+        setIsSticky("cs-gescout_show cs-gescout_sticky"); // Scrolling up
       } else {
         setIsSticky();
       }
       setPrevScrollPos(currentScrollPos); // Update previous scroll position
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll); // Cleanup the event listener
+      window.removeEventListener("scroll", handleScroll); // Cleanup the event listener
     };
   }, [prevScrollPos]);
 
   return (
     <div>
-    <header
-      className={`cs_site_header header_style_2 cs_style_1 ${
-        variant ? variant : ''
-      } cs_sticky_header cs_site_header_full_width ${
-        mobileToggle ? 'cs_mobile_toggle_active' : ''
-      } ${isSticky ? isSticky : ''}`}
-    >
-      <div className="cs_main_header">
-        <div className="container">
-          <div className="cs_main_header_in">
-            <div className="cs_main_header_left">
-            <Link className="cs_site_branding" href="/">
-                <Image src="/assets/images/logo/logo.svg" alt="img" width={177} height={54}   />
-              </Link>
+      <header
+        className={`cs_site_header header_style_2 cs_style_1 ${
+          variant ? variant : ""
+        } cs_sticky_header cs_site_header_full_width ${
+          mobileToggle ? "cs_mobile_toggle_active" : ""
+        } ${isSticky ? isSticky : ""}`}
+      >
+        <div className="cs_main_header">
+          <div className="container">
+            <div className="cs_main_header_in d-flex align-items-center">
+              <div className="cs_main_header_left me-4 pe-4" style={{flex: '0 0 auto'}}>
+                <Link className="cs_site_branding" href="/">
+                  <Image
+                    src="/assets/images/Fondos para opacidad/LOGO FINOVA-07.png"
+                    alt="img"
+                    width={177}
+                    height={100}
+                  />
+                </Link>
               </div>
-              <div className="cs_main_header_center">
+              <div className="cs_main_header_center d-flex justify-content-start align-items-center" style={{flex: '1 1 auto'}}>
                 <div className="cs_nav cs_primary_font fw-medium">
                   <span
                     className={
                       mobileToggle
-                        ? 'cs-munu_toggle cs_teggle_active'
-                        : 'cs-munu_toggle'
+                        ? "cs-munu_toggle cs_teggle_active"
+                        : "cs-munu_toggle"
                     }
                     onClick={() => setMobileToggle(!mobileToggle)}
                   >
@@ -60,40 +65,57 @@ export default function Header1({ variant }) {
                   </span>
                   <Nav setMobileToggle={setMobileToggle} />
                 </div>
-            </div>
-            <div className="cs_main_header_right">
-              <div className="header-btn d-flex align-items-center">
-
-              <a onClick={() => setSearchToggle(!searchToggle)} className="search-trigger search-icon"><i className="bi bi-search"></i></a>
-                <div className="header-button ms-4">
-                    <Link href="/contact" className="theme-btn">
-                        <span>
-                            Get Started
-                            <i className="bi bi-arrow-right"></i>
-                        </span>
+              </div>
+              <div className="cs_main_header_right" style={{flex: '0 0 auto'}}>
+                <div className="header-btn d-flex align-items-center gap-3">
+                  <a
+                    onClick={() => setSearchToggle(!searchToggle)}
+                    className="search-trigger search-icon d-flex align-items-center justify-content-center"
+                  >
+                    <i className="bi bi-search"></i>
+                  </a>
+                  <div className="header-button">
+                    <Link href="/contact" className="theme-btn theme-btn-small">
+                      <span>
+                        Registrarse{" "}
+                        <i className="bi bi-arrow-right"></i>
+                      </span>
                     </Link>
-
+                  </div>
+                  <div className="header-button">
+                    <Link href="/contact" className="theme-btn">
+                      <span>
+                        Iniciar sesión{" "}
+                        <i className="bi bi-arrow-right"></i>
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
-      <div className={`search-wrap ${searchToggle ? 'active' : ''}`} >
-      <div className="search-inner">
-          <i onClick={() => setSearchToggle(!searchToggle)} id="search-close" className="bi bi-x-lg search-close"></i>
+      </header>
+      <div className={`search-wrap ${searchToggle ? "active" : ""}`}>
+        <div className="search-inner">
+          <i
+            onClick={() => setSearchToggle(!searchToggle)}
+            id="search-close"
+            className="bi bi-x-lg search-close"
+          ></i>
           <div className="search-cell">
-              <form method="get">
-                  <div className="search-field-holder">
-                      <input type="search" className="main-search-input" placeholder="Search..." />
-                  </div>
-              </form>
+            <form method="get">
+              <div className="search-field-holder">
+                <input
+                  type="search"
+                  className="main-search-input"
+                  placeholder="Search..."
+                />
+              </div>
+            </form>
           </div>
+        </div>
       </div>
-      </div>
-
     </div>
-
   );
 }

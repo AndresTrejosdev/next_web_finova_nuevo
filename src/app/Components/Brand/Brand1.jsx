@@ -57,7 +57,7 @@ const Brand1 = () => {
                                             src={item.img} 
                                             alt="img" 
                                             width={200}
-                                            height={60}
+                                            height={160}
                                             />
                                             </div>
                                         </div>
