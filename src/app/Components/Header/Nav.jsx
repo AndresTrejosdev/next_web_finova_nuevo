@@ -1,138 +1,79 @@
+"use client"
 import Link from 'next/link';
-import DropDown from './DropDown';
+import { finovaData } from '../../Data/finovaData';
 
 export default function Nav({ setMobileToggle }) {
+  
+  const handleSmoothScroll = (e, href) => {
+    e.preventDefault();
+    
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    
+    if (setMobileToggle) {
+      setMobileToggle(false);
+    }
+  };
+
   return (
     <ul className="cs_nav_list fw-medium">
-      <li className="menu-item-has-children">
-        <Link href="/">Inicio</Link>
-        
-      </li>
-      <li className="menu-item-has-children">
-        <Link href="#">Alianzas</Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link href="/about" onClick={() => setMobileToggle(false)}>
-                Alianzas
-              </Link>
-            </li>
-            <li>
-              <Link href="/team" onClick={() => setMobileToggle(false)}>
-               Creditos
-              </Link>
-            </li>            
-            <li>
-              <Link href="/team/team-details" onClick={() => setMobileToggle(false)}>
-                Beneficios
-              </Link>
-            </li>             
-            <li>
-              <Link href="/pricing" onClick={() => setMobileToggle(false)}>
-              Nosotros
-              </Link>
-            </li> 
-            <li>
-              <Link href="/faq" onClick={() => setMobileToggle(false)}>
-              Preguntas frecuentes
-              </Link>
-            </li> 
-            <li>
-              <Link href="/contact" onClick={() => setMobileToggle(false)}>
-              Contacto
-              </Link>
-            </li>                         
-          </ul>
-        </DropDown>
-      </li>  
-
-      <li className="menu-item-has-children">
-        <Link href="/project" onClick={() => setMobileToggle(false)}>
-        Creditos
-        </Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link href="/project" onClick={() => setMobileToggle(false)}>
-              Project 1
-              </Link>
-            </li>
-            <li>
-              <Link href="/project2" onClick={() => setMobileToggle(false)}>
-              Project 2
-              </Link>
-            </li>           
-            <li>
-              <Link href="/project/project-details" onClick={() => setMobileToggle(false)}>
-              Project Details
-              </Link>
-            </li>
-          </ul>
-        </DropDown>
-      </li> 
-      
-      <li className="menu-item-has-children">
-        <Link href="/service" onClick={() => setMobileToggle(false)}>
-          Beneficios
-        </Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link href="/service" onClick={() => setMobileToggle(false)}>
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/service/service-details" onClick={() => setMobileToggle(false)}>
-                Service Details
-              </Link>
-            </li>
-          </ul>
-        </DropDown>
-
-      </li>      
-      <li className="menu-item-has-children">
-        <Link href="/blog" onClick={() => setMobileToggle(false)}>
-          Nosotros
-        </Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link href="/blog" onClick={() => setMobileToggle(false)}>
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog-sidebar" onClick={() => setMobileToggle(false)}>
-                Blog With Sidebar
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog-left-sidebar" onClick={() => setMobileToggle(false)}>
-              Blog Left Sidebar
-              </Link>
-            </li>                         
-            <li>
-              <Link
-                href="/blog/blog-details"
-                onClick={() => setMobileToggle(false)}
+      {finovaData.navigation
+        .filter(item => !item.isButton)
+        .map((item, index) => (
+          <li key={index}>
+            {item.href.startsWith('#') ? (
+              <a 
+                href={item.href} 
+                onClick={(e) => handleSmoothScroll(e, item.href)}
+                style={{ 
+                  color: 'var(--finova-dark, #12274B)',
+                  cursor: 'pointer',
+                  textDecoration: 'none'
+                }}
               >
-                Blog Details
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                href={item.href}
+                onClick={() => setMobileToggle && setMobileToggle(false)}
+                style={{ color: 'var(--finova-dark, #12274B)' }}
+              >
+                {item.name}
               </Link>
-            </li>
-          </ul>
-        </DropDown>
-      </li>
-      <li>
-        <Link href="/contact" onClick={() => setMobileToggle(false)}>
-          Preguntas frecuentes
-        </Link>
-      </li>
-      <li>
-        <Link href="/contact" onClick={() => setMobileToggle(false)}>
-          Contacto
-        </Link>
-      </li>
+            )}
+          </li>
+        ))}
     </ul>
+  );
+}
+
+export function NavButtons({ setMobileToggle }) {
+  return (
+    <div className="d-flex gap-2">
+      {finovaData.navigation
+        .filter(item => item.isButton)
+        .map((item, index) => (
+          <Link
+            key={index}
+            href={item.href}
+            className={`btn btn-sm px-3 ${
+              item.name === 'Registrarse'
+                ? 'theme-btn'
+                : 'theme-btn style2'
+            }`}
+            onClick={() => setMobileToggle && setMobileToggle(false)}
+          >
+            {item.name}
+          </Link>
+        ))}
+    </div>
   );
 }

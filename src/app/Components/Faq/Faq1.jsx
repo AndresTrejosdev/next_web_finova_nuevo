@@ -34,7 +34,7 @@ const Faq1 = () => {
 
     return (
         
-        <section className="faq-section section-padding fix">
+        <section className="faq-section section-padding fix" id="preguntas-frecuentes">
             <div className="container">
                 <div className="faq-wrapper style1">
                     <div className="row gy-5 gy-xl-0 gx-60 d-flex align-items-start">
