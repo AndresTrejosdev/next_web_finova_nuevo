@@ -3,7 +3,7 @@ import HeroBanner1 from '../Components/HeroBanner/HeroBanner1';
 import Brand1 from '../Components/Brand/Brand1';
 import CreditCalculator from '../Components/Credit/CreditCalculator';
 import BenefitsSection from '../Components/Benefits/BenefitsSection';
-import TeamSection from '../Components/Team/TeamSection'; // Crear para Página 5
+import TeamSection from '../Components/Team/TeamSection';
 import Faq1 from '../Components/Faq/Faq1';
 import ContactSection from '../Components/Contact/ContactSection'; // Crear para Página 8
 
@@ -40,7 +40,7 @@ const page = () => {
       {/* Página 5: NOSOTROS */}
       <div id="nosotros">
         {/* Falta crear componente TeamSection según PDF */}
-        <Testimonial /> {/* Temporal hasta crear TeamSection */}
+        <TeamSection />
       </div>
 
       {/* Página 7: PREGUNTAS FRECUENTES */}
