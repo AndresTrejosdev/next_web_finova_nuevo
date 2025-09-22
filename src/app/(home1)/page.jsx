@@ -18,7 +18,7 @@ const page = () => {
           content="100% online, sin filas y con respaldo legal"
           btnname="Solicita tu crédito ahora"
           btnurl="/registro"
-          img="/assets/images/intro/introThumb1_1.webp"
+          img="/assets/images/imagenesfinova/hero-finova.png"
         />
       </div>
 

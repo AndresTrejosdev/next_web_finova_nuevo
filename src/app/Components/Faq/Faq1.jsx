@@ -43,7 +43,7 @@ const Faq1 = () => {
                                 <div className="section-title">
                                     <SectionTitle
                                         SubTitle="FAQs"
-                                        Title="Frequently Ask Questions"
+                                        Title="Preguntas Frecuentes"
                                     ></SectionTitle>                                    
                                     <p className="section-desc wow fadeInUp" data-wow-delay=".6s">{FaqContent.Content}</p>
                                 </div>

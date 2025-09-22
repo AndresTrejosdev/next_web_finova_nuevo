@@ -11,8 +11,8 @@ export default function DropDown({ children }) {
       <span
         className={
           mobileToggle
-            ? 'cs-munu_dropdown_toggle active'
-            : 'cs-munu_dropdown_toggle'
+            ? 'cs-menu_dropdown_toggle active'
+            : 'cs-menu_dropdown_toggle'
         }
         onClick={handelMobileToggle}
       >

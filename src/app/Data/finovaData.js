@@ -22,7 +22,7 @@ export const finovaData = {
     title: "Créditos de libre inversión",
     subtitle: "100% online, sin filas y con respaldo legal",
     ctaButton: "Solicita tu crédito ahora",
-    ctaLink: "/registro"
+    ctaLink: "/assets/images/imagenesfinova/hero-finova.png"
     },
 
   // ==================================================

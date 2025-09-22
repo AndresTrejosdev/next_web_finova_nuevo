@@ -23,19 +23,23 @@ export default function Nav({ setMobileToggle }) {
   };
 
   return (
-    <ul className="cs_nav_list fw-medium">
+    <ul className="cs_nav_list fw-medium m-0 p-0">
       {finovaData.navigation
         .filter(item => !item.isButton)
         .map((item, index) => (
           <li key={index}>
             {item.href.startsWith('#') ? (
               <a 
+              className='mobile-bg-white tablet-bg-white laptop-bg-white small-desktop-bg-white '
                 href={item.href} 
                 onClick={(e) => handleSmoothScroll(e, item.href)}
                 style={{ 
                   color: 'var(--finova-dark, #12274B)',
                   cursor: 'pointer',
-                  textDecoration: 'none'
+                  textDecoration: 'none',
+                //  background: 'white',
+                  margin: '',
+
                 }}
               >
                 {item.name}

@@ -45,6 +45,7 @@ Description: Niotech - sass, App Landing Reactjs Template <
     34.Contact
     35.Input
     36.Useed Technologies
+    37.media queries
 ------------------------------------------------------------------*/
 /* 01.Mixins */
 /* 02.Variables */
@@ -162,6 +163,7 @@ h3 {
     font-size: 16px;
   }
 }
+
 
 h4 {
   font-size: 20px;
@@ -5812,9 +5814,10 @@ input.main-search-input::placeholder {
 }
 .intro-wrapper.style1 .intro-content {
   position: relative;
-  padding: 223px 0 180px;
   z-index: 5;
   max-width: 720px;
+  padding: 300px 0 0px;
+
 }
 @media (max-width: 1199px) {
   .intro-wrapper.style1 .intro-content {
@@ -11390,7 +11393,7 @@ div[id] {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 150px;
   padding: 10px;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
@@ -11398,8 +11401,8 @@ div[id] {
 }
 
 .brand-logo img {
-  max-width: 150px;
-  max-height: 50px;
+  max-width: 250px;
+  max-height: 150px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -11422,5 +11425,22 @@ div[id] {
   .brand-logo img {
     max-width: 120px;
     max-height: 40px;
+  }
+}
+/*              37 media queries*/
+
+@media (max-width: 767.98px) {
+  .mobile-bg-white {
+    background: white !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 884px) {
+  .tablet-bg-white {
+    background: white !important;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1116px) {
+  .small-desktop-bg-white {
+    background: white !important;
   }
 }

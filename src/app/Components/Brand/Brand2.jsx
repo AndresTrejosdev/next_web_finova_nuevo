@@ -41,10 +41,11 @@ const Brand2 = () => {
         <div className="brand-slider-section section-padding-brand2 fix">
             <div className="brand-slider-container-wrapper style2">
                 <div className="container">
-                    <div className="brand-slider-wrapper style2">
-                        <h2 className="single-section-title wow fadeInUp" data-wow-delay=".2s">
-                            Millions of clients trust us.
+                   <h2 className="single-section-title wow fadeInUp" data-wow-delay=".2s">
+                            Alianzas estratégicas.
                         </h2>
+                    <div className="brand-slider-wrapper style2">
+                       
                         <div className="row">
                             <div className="slider-area brandSliderTwo">
                                 <div className="swiper gt-slider" id="brandSliderTwo" >

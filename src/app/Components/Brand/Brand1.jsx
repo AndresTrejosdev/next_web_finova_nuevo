@@ -40,12 +40,13 @@ const Brand1 = () => {
         <div className="brand-slider-section section-padding fix">
             <div className="brand-slider-container-wrapper style1">
                 <div className="container">
-                    <div className="brand-slider-wrapper style1">
-                        <h2 className="single-section-title wow fadeInUp" data-wow-delay=".2s">
-                            Millions of clients trust us.
+                  <h2 className="single-section-title wow fadeInUp pb-90" data-wow-delay=".2s">
+                            Alianzas estratégicas.
                         </h2>
+                    <div className="brand-slider-wrapper style1">
+                        
                         <div className="row">
-                            <div className="slider-area brandSliderOne">
+                            <div className="slider-area brandSliderOne pb-5">
                                 <div className="swiper gt-slider" id="brandSliderOne" >
 
                                     <div className="swiper-wrapper">

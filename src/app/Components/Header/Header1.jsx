@@ -32,16 +32,17 @@ export default function Header1({ variant }) {
   return (
     <div>
       <header
-        className={`cs_site_header header_style_2 cs_style_1 ${
-          variant ? variant : ""
-        } cs_sticky_header cs_site_header_full_width ${
-          mobileToggle ? "cs_mobile_toggle_active" : ""
-        } ${isSticky ? isSticky : ""}`}
+        className={`cs_site_header header_style_2 cs_style_1 ${variant ? variant : ""
+          } cs_sticky_header cs_site_header_full_width ${mobileToggle ? "cs_mobile_toggle_active" : ""
+          } ${isSticky ? isSticky : ""}`}
       >
+        {/* este es el primer componente */} 
+
         <div className="cs_main_header">
           <div className="container">
-            <div className="cs_main_header_in d-flex align-items-center">
-              <div className="cs_main_header_left me-4 pe-4" style={{flex: '0 0 auto'}}>
+            <div className="cs_main_header_in row align-items-center">
+              {/* Primer componente - Logo (3 columnas) */}
+              <div className="col-1 cs_main_header_left">
                 <Link className="cs_site_branding" href="/">
                   <Image
                     src="/assets/images/Fondos para opacidad/LOGO FINOVA-07.png"
@@ -51,7 +52,9 @@ export default function Header1({ variant }) {
                   />
                 </Link>
               </div>
-              <div className="cs_main_header_center d-flex justify-content-start align-items-center" style={{flex: '1 1 auto'}}>
+
+              {/* Segundo componente - Navegación (5 columnas) */}
+              <div className="col-5 cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
                   <span
                     className={
@@ -66,8 +69,10 @@ export default function Header1({ variant }) {
                   <Nav setMobileToggle={setMobileToggle} />
                 </div>
               </div>
-              <div className="cs_main_header_right" style={{flex: '0 0 auto'}}>
-                <div className="header-btn d-flex align-items-center gap-3">
+
+              {/* Tercer componente - Botones (4 columnas) */}
+              <div className="col-3 cs_main_header_right">
+                <div className="header-btn d-flex align-items-center justify-content-end gap-3">
                   <a
                     onClick={() => setSearchToggle(!searchToggle)}
                     className="search-trigger search-icon d-flex align-items-center justify-content-center"
@@ -95,6 +100,7 @@ export default function Header1({ variant }) {
             </div>
           </div>
         </div>
+
       </header>
       <div className={`search-wrap ${searchToggle ? "active" : ""}`}>
         <div className="search-inner">
