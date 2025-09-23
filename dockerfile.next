@@ -1,0 +1,21 @@
+FROM node:18-alpine
+
+WORKDIR /home/node/app
+
+# 1. Copiar solo lo necesario para instalar dependencias
+COPY package.json package-lock.json ./
+
+# 2. Instalar dependencias
+RUN npm ci
+
+# 3. Copiar el resto de los archivos
+COPY . .
+
+# 4. Construir la aplicación
+#RUN npm run build
+
+# 5. Puerto de la aplicación (usa el mismo que en tu compose)
+EXPOSE 5122
+
+# 6. Comando de inicio
+CMD ["npm", "dev"]
