@@ -5,22 +5,22 @@ export default function TeamSection() {
   const teamMembers = [
     {
       name: "Viviana",
-      role: "Consultora créditos", // Reemplazar con el cargo real
+      role: "Analista de crédito.", // Reemplazar con el cargo real
       image: "/assets/images/team/viviana.jpg" // Descargar del Google Drive
     },
     {
       name: "Melissa",
-      role: "Analisis de Crédito",
+      role: "Auxiliar administrativo.",
       image: "/assets/images/team/melissa.jpg"
     },
     {
       name: "Sara",
-      role: "Asesora Financiera",
+      role: "Auxiliar de cartera.",
       image: "/assets/images/team/sara.jpg"
     },
     {
       name: "Daniela",
-      role: "jurídico",
+      role: "Auxiliar jurídico.",
       image: "/assets/images/team/daniela.jpg"
     }
   ];
