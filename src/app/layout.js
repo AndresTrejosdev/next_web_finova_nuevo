@@ -19,7 +19,7 @@ const nunito = Nunito({
 export const metadata = {
   title: {
     absolute: '',
-    default: 'Finova - Créditos de Libre Inversión 100% Online',
+    default: 'prueba de testeo',
     template: '%s | Finova - Tu Aliado Financiero',
   },
   description: 'Créditos de libre inversión 100% online, sin filas y con respaldo legal. Desembolso en 24 horas. Entidad registrada y vigilada por la Superintendencia Financiera de Colombia.',
