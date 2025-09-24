@@ -1,11 +1,9 @@
-import React from 'react';
-
 export default function BenefitsSection() {
   const benefits = [
     {
       id: 1,
       title: "Desembolso en 24 horas",
-      description: "Bancolombia, nequi, Davivienda, Daviplata, BBVA, AV Villas, otras."
+      description: "Bancolombia, Nequi, Davivienda, Daviplata, BBVA, AV Villas, otras."
     },
     {
       id: 2,
@@ -22,12 +20,19 @@ export default function BenefitsSection() {
   return (
     <section id="beneficios" style={{
       backgroundColor: '#f8f9fa',
-      padding: '80px 20px',
-      textAlign: 'center'
+      padding: '80px 20px 0px 20px',
+      textAlign: 'center',
+      position: 'relative',
+      backgroundImage: 'url(/assets/images/shape/workProcessShape1_1.webp)',
+      backgroundPosition: 'bottom center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '80% auto'
     }}>
       <div className="container" style={{
         maxWidth: '1200px',
-        margin: '0 auto'
+        margin: '0 auto',
+        position: 'relative',
+        zIndex: 2
       }}>
         <h2 style={{
           fontSize: '2.5rem',
@@ -50,7 +55,8 @@ export default function BenefitsSection() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '30px',
-          marginTop: '40px'
+          marginTop: '40px',
+          paddingBottom: '100px'
         }}>
           {benefits.map((benefit) => (
             <div
@@ -60,7 +66,9 @@ export default function BenefitsSection() {
                 padding: '30px',
                 borderRadius: '12px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                textAlign: 'center'
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 3
               }}
             >
               <h3 style={{

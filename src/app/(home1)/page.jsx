@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroBanner1 from '../Components/HeroBanner/HeroBanner1';
+import { finovaData } from '../Data/finovaData';
 import Brand1 from '../Components/Brand/Brand1';
 import CreditCalculator from '../Components/Credit/CreditCalculator';
 import BenefitsSection from '../Components/Benefits/BenefitsSection';
@@ -14,12 +15,12 @@ const page = () => {
             {/* Página 1: INICIO */}
             <div id="inicio">
                 <HeroBanner1
-                    subtitle=""
-                    title="Créditos de libre inversión"
-                    content="100% online, sin filas y con respaldo legal"
-                    btnname="Solicita tu crédito ahora"
-                    btnurl="/registro"
-                    img="/assets/images/imagenesfinova/hero-finova.png"
+                subtitle=""
+                title="Créditos de libre inversión"
+                content="100% online, sin filas y con respaldo legal"
+                btnname={finovaData.hero.ctaButton}
+                btnurl={finovaData.hero.ctaLink}
+                img="/assets/images/imagenesfinova/hero-finova.png"
                 />
             </div>
 

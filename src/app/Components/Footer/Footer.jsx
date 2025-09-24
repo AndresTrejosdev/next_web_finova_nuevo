@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="col-xl-3 col-lg-3 col-md-6">
             <div className="single-footer-widget">
               <Link href="/">
-                <Image src="/assets/images/logo/logoFinova.png" alt="Finova" width={140} height={42} />
+                <Image src="/assets/images/logo/logo.svg" alt="Finova" width={140} height={42} />
               </Link>
               <p style={{ fontSize: '14px', color: '#666', marginTop: '15px' }}>
                 Créditos financieros justos, transparentes y diseñados para impulsar tus proyectos.

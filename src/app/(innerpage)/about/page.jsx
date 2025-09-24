@@ -10,7 +10,7 @@ const page = () => {
   return (
     <div>
             <BreadCumb
-                bgimg="/assets/images/bg/breadcumgBg.png"
+                bgimg="/assets/images/bg/breadcumgBg.webp"
                 Title="About Us"
             ></BreadCumb> 
             <About4

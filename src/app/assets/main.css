@@ -11415,8 +11415,62 @@ div[id] {
   transform: scale(1.05);
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
+/* ===============================================
+   MEDIA QUERIES ORGANIZADAS PARA FINOVA
+   =============================================== */
+
+/* ===== MÓVILES PEQUEÑOS (hasta 480px) ===== */
+@media (max-width: 480px) {
+  .brand-logo {
+    height: 50px;
+    padding: 6px;
+  }
+  
+  .brand-logo img {
+    max-width: 100px;
+    max-height: 35px;
+  }
+  
+  .navbar-collapse {
+    background: #ffffff !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-nav .nav-link {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 12px 16px !important;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: rgba(20, 104, 177, 0.1);
+    border-radius: 6px;
+  }
+  
+  /* Ajustes de contenido */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  h1, .hero-title {
+    font-size: 1.8rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .section-padding {
+    padding: 40px 0 !important;
+  }
+}
+
+/* ===== MÓVILES GRANDES (481px - 767px) ===== */
+@media (min-width: 481px) and (max-width: 767px) {
   .brand-logo {
     height: 60px;
     padding: 8px;
@@ -11426,50 +11480,362 @@ div[id] {
     max-width: 120px;
     max-height: 40px;
   }
-}
-/*              37 media queries*/
-
-@media (max-width: 767.98px) {
+  
+  .navbar-collapse {
+    background: #ffffff !important;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-nav .nav-link {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 14px 18px !important;
+    font-size: 1rem;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: rgba(20, 104, 177, 0.1);
+    border-radius: 6px;
+  }
+  
   .mobile-bg-white {
     background: white !important;
   }
+  
+  h1, .hero-title {
+    font-size: 2.2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.8rem !important;
+  }
 }
-@media (min-width: 768px) and (max-width: 884px) {
+
+/* ===== TABLETS (768px - 1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .brand-logo {
+    height: 65px;
+    padding: 10px;
+  }
+  
+  .brand-logo img {
+    max-width: 140px;
+    max-height: 45px;
+  }
+  
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+  }
+  
+  .navbar-nav .nav-link {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 10px 15px !important;
+  }
+  
   .tablet-bg-white {
     background: white !important;
   }
-}
-@media (min-width: 1024px) and (max-width: 1116px) {
-  .small-desktop-bg-white {
-    background: white !important;
+  
+  /* Ajustes específicos para tablets */
+  .container {
+    max-width: 720px;
+  }
+  
+  .section-padding {
+    padding: 60px 0 !important;
   }
 }
 
+/* ===== LAPTOPS PEQUEÑOS (1024px - 1199px) ===== */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .brand-logo {
+    height: 70px;
+    padding: 12px;
+  }
+  
+  .brand-logo img {
+    max-width: 160px;
+    max-height: 50px;
+  }
+  
+  .navbar-collapse {
+    background: transparent !important;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 8px 12px !important;
+    margin: 0 2px;
+  }
+  
+  .small-desktop-bg-white {
+    background: white !important;
+  }
+  
+  .container {
+    max-width: 960px;
+  }
+}
 
-/* --- FONDOS ESPECÍFICOS POR SECCIÓN --- */
+/* ===== LAPTOPS GRANDES Y DESKTOP (1200px+) ===== */
+@media (min-width: 1200px) {
+  .brand-logo {
+    height: 75px;
+    padding: 15px;
+  }
+  
+  .brand-logo img {
+    max-width: 180px;
+    max-height: 55px;
+  }
+  
+  .navbar-collapse {
+    background: transparent !important;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 10px 15px !important;
+    margin: 0 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: rgba(20, 104, 177, 0.1);
+    border-radius: 6px;
+    transform: translateY(-2px);
+  }
+}
 
-/* Página 1: INICIO - Fondo degradado con onda */
+/* ===== PANTALLAS MUY GRANDES (1440px+) ===== */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+  
+  .brand-logo img {
+    max-width: 200px;
+    max-height: 60px;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 12px 18px !important;
+    font-size: 1.05rem;
+  }
+}
+
+/* ===============================================
+   CORRECCIONES GENERALES PARA TODOS LOS DISPOSITIVOS
+   =============================================== */
+
+/* Navbar siempre con fondo blanco en móviles */
+@media (max-width: 1023px) {
+  .navbar {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-toggler {
+    border: none !important;
+    padding: 4px 8px;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: none !important;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2818, 39, 75, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  }
+}
+
+/* Desktop navbar transparente */
+@media (min-width: 1024px) {
+  .navbar {
+    background: transparent !important;
+  }
+}
+
+/* Botones responsive */
+@media (max-width: 768px) {
+  .btn, .theme-btn {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .btn, .theme-btn {
+    padding: 14px 25px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* Ajustes de texto responsive */
+@media (max-width: 480px) {
+  .hero-subtitle, .section-subtitle {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero-subtitle, .section-subtitle {
+    font-size: 1rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-subtitle, .section-subtitle {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* Grid responsive para cards */
+@media (max-width: 768px) {
+  .benefits-grid,
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .benefits-grid,
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 25px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .benefits-grid,
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 30px !important;
+  }
+}
+
+/* Shapes responsive */
+@media (max-width: 768px) {
+  .shape1, .shape2 {
+    opacity: 0.15 !important;
+    transform: scale(0.7) !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .shape1, .shape2 {
+    opacity: 0.2 !important;
+    transform: scale(0.8) !important;
+  }
+}
+
+/* Espaciado de secciones responsive */
+@media (max-width: 480px) {
+  .section-padding {
+    padding: 40px 0 !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .section-padding {
+    padding: 50px 0 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section-padding {
+    padding: 60px 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 80px 0 !important;
+  }
+}
+
+/* WhatsApp button responsive */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    right: 20px !important;
+    bottom: 20px !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+  .footer-section {
+    padding: 40px 0 20px !important;
+  }
+  
+  .footer-section .container {
+    padding: 0 15px;
+  }
+}
+
+/* Calculadora responsive */
+@media (max-width: 768px) {
+  .calculator-wrapper {
+    padding: 30px 20px !important;
+    margin: 20px 10px !important;
+  }
+}
+
+/* ===============================================
+   GRADIENTES ELEGANTES PARA FINOVA
+   Colores de marca: #1468B1, #2A7ABF, #12274B, #4C97D2, #D0EDFC
+   =============================================== */
+
+/* PÁGINA 1: INICIO - Banner principal con gradiente suave */
 #inicio {
-  background: linear-gradient(135deg, #e8f4fd 0%, #1468b1 50%, #12274b 100%);
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f8fbff 15%, 
+    #e8f4fd 35%, 
+    rgba(212, 237, 252, 0.9) 60%, 
+    rgba(20, 104, 177, 0.1) 85%, 
+    rgba(18, 39, 75, 0.05) 100%
+  );
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 #inicio::after {
   content: "";
   position: absolute;
-  bottom: -50px;
+  bottom: -30px;
   left: 0;
   width: 100%;
-  height: 150px;
-  background: linear-gradient(45deg, #1468b1 0%, #12274b 60%, #0a1b35 100%);
+  height: 100px;
+  background: linear-gradient(45deg, 
+    rgba(20, 104, 177, 0.08) 0%, 
+    rgba(42, 122, 191, 0.12) 40%, 
+    rgba(18, 39, 75, 0.06) 100%
+  );
   clip-path: ellipse(100% 100% at 50% 100%);
   z-index: 1;
 }
 
-/* Página 2: ALIANZAS - Fondo degradado suave */
+/* PÁGINA 2: ALIANZAS - Fondo limpio y profesional */
 #alianzas {
-  background: linear-gradient(180deg, #f8fbff 0%, #e8f4fd 50%, #d1e9f8 100%);
+  background: linear-gradient(180deg, 
+    #ffffff 0%, 
+    #f8fbff 30%, 
+    #e8f4fd 70%, 
+    rgba(208, 237, 252, 0.5) 100%
+  );
   padding: 80px 0;
   position: relative;
 }
@@ -11481,47 +11847,73 @@ div[id] {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at top, rgba(20, 104, 177, 0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center top, 
+    rgba(20, 104, 177, 0.03) 0%, 
+    rgba(76, 151, 210, 0.02) 50%, 
+    transparent 80%
+  );
   z-index: 1;
 }
 
-/* Página 3: CRÉDITOS - Fondo con círculos decorativos */
+/* PÁGINA 3: CRÉDITOS - Calculadora con fondo elegante */
 #creditos {
-  background: linear-gradient(225deg, #1468b1 0%, #0f5a9a 30%, #12274b 70%, #0a1b35 100%);
+  background: linear-gradient(225deg, 
+    rgba(20, 104, 177, 0.95) 0%, 
+    rgba(42, 122, 191, 0.85) 25%, 
+    rgba(76, 151, 210, 0.7) 50%, 
+    rgba(18, 39, 75, 0.8) 75%, 
+    rgba(10, 27, 53, 0.9) 100%
+  );
   position: relative;
   overflow: hidden;
   padding: 80px 0;
-}
-
-#creditos::before,
-#creditos::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  z-index: 1;
+  color: #ffffff;
 }
 
 #creditos::before {
-  top: -100px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(232, 244, 253, 0.3) 0%, rgba(20, 104, 177, 0.1) 40%, transparent 70%);
-  opacity: 0.8;
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, 
+    rgba(208, 237, 252, 0.15) 0%, 
+    rgba(232, 244, 253, 0.08) 40%, 
+    transparent 70%
+  );
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 1;
 }
 
 #creditos::after {
-  bottom: -150px;
-  left: -150px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(18, 39, 75, 0.4) 0%, rgba(10, 27, 53, 0.2) 50%, transparent 80%);
-  opacity: 0.6;
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, 
+    rgba(76, 151, 210, 0.12) 0%, 
+    rgba(42, 122, 191, 0.06) 50%, 
+    transparent 80%
+  );
+  border-radius: 50%;
+  opacity: 0.4;
+  z-index: 1;
 }
 
-/* Página 4: BENEFICIOS - Fondo degradado diagonal */
+/* PÁGINA 4: BENEFICIOS - Gradiente suave y moderno */
 #beneficios {
-  background: linear-gradient(135deg, #f8fbff 0%, #e8f4fd 25%, #1468b1 75%, #12274b 100%);
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f8fbff 20%, 
+    rgba(232, 244, 253, 0.8) 45%, 
+    rgba(208, 237, 252, 0.6) 70%, 
+    rgba(20, 104, 177, 0.08) 90%, 
+    rgba(18, 39, 75, 0.04) 100%
+  );
   padding: 80px 0;
   position: relative;
 }
@@ -11530,16 +11922,27 @@ div[id] {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at bottom right, rgba(20, 104, 177, 0.1) 0%, transparent 50%);
+  background: radial-gradient(ellipse at bottom right, 
+    rgba(42, 122, 191, 0.05) 0%, 
+    rgba(20, 104, 177, 0.03) 30%, 
+    transparent 60%
+  );
   z-index: 1;
 }
 
-/* Página 5: NOSOTROS - Fondo con degradado diagonal mejorado */
+/* PÁGINA 5: NOSOTROS - Gradiente diagonal elegante */
 #nosotros {
-  background: linear-gradient(45deg, #12274b 0%, #1468b1 25%, #e8f4fd 50%, #f8fbff 75%, #ffffff 100%);
+  background: linear-gradient(45deg, 
+    rgba(18, 39, 75, 0.05) 0%, 
+    rgba(20, 104, 177, 0.08) 15%, 
+    rgba(208, 237, 252, 0.4) 35%, 
+    #f8fbff 55%, 
+    #ffffff 75%, 
+    rgba(248, 251, 255, 0.95) 100%
+  );
   padding: 80px 0;
   position: relative;
 }
@@ -11551,13 +11954,33 @@ div[id] {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(315deg, rgba(18, 39, 75, 0.05) 0%, transparent 40%, rgba(20, 104, 177, 0.03) 100%);
+  background: linear-gradient(315deg, 
+    rgba(76, 151, 210, 0.03) 0%, 
+    transparent 40%, 
+    rgba(42, 122, 191, 0.02) 100%
+  );
   z-index: 1;
 }
 
-/* Página 7: PREGUNTAS FRECUENTES - Fondo con semicírculo mejorado */
+/* PÁGINA 6: Sección intermedia con transición suave */
+.section-transition {
+  background: linear-gradient(180deg, 
+    rgba(208, 237, 252, 0.3) 0%, 
+    rgba(232, 244, 253, 0.5) 50%, 
+    rgba(248, 251, 255, 0.8) 100%
+  );
+  padding: 40px 0;
+}
+
+/* PÁGINA 7: PREGUNTAS FRECUENTES - Gradiente vertical elegante */
 #preguntas-frecuentes {
-  background: linear-gradient(180deg, #e8f4fd 0%, #1468b1 50%, #12274b 100%);
+  background: linear-gradient(180deg, 
+    rgba(232, 244, 253, 0.6) 0%, 
+    rgba(208, 237, 252, 0.7) 25%, 
+    rgba(20, 104, 177, 0.12) 60%, 
+    rgba(18, 39, 75, 0.08) 85%, 
+    rgba(10, 27, 53, 0.05) 100%
+  );
   position: relative;
   overflow: hidden;
   padding: 80px 0;
@@ -11566,83 +11989,143 @@ div[id] {
 #preguntas-frecuentes::before {
   content: "";
   position: absolute;
-  top: 50%;
-  right: -150px;
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(
-    135deg,
-    rgba(232, 244, 253, 0.4) 0%,
-    rgba(20, 104, 177, 0.2) 50%,
-    rgba(18, 39, 75, 0.1) 100%
+  top: 30%;
+  right: -120px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, 
+    rgba(248, 251, 255, 0.2) 0%, 
+    rgba(232, 244, 253, 0.1) 40%, 
+    rgba(76, 151, 210, 0.05) 70%, 
+    transparent 100%
   );
-  opacity: 0.8;
   border-radius: 50%;
-  transform: translateY(-50%);
+  opacity: 0.6;
   z-index: 1;
 }
 
 #preguntas-frecuentes::after {
   content: "";
   position: absolute;
-  top: 20%;
-  left: -100px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(248, 251, 255, 0.3) 0%, rgba(232, 244, 253, 0.1) 60%, transparent 100%);
+  top: 60%;
+  left: -80px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, 
+    rgba(208, 237, 252, 0.15) 0%, 
+    rgba(42, 122, 191, 0.08) 50%, 
+    transparent 80%
+  );
   border-radius: 50%;
+  opacity: 0.5;
   z-index: 1;
 }
 
-/* Página 8: CONTACTO - Fondo azul con ondas mejorado */
+/* PÁGINA 8: CONTACTO - Gradiente profesional y accesible */
 #contacto {
-  background: linear-gradient(180deg, #0a1b35 0%, #12274b 30%, #1468b1 70%, #0f5a9a 100%);
-  color: #ffffff;
+  background: linear-gradient(180deg, 
+    rgba(10, 27, 53, 0.15) 0%, 
+    rgba(18, 39, 75, 0.25) 20%, 
+    rgba(20, 104, 177, 0.4) 45%, 
+    rgba(42, 122, 191, 0.5) 70%, 
+    rgba(76, 151, 210, 0.3) 90%, 
+    rgba(208, 237, 252, 0.2) 100%
+  );
+  color: #12274B;
   position: relative;
   overflow: hidden;
   padding: 100px 0;
 }
 
-#contacto::before,
-#contacto::after {
+#contacto::before {
   content: "";
   position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
+  background: linear-gradient(45deg, 
+    rgba(248, 251, 255, 0.9) 0%, 
+    rgba(232, 244, 253, 0.8) 100%
+  );
+  clip-path: ellipse(100% 100% at 50% 0%);
   z-index: 1;
 }
 
-#contacto::before {
-  top: 0;
-  background: linear-gradient(45deg, #e8f4fd 0%, #f8fbff 100%);
-  clip-path: ellipse(100% 100% at 50% 0%);
-}
-
 #contacto::after {
+  content: "";
+  position: absolute;
   bottom: 0;
-  background: linear-gradient(225deg, #f8fbff 0%, #e8f4fd 100%);
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(225deg, 
+    rgba(18, 39, 75, 0.1) 0%, 
+    rgba(20, 104, 177, 0.15) 50%, 
+    rgba(10, 27, 53, 0.08) 100%
+  );
   clip-path: ellipse(100% 100% at 50% 100%);
+  z-index: 1;
 }
 
-/* Efectos adicionales para dar más vida */
-#inicio,
-#creditos,
-#preguntas-frecuentes {
-  animation: subtle-pulse 8s ease-in-out infinite alternate;
+/* FOOTER - Gradiente sofisticado */
+.footer-section {
+  background: linear-gradient(135deg, 
+    rgba(18, 39, 75, 0.95) 0%, 
+    rgba(20, 104, 177, 0.9) 30%, 
+    rgba(42, 122, 191, 0.85) 60%, 
+    rgba(76, 151, 210, 0.8) 85%, 
+    rgba(208, 237, 252, 0.6) 100%
+  );
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0 40px;
 }
 
-@keyframes subtle-pulse {
-  0% {
-    filter: brightness(1);
-  }
-  100% {
-    filter: brightness(1.02);
-  }
+.footer-section::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(45deg, 
+    rgba(248, 251, 255, 0.1) 0%, 
+    rgba(232, 244, 253, 0.05) 100%
+  );
+  clip-path: ellipse(100% 100% at 50% 0%);
+  z-index: 1;
 }
 
-/* Mejora de contraste para texto */
+/* Efectos de transición suave entre secciones */
+.section-smooth-transition {
+  position: relative;
+}
+
+.section-smooth-transition::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(232, 244, 253, 0.1) 50%, 
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+/* Mejoras para legibilidad del texto */
 #creditos * {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#contacto * {
   position: relative;
   z-index: 2;
 }
@@ -11652,11 +12135,54 @@ div[id] {
   z-index: 2;
 }
 
+/* Animación sutil para elementos principales */
+#inicio,
+#beneficios,
+#nosotros {
+  animation: gentle-breathe 12s ease-in-out infinite alternate;
+}
+
+@keyframes gentle-breathe {
+  0% {
+    filter: brightness(1) saturate(1);
+  }
+  100% {
+    filter: brightness(1.01) saturate(1.02);
+  }
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+  #inicio::after,
+  #contacto::before,
+  #contacto::after {
+    height: 40px;
+  }
+  
+  #preguntas-frecuentes::before,
+  #preguntas-frecuentes::after,
+  #creditos::before,
+  #creditos::after {
+    width: 150px;
+    height: 150px;
+    opacity: 0.3;
+  }
+}
+
+/* Overlay para mejorar contraste cuando sea necesario */
+.text-overlay-dark {
+  background: rgba(18, 39, 75, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+}
+
 /* --- BOTÓN FLOTANTE DE WHATSAPP --- */
+
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 80px; 
   z-index: 1000;
   width: 60px;
   height: 60px;
@@ -11677,7 +12203,7 @@ div[id] {
   animation: none;
 }
 
-/* Ícono de WhatsApp en SVG (Nítido y sin borrosidad) */
+/* Ícono de WhatsApp en SVG */
 .whatsapp-float svg {
   width: 32px;
   height: 32px;
@@ -11685,7 +12211,7 @@ div[id] {
   pointer-events: none;
 }
 
-/* Animación de pulsación sutil */
+/* Animación de pulsación */
 @keyframes whatsapp-pulse {
   0% {
     transform: scale(1);
@@ -11701,17 +12227,31 @@ div[id] {
   }
 }
 
-/* Responsive: En móviles se coloca un poco más arriba */
+/* Responsive: Móviles */
 @media (max-width: 768px) {
   .whatsapp-float {
-    bottom: 80px;
-    right: 15px;
+    bottom: 90px;   
+    right: 20px;    
     width: 50px;
     height: 50px;
   }
-  
   .whatsapp-float svg {
     width: 28px;
     height: 28px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

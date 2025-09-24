@@ -93,6 +93,8 @@ const ContactInfo = () => {
         </div>
     </section>
 
+   {/* //TODO: esta es la sección dende esta la ubicación y el formulario de contacto y aqui se cambia el with y el hight */}
+
     <section className="contact-form-section section-padding pt-0 fix">
         <div className="container">
             <div className="contact-form-wrapper style1">

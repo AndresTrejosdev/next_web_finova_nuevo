@@ -313,9 +313,12 @@ const CreditCalculator = () => {
                 </div>
               </div>
 
-              {/* Botón de acción */}
+              {/* Botón de acción - ACTUALIZADO */}
               <div className="text-center" style={{ paddingTop: '32px' }}>
-                <button
+                <a
+                  href="https://app.finova.com.co/auth/register"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     padding: '16px 32px',
                     fontSize: '18px',
@@ -323,11 +326,12 @@ const CreditCalculator = () => {
                     borderRadius: '12px',
                     background: 'linear-gradient(135deg, #1468B1 0%, #12274B 100%)',
                     color: 'white',
-                    border: 'none',
+                    textDecoration: 'none',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     transform: 'scale(1)',
-                    boxShadow: '0 4px 15px rgba(20, 104, 177, 0.3)'
+                    boxShadow: '0 4px 15px rgba(20, 104, 177, 0.3)',
+                    display: 'inline-block'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.transform = 'scale(1.05)';
@@ -339,7 +343,7 @@ const CreditCalculator = () => {
                   }}
                 >
                   Solicitar Crédito
-                </button>
+                </a>
               </div>
             </div>
           </div>

@@ -15,15 +15,15 @@ export const finovaData = {
     { name: 'Iniciar sesión', href: 'https://app.finova.com.co/auth/boxed-signin', isButton: true }
   ],
 
-  // ==================================================
+    // ==================================================
   // Sección Hero
   // ==================================================
-    hero: {
+  hero: {
     title: "Créditos de libre inversión",
     subtitle: "100% online, sin filas y con respaldo legal",
     ctaButton: "Solicita tu crédito ahora",
-    ctaLink: "/assets/images/imagenesfinova/hero-finova.png"
-    },
+    ctaLink: "https://app.finova.com.co/auth/register" 
+  },
 
   // ==================================================
   // Sección Alianzas
@@ -128,7 +128,7 @@ export const finovaData = {
     twitter: "https://twitter.com/finova", 
     instagram: "https://instagram.com/finova",
     linkedin: "https://linkedin.com/company/finova"
-}
+},
 
   // ==================================================
   // Footer
@@ -158,6 +158,5 @@ export const finovaData = {
     light: '#4C97D2',      // Azul claro
     lighter: '#D0EDFC'     // Azul muy claro (fondos, acentos)
   }
+}
 };
-
-export default finovaData;
