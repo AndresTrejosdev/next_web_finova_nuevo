@@ -27,9 +27,8 @@ const Faq1 = () => {
     }, [firstItemOpen]);
 
     const FaqContent = {
-        Content:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which do not look even slightly',
-        img1:'/assets/images/faq/faqThumb1_2.png',
-        img2:'/assets/images/faq/faqThumb1_1.png'
+        Content:'Resolvemos tus dudas sobre créditos de libre inversión. Conoce más sobre nuestros procesos, requisitos y beneficios.',
+        img:'/assets/images/faq/equipo-finova.jpg'
       }
 
     return (
@@ -37,7 +36,7 @@ const Faq1 = () => {
         <section className="faq-section section-padding fix" id="preguntas-frecuentes">
             <div className="container">
                 <div className="faq-wrapper style1">
-                    <div className="row gy-5 gy-xl-0 gx-60 d-flex align-items-start">
+                    <div className="row gy-5 gy-xl-0 gx-60 d-flex align-items-center">
                         <div className="col-xl-6">
                             <div className="faq-content style1">
                                 <div className="section-title">
@@ -70,11 +69,16 @@ const Faq1 = () => {
                             </div>
                         </div>
                         <div className="col-xl-6">
+                            {/* SOLO UNA IMAGEN - Sin absolute-thumb */}
                             <div className="faq-thumb">
-                            <Image className="main-thumb  wow fadeInUp" src={FaqContent.img1} alt="img" width={791} height={679}   />                              
-                                <div className="absolute-thumb float-bob-x">
-                                <Image src={FaqContent.img2} alt="img" width={236} height={474}   /> 
-                                </div>
+                                <Image 
+                                    className="main-thumb wow fadeInUp img-fluid rounded" 
+                                    src={FaqContent.img} 
+                                    alt="Equipo Finova - Preguntas Frecuentes" 
+                                    width={800} 
+                                    height={600}
+                                    style={{ objectFit: 'cover' }}
+                                />
                             </div>
                         </div>
                     </div>

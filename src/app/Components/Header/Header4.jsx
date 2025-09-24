@@ -65,7 +65,7 @@ export default function Header4({ variant }) {
               <div className="header-btn d-flex align-items-center">
 
               <a onClick={() => setSearchToggle(!searchToggle)} className="search-trigger search-icon"><i className="bi bi-search"></i></a>
-                <div className="header-button ms-4">
+                {/* <div className="header-button ms-4">
                     <Link href="/contact" className="theme-btn">
                         <span>
                             Get Started
@@ -73,7 +73,7 @@ export default function Header4({ variant }) {
                         </span>
                     </Link>
 
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

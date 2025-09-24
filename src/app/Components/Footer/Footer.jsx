@@ -50,9 +50,26 @@ const Footer = () => {
           </div>
         </div>
         
-        <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #ddd', textAlign: 'center' }}>
-          <p style={{ fontSize: '11px', color: '#999' }}>
-            Vigilado por la superintendencia financiera de colombia
+        <div style={{ 
+          marginTop: '40px', 
+          paddingTop: '20px', 
+          borderTop: '1px solid #ddd', 
+          textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          flexWrap: 'wrap'
+        }}>
+          <Image 
+            src="/assets/images/logo/superfinanciera.png" 
+            alt="Superintendencia Financiera de Colombia" 
+            width={80} 
+            height={80}
+            style={{ objectFit: 'contain' }}
+          />
+          <p style={{ fontSize: '11px', color: '#999', margin: 0 }}>
+            Vigilado por la Superintendencia Financiera de Colombia
           </p>
         </div>
       </div>

@@ -19,15 +19,25 @@ const nunito = Nunito({
 export const metadata = {
   title: {
     absolute: '',
-    default: 'Finova - Créditos de Libre Inversión 100% Online',
+    default: 'Finova - Créditos de libre inversión online en Colombia',
     template: '%s | Finova - Tu Aliado Financiero',
   },
-  description: 'Créditos de libre inversión 100% online, sin filas y con respaldo legal. Desembolso en 24 horas. Entidad registrada y vigilada por la Superintendencia Financiera de Colombia.',
-  keywords: ['créditos online', 'préstamos personales', 'créditos de libre inversión', 'créditos rápidos', 'préstamos en línea Colombia', 'créditos Pereira', 'Finova'],
+  description: 'Créditos 100% en línea con desembolso en 24 horas. Entidad registrada y vigilada. Solicita tu préstamo personal fácil, rápido y seguro.',
+  keywords: [
+    'créditos de libre inversión online',
+    'Préstamos en colombia',
+    'Préstamos personales en Colombia',
+    'crédito personal fácil y seguro',
+    'créditos online',
+    'asesoría financiera',
+    'créditos en línea sin papeleos',
+    'créditos Pereira',
+    'Finova'
+  ],
   authors: [{ name: 'Finova' }],
   openGraph: {
-    title: 'Finova - Créditos de Libre Inversión 100% Online',
-    description: 'Solicita tu crédito en minutos. Desembolso en 24 horas, sin filas y con respaldo legal. +5000 personas nos eligieron.',
+    title: 'Finova - Créditos de libre inversión online en Colombia',
+    description: '+5000 personas ya eligieron Finova para sus créditos online',
     url: 'https://www.finova.com.co',
     siteName: 'Finova',
     locale: 'es_CO',
@@ -43,8 +53,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Finova - Créditos de Libre Inversión 100% Online',
-    description: 'Solicita tu crédito en minutos. Desembolso en 24 horas.',
+    title: 'Finova - Créditos de libre inversión online en Colombia',
+    description: '+5000 personas ya eligieron Finova para sus créditos online',
     images: ['/assets/images/logo/finova-og-image.jpg'],
   },
   robots: {
@@ -65,7 +75,7 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <head>
         <meta name="author" content="Finova" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="./assets/images/favicon.png" sizes="any" />
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
         {children}

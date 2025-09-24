@@ -10,9 +10,9 @@ export const finovaData = {
     { name: 'Beneficios', href: '#beneficios', isButton: false },
     { name: 'Nosotros', href: '#nosotros', isButton: false },
     { name: 'Preguntas frecuentes', href: '#preguntas', isButton: false },
-    { name: 'Contacto', href: '#contacto', isButton: false },
-    { name: 'Registrarse', href: '/registro', isButton: true },
-    { name: 'Iniciar sesión', href: '/login', isButton: true }
+    { name: 'Contacto', href: './contact/', isButton: false },
+    { name: 'Registrarse', href: 'https://app.finova.com.co/auth/register', isButton: true },
+    { name: 'Iniciar sesión', href: 'https://app.finova.com.co/auth/boxed-signin', isButton: true }
   ],
 
   // ==================================================
@@ -117,18 +117,18 @@ export const finovaData = {
   // Contacto
   // ==================================================
   contact: {
+    name: 'Contacto', href: '/contacto', isButton: false ,
     title: "¿Listo para empezar?",
     subtitle: "Estamos aquí para ayudarte a hacer realidad tus proyectos",
     phone: "+57 322 696 2139",
     email: "info@finova.com.co",
     address: "Calle 24 # 7 - 29, Oficina 613, Pereira, Colombia.",
     socialMedia: {
-      facebook: "#",
-      twitter: "#", 
-      instagram: "#",
-      linkedin: "#"
-    }
-  },
+    facebook: "https://facebook.com/finova",
+    twitter: "https://twitter.com/finova", 
+    instagram: "https://instagram.com/finova",
+    linkedin: "https://linkedin.com/company/finova"
+}
 
   // ==================================================
   // Footer

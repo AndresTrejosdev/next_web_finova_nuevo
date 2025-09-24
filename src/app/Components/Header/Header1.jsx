@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import Link from "next/link";
 import Image from "next/image";
+import { NavButtons } from './Nav';
 export default function Header1({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
   const [isSticky, setIsSticky] = useState();
@@ -47,8 +48,8 @@ export default function Header1({ variant }) {
                   <Image
                     src="/assets/images/Fondos para opacidad/LOGO FINOVA-07.png"
                     alt="img"
-                    width={177}
-                    height={100}
+                    width={150}
+                    height={50}
                   />
                 </Link>
               </div>
@@ -69,7 +70,7 @@ export default function Header1({ variant }) {
                   <Nav setMobileToggle={setMobileToggle} />
                 </div>
               </div>
-
+                    
               {/* Tercer componente - Botones (4 columnas) */}
               <div className="col-3 cs_main_header_right">
                 <div className="header-btn d-flex align-items-center justify-content-end gap-3">
@@ -79,24 +80,10 @@ export default function Header1({ variant }) {
                   >
                     <i className="bi bi-search"></i>
                   </a>
-                  <div className="header-button">
-                    <Link href="/contact" className="theme-btn theme-btn-small">
-                      <span>
-                        Registrarse{" "}
-                        <i className="bi bi-arrow-right"></i>
-                      </span>
-                    </Link>
-                  </div>
-                  <div className="header-button">
-                    <Link href="/contact" className="theme-btn">
-                      <span>
-                        Iniciar sesión{" "}
-                        <i className="bi bi-arrow-right"></i>
-                      </span>
-                    </Link>
-                  </div>
+                  <NavButtons setMobileToggle={setMobileToggle} />
                 </div>
               </div>
+
             </div>
           </div>
         </div>

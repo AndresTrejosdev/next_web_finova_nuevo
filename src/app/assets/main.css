@@ -11444,3 +11444,274 @@ div[id] {
     background: white !important;
   }
 }
+
+
+/* --- FONDOS ESPECÍFICOS POR SECCIÓN --- */
+
+/* Página 1: INICIO - Fondo degradado con onda */
+#inicio {
+  background: linear-gradient(135deg, #e8f4fd 0%, #1468b1 50%, #12274b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+#inicio::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(45deg, #1468b1 0%, #12274b 60%, #0a1b35 100%);
+  clip-path: ellipse(100% 100% at 50% 100%);
+  z-index: 1;
+}
+
+/* Página 2: ALIANZAS - Fondo degradado suave */
+#alianzas {
+  background: linear-gradient(180deg, #f8fbff 0%, #e8f4fd 50%, #d1e9f8 100%);
+  padding: 80px 0;
+  position: relative;
+}
+
+#alianzas::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top, rgba(20, 104, 177, 0.05) 0%, transparent 70%);
+  z-index: 1;
+}
+
+/* Página 3: CRÉDITOS - Fondo con círculos decorativos */
+#creditos {
+  background: linear-gradient(225deg, #1468b1 0%, #0f5a9a 30%, #12274b 70%, #0a1b35 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+#creditos::before,
+#creditos::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+#creditos::before {
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(232, 244, 253, 0.3) 0%, rgba(20, 104, 177, 0.1) 40%, transparent 70%);
+  opacity: 0.8;
+}
+
+#creditos::after {
+  bottom: -150px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(18, 39, 75, 0.4) 0%, rgba(10, 27, 53, 0.2) 50%, transparent 80%);
+  opacity: 0.6;
+}
+
+/* Página 4: BENEFICIOS - Fondo degradado diagonal */
+#beneficios {
+  background: linear-gradient(135deg, #f8fbff 0%, #e8f4fd 25%, #1468b1 75%, #12274b 100%);
+  padding: 80px 0;
+  position: relative;
+}
+
+#beneficios::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at bottom right, rgba(20, 104, 177, 0.1) 0%, transparent 50%);
+  z-index: 1;
+}
+
+/* Página 5: NOSOTROS - Fondo con degradado diagonal mejorado */
+#nosotros {
+  background: linear-gradient(45deg, #12274b 0%, #1468b1 25%, #e8f4fd 50%, #f8fbff 75%, #ffffff 100%);
+  padding: 80px 0;
+  position: relative;
+}
+
+#nosotros::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(315deg, rgba(18, 39, 75, 0.05) 0%, transparent 40%, rgba(20, 104, 177, 0.03) 100%);
+  z-index: 1;
+}
+
+/* Página 7: PREGUNTAS FRECUENTES - Fondo con semicírculo mejorado */
+#preguntas-frecuentes {
+  background: linear-gradient(180deg, #e8f4fd 0%, #1468b1 50%, #12274b 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+#preguntas-frecuentes::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgba(232, 244, 253, 0.4) 0%,
+    rgba(20, 104, 177, 0.2) 50%,
+    rgba(18, 39, 75, 0.1) 100%
+  );
+  opacity: 0.8;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+#preguntas-frecuentes::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(248, 251, 255, 0.3) 0%, rgba(232, 244, 253, 0.1) 60%, transparent 100%);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Página 8: CONTACTO - Fondo azul con ondas mejorado */
+#contacto {
+  background: linear-gradient(180deg, #0a1b35 0%, #12274b 30%, #1468b1 70%, #0f5a9a 100%);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+#contacto::before,
+#contacto::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1;
+}
+
+#contacto::before {
+  top: 0;
+  background: linear-gradient(45deg, #e8f4fd 0%, #f8fbff 100%);
+  clip-path: ellipse(100% 100% at 50% 0%);
+}
+
+#contacto::after {
+  bottom: 0;
+  background: linear-gradient(225deg, #f8fbff 0%, #e8f4fd 100%);
+  clip-path: ellipse(100% 100% at 50% 100%);
+}
+
+/* Efectos adicionales para dar más vida */
+#inicio,
+#creditos,
+#preguntas-frecuentes {
+  animation: subtle-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes subtle-pulse {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1.02);
+  }
+}
+
+/* Mejora de contraste para texto */
+#creditos * {
+  position: relative;
+  z-index: 2;
+}
+
+#preguntas-frecuentes * {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- BOTÓN FLOTANTE DE WHATSAPP --- */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25D366; /* Verde oficial de WhatsApp */
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  animation: whatsapp-pulse 2s infinite;
+  text-decoration: none !important;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+  animation: none;
+}
+
+/* Ícono de WhatsApp en SVG (Nítido y sin borrosidad) */
+.whatsapp-float svg {
+  width: 32px;
+  height: 32px;
+  fill: white;
+  pointer-events: none;
+}
+
+/* Animación de pulsación sutil */
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  }
+}
+
+/* Responsive: En móviles se coloca un poco más arriba */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 80px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+  }
+}

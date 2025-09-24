@@ -8,7 +8,7 @@ const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusim
         <div className="intro-container-wrapper style1">
             <div className="container">
                 <div className="intro-wrapper style1 fix">
-                    <div className="shape1"><Image src="/assets/images/shape/introShape1_1.png" alt="img" width={1149} height={854}   /></div>
+                    {/* <div className="shape1"><Image src="/assets/images/shape/introShape1_1.png" alt="img" width={1149} height={854}   /></div> */}
                     <div className="shape2"><Image src="/assets/images/shape/introShape1_2.png" alt="img" width={983} height={954}   /></div>
                     <div className="shape3 d-none d-xxl-block cir36"><Image src="/assets/images/shape/introShape1_3.png" alt="img" width={58} height={58}   /></div>
                     <div className="shape4 d-none d-xxl-block cir36"><Image src="/assets/images/shape/introShape1_4.png" alt="img" width={58} height={58}   /></div>
@@ -71,8 +71,8 @@ const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusim
                             </div>
                             <div className="col-xl-5 order-1 order-xl-2">
                                 <div className="intro-thumb">
-                                    <div className="thumbShape1"><Image src="/assets/images/shape/introThumbShape1_1.png" alt="img" width={624} height={624}   /></div>
-                                    <div className="thumbShape2"><Image src="/assets/images/shape/introThumbShape1_2.png" alt="img" width={536} height={537}   /></div>
+                                    <div className="thumbShape1"><Image src="/assets/images/shape/introThumbShape1_1.webp" alt="img" width={624} height={624}   /></div>
+                                    <div className="thumbShape2"><Image src="/assets/images/shape/wcuThumbShape1_1.webp" alt="img" width={536} height={537}   /></div>
                                             <Image className="main-thumb img-custom-anim-right wow fadeInUp"  src={img} alt="img" width={726} height={709}   />
                                    
                                 </div>
