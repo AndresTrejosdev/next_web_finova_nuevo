@@ -11,7 +11,7 @@ const Footer = () => {
               <Link href="/">
                 <Image src="/assets/images/logo/logo.svg" alt="Finova" width={140} height={42} />
               </Link>
-              <p style={{ fontSize: '14px', color: '#666', marginTop: '15px' }}>
+              <p style={{ fontSize: '14px', color: '#ffffff', marginTop: '15px' }}>
                 Créditos financieros justos, transparentes y diseñados para impulsar tus proyectos.
               </p>
             </div>
@@ -64,11 +64,11 @@ const Footer = () => {
           <Image 
             src="/assets/images/logo/superfinanciera.png" 
             alt="Superintendencia Financiera de Colombia" 
-            width={80} 
-            height={80}
+            width={100} 
+            height={100}
             style={{ objectFit: 'contain' }}
           />
-          <p style={{ fontSize: '11px', color: '#999', margin: 0 }}>
+          <p style={{ fontSize: '11px', color: '#ffffff', margin: 0 }}>
             Vigilado por la Superintendencia Financiera de Colombia
           </p>
         </div>

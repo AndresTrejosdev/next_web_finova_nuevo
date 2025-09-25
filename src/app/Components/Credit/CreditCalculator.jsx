@@ -116,7 +116,7 @@ const CreditCalculator = () => {
           <p 
             style={{
               fontSize: '1.125rem',
-              color: '#666',
+              color: '#ffffff',
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: '1.6'

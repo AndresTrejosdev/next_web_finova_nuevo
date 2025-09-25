@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "slick-carousel/slick/slick.css";
 import "./assets/main.css";
+import { GoogleTagManager } from './Components/Google/GoogleTagManager';
+import GTMPageView from './Components/Google/GTMPageView';
+
 
 const urbanist = Urbanist({
   subsets: ['latin'],
@@ -76,8 +79,15 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="author" content="Finova" />
         <link rel="icon" href="./assets/images/favicon.png" sizes="any" />
+
+        {/* Google Tag Manager - Head */}
+        
+
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
+        {/* Google Tag Manager (noscript) - Body */}
+       <GoogleTagManager/>
+       <GTMPageView/>
         {children}
       </body>
     </html>
