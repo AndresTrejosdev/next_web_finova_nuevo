@@ -1,0 +1,17 @@
+.faqImage {
+    margin-bottom: -80px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+@media (max-width: 768px) {
+    .faqImage {
+        margin-bottom: -40px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .faqImage {
+        margin-bottom: 0 !important;
+    }
+}

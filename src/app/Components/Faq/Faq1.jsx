@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import data from '../../Data/faq1.json';
 import Image from "next/image";
+import styles from './Faq1.module.css';
 
 const Faq1 = () => {
 
@@ -68,21 +69,24 @@ const Faq1 = () => {
                             </div>
                         </div>
                         <div className="col-xl-6">
-                            {/* SOLO UNA IMAGEN - Sin absolute-thumb */}
                             <div className="faq-thumb">
-                                <Image 
-                                    className="main-thumb wow fadeInUp img-fluid rounded" 
-                                    src={FaqContent.img} 
-                                    alt="Equipo Finova - Preguntas Frecuentes" 
-                                    width={800} 
-                                    height={600}
-                                    style={{ objectFit: 'cover' }}
-                                />
+                                   
+                            <Image 
+                                className={`main-thumb wow fadeInUp img-fluid rounded ${styles.faqImage}`}
+                                src={FaqContent.img} 
+                                alt="Equipo Finova - Preguntas Frecuentes" 
+                                width={800} 
+                                height={600}
+                                style={{ objectFit: 'cover' }}
+                            />
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
     );
 };
