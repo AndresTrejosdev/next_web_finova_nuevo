@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="footer-section" style={{ backgroundColor: '#f8f9fa', padding: '60px 20px 20px' }}>
+    <footer className="footer-section" style={{ padding: '60px 20px 20px' }}>
       <div className="container">
         <div className="row">
           <div className="col-xl-3 col-lg-3 col-md-6">

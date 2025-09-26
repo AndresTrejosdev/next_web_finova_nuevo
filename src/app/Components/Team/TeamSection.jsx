@@ -43,16 +43,16 @@ export default function TeamSection() {
 
         <p style={{
           fontSize: '1.1rem',
-          color: '#666',
+          color: '#ffffff',
           marginBottom: '15px',
           lineHeight: '1.6'
         }}>
-          Una entidad registrada y legalmente vigilada ante la rues y la cámara de comercio de pereira.
+          Una entidad registrada y legalmente vigilada ante la Rues y la cámara de comercio de Pereira.
         </p>
 
         <p style={{
           fontSize: '1.1rem',
-          color: '#666',
+          color: '#ffffff',
           marginBottom: '50px'
         }}>
           Nuestro equipo de trabajo está listo para escucharte, orientarte y acompañarte en cada paso.

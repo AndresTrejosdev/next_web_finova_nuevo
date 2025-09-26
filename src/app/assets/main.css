@@ -11776,6 +11776,21 @@ div[id] {
   }
 }
 
+/* FOOTER - Gradiente sofisticado */
+.footer-section {
+  background: linear-gradient(135deg, 
+    rgba(18, 39, 75, 0.95) 0%, 
+    rgba(20, 104, 177, 0.9) 30%, 
+    rgba(42, 122, 191, 0.85) 60%, 
+    rgba(76, 151, 210, 0.8) 85%, 
+    rgba(208, 237, 252, 0.6) 100%
+  );
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0 40px;
+}
+
 /* Footer responsive */
 @media (max-width: 768px) {
   .footer-section {
@@ -11935,216 +11950,79 @@ div[id] {
   );
   z-index: 1;
 }
-
-/* PÁGINA 5: NOSOTROS - Gradiente diagonal elegante */
+/* PÁGINA 5: NOSOTROS - Gradiente azul elegante */
 #nosotros {
-  background: linear-gradient(45deg, 
-    rgba(18, 39, 75, 0.05) 0%, 
-    rgba(20, 104, 177, 0.08) 15%, 
-    rgba(208, 237, 252, 0.4) 35%, 
-    #f8fbff 55%, 
-    #ffffff 75%, 
-    rgba(248, 251, 255, 0.95) 100%
-  );
-  padding: 80px 0;
-  position: relative;
-}
-
-#nosotros::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(315deg, 
-    rgba(76, 151, 210, 0.03) 0%, 
-    transparent 40%, 
-    rgba(42, 122, 191, 0.02) 100%
-  );
-  z-index: 1;
-}
-
-/* PÁGINA 6: Sección intermedia con transición suave */
-.section-transition {
-  background: linear-gradient(180deg, 
-    rgba(208, 237, 252, 0.3) 0%, 
-    rgba(232, 244, 253, 0.5) 50%, 
-    rgba(248, 251, 255, 0.8) 100%
-  );
-  padding: 40px 0;
-}
-
-/* PÁGINA 7: PREGUNTAS FRECUENTES - Gradiente vertical elegante */
-#preguntas-frecuentes {
-  background: linear-gradient(180deg, 
-    rgba(232, 244, 253, 0.6) 0%, 
-    rgba(208, 237, 252, 0.7) 25%, 
-    rgba(20, 104, 177, 0.12) 60%, 
-    rgba(18, 39, 75, 0.08) 85%, 
-    rgba(10, 27, 53, 0.05) 100%
+  background: linear-gradient(225deg, 
+    rgba(20, 104, 177, 0.95) 0%, 
+    rgba(42, 122, 191, 0.85) 25%, 
+    rgba(76, 151, 210, 0.7) 50%, 
+    rgba(18, 39, 75, 0.8) 75%, 
+    rgba(10, 27, 53, 0.9) 100%
   );
   position: relative;
   overflow: hidden;
   padding: 80px 0;
+  color: #ffffff;
+  animation: gentle-breathe 12s ease-in-out infinite alternate;
 }
 
-#preguntas-frecuentes::before {
+/* Círculos decorativos (igual que en la calculadora) */
+#nosotros::before {
   content: "";
   position: absolute;
-  top: 30%;
-  right: -120px;
-  width: 250px;
-  height: 250px;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
   background: radial-gradient(circle, 
-    rgba(248, 251, 255, 0.2) 0%, 
-    rgba(232, 244, 253, 0.1) 40%, 
-    rgba(76, 151, 210, 0.05) 70%, 
-    transparent 100%
+    rgba(208, 237, 252, 0.15) 0%, 
+    rgba(232, 244, 253, 0.08) 40%, 
+    transparent 70%
   );
   border-radius: 50%;
   opacity: 0.6;
   z-index: 1;
 }
 
-#preguntas-frecuentes::after {
+#nosotros::after {
   content: "";
   position: absolute;
-  top: 60%;
-  left: -80px;
-  width: 180px;
-  height: 180px;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
   background: radial-gradient(circle, 
-    rgba(208, 237, 252, 0.15) 0%, 
-    rgba(42, 122, 191, 0.08) 50%, 
+    rgba(76, 151, 210, 0.12) 0%, 
+    rgba(42, 122, 191, 0.06) 50%, 
     transparent 80%
   );
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.4;
   z-index: 1;
 }
 
-/* PÁGINA 8: CONTACTO - Gradiente profesional y accesible */
-#contacto {
-  background: linear-gradient(180deg, 
-    rgba(10, 27, 53, 0.15) 0%, 
-    rgba(18, 39, 75, 0.25) 20%, 
-    rgba(20, 104, 177, 0.4) 45%, 
-    rgba(42, 122, 191, 0.5) 70%, 
-    rgba(76, 151, 210, 0.3) 90%, 
-    rgba(208, 237, 252, 0.2) 100%
-  );
-  color: #12274B;
-  position: relative;
-  overflow: hidden;
-  padding: 100px 0;
-}
-
-#contacto::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(45deg, 
-    rgba(248, 251, 255, 0.9) 0%, 
-    rgba(232, 244, 253, 0.8) 100%
-  );
-  clip-path: ellipse(100% 100% at 50% 0%);
-  z-index: 1;
-}
-
-#contacto::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(225deg, 
-    rgba(18, 39, 75, 0.1) 0%, 
-    rgba(20, 104, 177, 0.15) 50%, 
-    rgba(10, 27, 53, 0.08) 100%
-  );
-  clip-path: ellipse(100% 100% at 50% 100%);
-  z-index: 1;
-}
-
-/* FOOTER - Gradiente sofisticado */
-.footer-section {
-  background: linear-gradient(135deg, 
-    rgba(18, 39, 75, 0.95) 0%, 
-    rgba(20, 104, 177, 0.9) 30%, 
-    rgba(42, 122, 191, 0.85) 60%, 
-    rgba(76, 151, 210, 0.8) 85%, 
-    rgba(208, 237, 252, 0.6) 100%
-  );
-  color: #ffffff;
-  position: relative;
-  overflow: hidden;
-  padding: 60px 0 40px;
-}
-
-.footer-section::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background: linear-gradient(45deg, 
-    rgba(248, 251, 255, 0.1) 0%, 
-    rgba(232, 244, 253, 0.05) 100%
-  );
-  clip-path: ellipse(100% 100% at 50% 0%);
-  z-index: 1;
-}
-
-/* Efectos de transición suave entre secciones */
-.section-smooth-transition {
-  position: relative;
-}
-
-.section-smooth-transition::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(180deg, 
-    transparent 0%, 
-    rgba(232, 244, 253, 0.1) 50%, 
-    transparent 100%
-  );
-  z-index: 0;
-}
-
-/* Mejoras para legibilidad del texto */
-#creditos * {
+#nosotros > * {
   position: relative;
   z-index: 2;
+}
+
+/* Estilos de texto para legibilidad */
+#nosotros,
+#nosotros h1,
+#nosotros h2,
+#nosotros h3,
+#nosotros p,
+#nosotros li,
+#nosotros span,
+#nosotros a {
+  color: #ffffff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#contacto * {
-  position: relative;
-  z-index: 2;
+#nosotros h2,
+#nosotros h3 {
+  color: #ffffff !important;
 }
-
-#preguntas-frecuentes * {
-  position: relative;
-  z-index: 2;
-}
-
-/* Animación sutil para elementos principales */
-#inicio,
-#beneficios,
-#nosotros {
-  animation: gentle-breathe 12s ease-in-out infinite alternate;
-}
-
 @keyframes gentle-breathe {
   0% {
     filter: brightness(1) saturate(1);
