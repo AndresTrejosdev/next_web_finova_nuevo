@@ -28,7 +28,7 @@ const Faq1 = () => {
 
     const FaqContent = {
         Content:'Resolvemos tus dudas sobre créditos de libre inversión. Conoce más sobre nuestros procesos, requisitos y beneficios.',
-        img:'/assets/images/faq/equipo-finova.jpg'
+        img:'/assets/images/faq/equipo-finova.webp'
       }
 
     return (
