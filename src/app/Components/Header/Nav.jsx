@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { finovaData } from '../../Data/finovaData';
-import FinovaButton from '../../Common/FinovaButton';
+import FinovaButton from '../Common/FinovaButton';
 
 export default function Nav({ setMobileToggle }) {
   

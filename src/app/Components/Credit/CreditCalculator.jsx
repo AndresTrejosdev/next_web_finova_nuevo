@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import FinovaButton from '../../Common/FinovaButton';
+import FinovaButton from '../Common/FinovaButton';
 
 const CreditCalculator = () => {
   const [amount, setAmount] = useState(180000);
@@ -322,7 +322,7 @@ const CreditCalculator = () => {
                   customText="Solicitar Crédito"
                 />
               </div>
-              
+
             </div>
           </div>
         </div>
