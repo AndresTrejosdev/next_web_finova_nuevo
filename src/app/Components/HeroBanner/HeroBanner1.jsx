@@ -1,6 +1,7 @@
 import parse from 'html-react-parser';
 import Image from 'next/image';
 import Link from 'next/link';
+import FinovaButton from '../Common/FinovaButton';
 
 const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusimg,cusnumber,cuscontent,rating,ratingcon,img}) => {
     return (
@@ -26,93 +27,53 @@ const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusim
                                     </div>
                                     <div className="btn-wrapper style1 wow fadeInUp" data-wow-delay=".6s">
 
+                                    {/* BOTÓN CENTRALIZADO CON TRACKING */}
+                                    <FinovaButton 
+                                    variant="secondary"
+                                    location="hero_principal"
+                                    customText="Solicita tu crédito ahora"
+                                    />
 
-
-
-
-                                        {/* PRIMER BOTÓN - Solo renderiza si btnurl existe */}
-                                        {btnurl && (
-                                                btnurl.startsWith('http') ? (
-                                                    <a
-                                                    className="theme-btn"
-                                                    href={btnurl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    >
-                                                    {btnname}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                        <g clipPath="url(#clip0_11_22)">
-                                                        <path d="M11.6118 3.61182L10.8991 4.32454L14.0706 7.49603H0V8.50398H14.0706L10.8991 11.6754L11.6118 12.3882L16 7.99997L11.6118 3.61182Z" fill="white" />
-                                                        </g>
-                                                        <defs>
-                                                        <clipPath id="clip0_11_22">
-                                                            <rect width="16" height="16" fill="white" />
-                                                        </clipPath>
-                                                        </defs>
-                                                    </svg>
-                                                    </a>
-                                                ) : (
-                                                    <Link className="theme-btn" href={btnurl}>
-                                                    {btnname}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                        <g clipPath="url(#clip0_11_22)">
-                                                        <path d="M11.6118 3.61182L10.8991 4.32454L14.0706 7.49603H0V8.50398H14.0706L10.8991 11.6754L11.6118 12.3882L16 7.99997L11.6118 3.61182Z" fill="white" />
-                                                        </g>
-                                                        <defs>
-                                                        <clipPath id="clip0_11_22">
-                                                            <rect width="16" height="16" fill="white" />
-                                                        </clipPath>
-                                                        </defs>
-                                                    </svg>
-                                                    </Link>
-                                                )
-                                                )}
-
-
-
-
-
-
-                                        {/* SEGUNDO BOTÓN - Solo renderiza si btn2url existe */}
-                                        {btn2url && (
-                                            <Link className="theme-btn style2 wow fadeInUp" data-wow-delay=".2s"
-                                                href={btn2url}>{btntwo}
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <g clipPath="url(#clip0_11_27)">
-                                                        <path
-                                                            d="M11.6118 3.61182L10.8991 4.32454L14.0706 7.49603H0V8.50398H14.0706L10.8991 11.6754L11.6118 12.3882L16 7.99997L11.6118 3.61182Z"
-                                                            fill="#282C32" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_11_27">
-                                                            <rect width="16" height="16" fill="white" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </Link>
-                                        )}
-                                    </div>
-                                    <div className="fancy-box-wrapper style1">
-                                        
-                                    </div>
+                                    {/* SEGUNDO BOTÓN - Solo renderiza si btn2url existe */}
+                                    {btn2url && (
+                                        <Link className="theme-btn style2 wow fadeInUp" data-wow-delay=".2s"
+                                            href={btn2url}>{btntwo}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <g clipPath="url(#clip0_11_27)">
+                                                    <path
+                                                        d="M11.6118 3.61182L10.8991 4.32454L14.0706 7.49603H0V8.50398H14.0706L10.8991 11.6754L11.6118 12.3882L16 7.99997L11.6118 3.61182Z"
+                                                        fill="#282C32" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_11_27">
+                                                        <rect width="16" height="16" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </Link>
+                                    )}
+                                </div>
+                                <div className="fancy-box-wrapper style1">
+                                    
                                 </div>
                             </div>
-                            <div className="col-xl-5 order-1 order-xl-2">
-                                <div className="intro-thumb">
-                                    <div className="thumbShape1"><Image src="/assets/images/shape/introThumbShape1_1.webp" alt="img" width={624} height={624}   /></div>
-                                    <div className="thumbShape2"><Image src="/assets/images/shape/wcuThumbShape1_1.webp" alt="img" width={536} height={537}   /></div>
-                                            <Image className="main-thumb img-custom-anim-right wow fadeInUp"  src={img} alt="img" width={726} height={709}   />
-                                   
-                                </div>
+                        </div>
+                        <div className="col-xl-5 order-1 order-xl-2">
+                            <div className="intro-thumb">
+                                <div className="thumbShape1"><Image src="/assets/images/shape/introThumbShape1_1.webp" alt="img" width={624} height={624}   /></div>
+                                <div className="thumbShape2"><Image src="/assets/images/shape/wcuThumbShape1_1.webp" alt="img" width={536} height={537}   /></div>
+                                        <Image className="main-thumb img-custom-anim-right wow fadeInUp"  src={img} alt="img" width={726} height={709}   />
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    );
+    </div>
+</section>
+);
 };
 
 export default HeroBanner1;

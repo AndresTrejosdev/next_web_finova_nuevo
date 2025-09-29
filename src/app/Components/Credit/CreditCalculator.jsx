@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react';
+import FinovaButton from '../../Common/FinovaButton';
 
 const CreditCalculator = () => {
   const [amount, setAmount] = useState(180000);
@@ -313,38 +314,15 @@ const CreditCalculator = () => {
                 </div>
               </div>
 
-              {/* Botón de acción - ACTUALIZADO */}
+              {/* Botón centralizado con tracking */}
               <div className="text-center" style={{ paddingTop: '32px' }}>
-                <a
-                  href="https://app.finova.com.co/auth/register"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: '16px 32px',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #1468B1 0%, #12274B 100%)',
-                    color: 'white',
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    transform: 'scale(1)',
-                    boxShadow: '0 4px 15px rgba(20, 104, 177, 0.3)',
-                    display: 'inline-block'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'scale(1.05)';
-                    e.target.style.boxShadow = '0 6px 25px rgba(20, 104, 177, 0.4)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'scale(1)';
-                    e.target.style.boxShadow = '0 4px 15px rgba(20, 104, 177, 0.3)';
-                  }}
-                >
-                  Solicitar Crédito
-                </a>
+                <FinovaButton 
+                  variant="primary"
+                  location="calculadora"
+                  customText="Solicitar Crédito"
+                />
               </div>
+              
             </div>
           </div>
         </div>

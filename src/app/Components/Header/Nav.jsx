@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { finovaData } from '../../Data/finovaData';
+import FinovaButton from '../../Common/FinovaButton';
 
 export default function Nav({ setMobileToggle }) {
   
@@ -64,20 +65,28 @@ export function NavButtons({ setMobileToggle }) {
     <div className="d-flex gap-2">
       {finovaData.navigation
         .filter(item => item.isButton)
-        .map((item, index) => (
-          <Link
-            key={index}
-            href={item.href}
-            className={`btn btn-sm px-3 ${
-              item.name === 'Registrarse'
-                ? 'theme-btn'
-                : 'theme-btn style2'
-            }`}
-            onClick={() => setMobileToggle && setMobileToggle(false)}
-          >
-            {item.name}
-          </Link>
-        ))}
+        .map((item, index) => {
+          if (item.name === 'Registrarse') {
+            return (
+              <FinovaButton
+                key={index}
+                variant="navbar"
+                location="navbar"
+                customText="Registrarse"
+              />
+            );
+          }
+          return (
+            <Link
+              key={index}
+              href={item.href}
+              className="btn btn-sm px-3 theme-btn style2"
+              onClick={() => setMobileToggle && setMobileToggle(false)}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
     </div>
   );
 }
