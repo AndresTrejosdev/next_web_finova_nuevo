@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import Link from "next/link";
 import Image from "next/image";
 import { NavButtons } from './Nav';
+
 export default function Header1({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
   const [isSticky, setIsSticky] = useState();
@@ -46,10 +47,10 @@ export default function Header1({ variant }) {
               <div className="col-1 cs_main_header_left">
                 <Link className="cs_site_branding" href="/">
                   <Image
-                    src="/assets/images/Fondos para opacidad/LOGO FINOVA-07.png"
+                    src="/assets/images/logo/logo.svg"
                     alt="img"
-                    width={150}
-                    height={50}
+                    width={190}
+                    height={90}
                   />
                 </Link>
               </div>
@@ -78,7 +79,7 @@ export default function Header1({ variant }) {
                     onClick={() => setSearchToggle(!searchToggle)}
                     className="search-trigger search-icon d-flex align-items-center justify-content-center"
                   >
-                    <i className="bi bi-search"></i>
+                    {/* <i className="bi bi-search"></i> */}
                   </a>
                   <NavButtons setMobileToggle={setMobileToggle} />
                 </div>

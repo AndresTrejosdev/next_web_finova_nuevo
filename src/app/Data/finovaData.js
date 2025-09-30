@@ -9,13 +9,13 @@ export const finovaData = {
     { name: 'Créditos', href: '#creditos', isButton: false },
     { name: 'Beneficios', href: '#beneficios', isButton: false },
     { name: 'Nosotros', href: '#nosotros', isButton: false },
-    { name: 'Preguntas frecuentes', href: '#preguntas', isButton: false },
-    { name: 'Contacto', href: './contact/', isButton: false },
+    { name: 'Preguntas frecuentes', href: '#preguntas-frecuentes', isButton: false },
+    { name: 'Contacto', href: '#contacto', isButton: false }, 
     { name: 'Registrarse', href: 'https://app.finova.com.co/auth/register', isButton: true },
     { name: 'Iniciar sesión', href: 'https://app.finova.com.co/auth/boxed-signin', isButton: true }
   ],
 
-    // ==================================================
+  // ==================================================
   // Sección Hero
   // ==================================================
   hero: {
@@ -117,24 +117,26 @@ export const finovaData = {
   // Contacto
   // ==================================================
   contact: {
-    name: 'Contacto', href: '/contacto', isButton: false ,
     title: "¿Listo para empezar?",
     subtitle: "Estamos aquí para ayudarte a hacer realidad tus proyectos",
     phone: "+57 322 696 2139",
-    email: "info@finova.com.co",
-    address: "Calle 24 # 7 - 29, Oficina 613, Pereira, Colombia.",
+    email: "contacto@finova.com.co", // ← CORREGIDO (era info@)
+    address: "Calle 24 # 7-29, Oficina 613, Pereira, Risaralda, Colombia",
+    whatsapp: "https://wa.me/573226962139",
+    googleMaps: "https://maps.app.goo.gl/8vYx8KqHfZ8A9sJd9",
     socialMedia: {
-    facebook: "https://facebook.com/finova",
-    twitter: "https://twitter.com/finova", 
-    instagram: "https://instagram.com/finova",
-    linkedin: "https://linkedin.com/company/finova"
-},
+      facebook: "https://facebook.com/finova",
+      twitter: "https://twitter.com/finova", 
+      instagram: "https://instagram.com/finova",
+      linkedin: "https://linkedin.com/company/finova"
+    }
+  },
 
   // ==================================================
   // Footer
   // ==================================================
   footer: {
-    logo: "/assets/images/logo/finova-logo.png",
+    logo: "/assets/images/logo/logo.svg",
     description: "Créditos financieros justos, transparentes y diseñados para impulsar tus proyectos.",
     services: [
       "Créditos personales",
@@ -152,11 +154,10 @@ export const finovaData = {
   // Colores de marca (según manual)
   // ==================================================
   colors: {
-    primary: '#1468B1',    // Azul principal
-    secondary: '#2A7ABF',  // Azul secundario
-    dark: '#12274B',       // Azul oscuro (títulos, logo)
-    light: '#4C97D2',      // Azul claro
-    lighter: '#D0EDFC'     // Azul muy claro (fondos, acentos)
+    primary: '#1468B1',
+    secondary: '#2A7ABF',
+    dark: '#12274B',
+    light: '#4C97D2',
+    lighter: '#D0EDFC'
   }
-}
 };

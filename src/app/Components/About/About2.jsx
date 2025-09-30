@@ -11,8 +11,8 @@ const About2 = ({subtitle,title,content,boximg1,boxtitle1,boxcontent1,boximg2,bo
                             <div className="col-xl-6 order-2 order-xl-1">
                                 <div className="about-content">
                                     <div className="section-title">
-                                        <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                            {subtitle}<Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                        {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                                            {/* {subtitle}<Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                         </div>
                                         <h2 className="title wow fadeInUp" data-wow-delay=".4s">{title}</h2>
                                         <p className="text1 mxw-640 wow fadeInUp" data-wow-delay=".6s">{content}</p>
@@ -49,8 +49,7 @@ const About2 = ({subtitle,title,content,boximg1,boxtitle1,boxcontent1,boximg2,bo
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+       </section>
 
     );
 };

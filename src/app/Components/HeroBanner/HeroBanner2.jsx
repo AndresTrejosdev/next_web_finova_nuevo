@@ -21,8 +21,8 @@ const HeroBanner2 = ({subtitle,title,btnname,btnurl,btnname2,btnurl2,img1,img2,i
                             <div className="col-xl-12">
                                 <div className="intro-content">
                                     <div className="intro-section-title">
-                                        <div className="intro-subtitle wow fadeInUp" data-wow-delay=".4s">
-                                            {parse(subtitle)} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={16}   />
+                                        {/* <div className="intro-subtitle wow fadeInUp" data-wow-delay=".4s"> */}
+                                            {/* {parse(subtitle)} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={16}   /> */}
                                         </div>
                                         <h1 className="intro-title wow fadeInUp" data-wow-delay=".2s">{parse(title)}</h1>
                                     </div>
@@ -77,7 +77,6 @@ const HeroBanner2 = ({subtitle,title,btnname,btnurl,btnname2,btnurl2,img1,img2,i
                     </div>
     
                 </div>
-            </div>
         </section>
     );
 };

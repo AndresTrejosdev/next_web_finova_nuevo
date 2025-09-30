@@ -14,8 +14,8 @@ const About3 = ({img1,subtitle,title,content,boxtitle1,boxcontent1,boxtitle2,box
                     <div className="col-lg-6">
                         <div className="what-we-content">
                             <div className="section-title">
-                                <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                    {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> 
+                                {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                                    {/* {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />  */}
                                 </div>
                                 <h2 className="title wow fadeInUp" data-wow-delay=".4s">{title}</h2>
                                 <p className="wow fadeInUp" data-wow-delay=".6s">
@@ -57,8 +57,7 @@ const About3 = ({img1,subtitle,title,content,boxtitle1,boxcontent1,boxtitle2,box
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     );
 };
 

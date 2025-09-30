@@ -21,7 +21,7 @@ const Cta1 = ({subtitle,title,content,btnurl1,btnurl2,img}) => {
                                     <div className="cta-content">
                                         <div className="section-title">
                                             <div className="subtitle text-white bg2 wow fadeInUp" data-wow-delay=".2s">
-                                                {subtitle}  <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> 
+                                                {/* {subtitle}  <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />  */}
                                             </div>
                                             <h2 className="title text-white wow fadeInUp" data-wow-delay=".4s">{title}</h2>
                                             <p className="section-desc text-white mxw-651 wow fadeInUp" data-wow-delay=".6s">

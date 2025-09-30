@@ -42,7 +42,7 @@ const Brand2 = () => {
             <div className="brand-slider-container-wrapper style2">
                 <div className="container">
                    <h2 className="single-section-title wow fadeInUp" data-wow-delay=".2s">
-                            Alianzas estratégicas.
+                            Alianzas estratégicas
                         </h2>
                     <div className="brand-slider-wrapper style2">
                        

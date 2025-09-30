@@ -21,16 +21,7 @@ export default function BenefitsSection() {
   ];
 
   return (
-    <section id="beneficios" style={{
-      backgroundColor: '#f8f9fa',
-      padding: '80px 20px 0px 20px',
-      textAlign: 'center',
-      position: 'relative',
-      backgroundImage: 'url(/assets/images/shape/workProcessShape1_1.webp)',
-      backgroundPosition: 'bottom center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: '80% auto'
-    }}>
+    <section id="beneficios">
       <div className="container" style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -41,7 +32,8 @@ export default function BenefitsSection() {
           fontSize: '2.5rem',
           fontWeight: '700',
           color: '#12274B',
-          marginBottom: '10px'
+          marginBottom: '10px',
+          textAlign: 'center' 
         }}>
           Somos tu aliado financiero
         </h2>
@@ -49,7 +41,8 @@ export default function BenefitsSection() {
         <p style={{
           fontSize: '1.2rem',
           color: '#666',
-          marginBottom: '50px'
+          marginBottom: '50px',
+          textAlign: 'center' 
         }}>
           +5000 personas nos eligieron
         </p>

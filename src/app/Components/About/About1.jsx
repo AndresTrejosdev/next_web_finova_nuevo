@@ -34,8 +34,8 @@ const About1 = ({img1,img2,subtitle,title,content,FeatureList,btnname,btnurl}) =
                             <div className="col-xl-6">
                                 <div className="about-content">
                                     <div className="section-title">
-                                        <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                            {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                        {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                                            {/* {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                         </div>
                                         <h2 className="title wow fadeInUp" data-wow-delay=".4s">{title}</h2>
                                         <p className="section-desc wow fadeInUp" data-wow-delay=".6s">{content}</p>
@@ -65,8 +65,7 @@ const About1 = ({img1,img2,subtitle,title,content,FeatureList,btnname,btnurl}) =
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+         </section>
     
     );
 };

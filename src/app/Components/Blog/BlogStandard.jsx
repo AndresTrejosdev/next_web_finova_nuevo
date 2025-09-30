@@ -131,7 +131,7 @@ const BlogStandard = () => {
                             <div className="search-widget">
                                 <form action="#">
                                     <input type="text" placeholder="Search here" />
-                                    <button type="submit"><i className="bi bi-search"></i></button>
+                                    {/* <button type="submit"><i className="bi bi-search"></i></button> */}
                                 </form>
                             </div>
                         </div>

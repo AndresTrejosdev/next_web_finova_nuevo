@@ -9,12 +9,14 @@ const urbanist = Urbanist({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--body-color-font',
+  display: 'swap',
 });
 
 const nunito = Nunito({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--heading-font',
+  display: 'swap',
 });
 
 export const metadata = {
@@ -36,6 +38,32 @@ export const metadata = {
     'Finova'
   ],
   authors: [{ name: 'Finova' }],
+  
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#1468B1' },
+    { media: '(prefers-color-scheme: dark)', color: '#12274B' },
+  ],
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Finova',
+  },
+  
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+  },
+  
   openGraph: {
     title: 'Finova - Créditos de libre inversión online en Colombia',
     description: '+5000 personas ya eligieron Finova para sus créditos online',
@@ -52,12 +80,14 @@ export const metadata = {
       },
     ],
   },
+  
   twitter: {
     card: 'summary_large_image',
     title: 'Finova - Créditos de libre inversión online en Colombia',
     description: '+5000 personas ya eligieron Finova para sus créditos online',
     images: ['/assets/images/logo/finova-og-image.jpg'],
   },
+  
   robots: {
     index: true,
     follow: true,
@@ -69,6 +99,11 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  
+  manifest: '/manifest.json', 
+  alternates: {
+    canonical: 'https://www.finova.com.co',
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -77,11 +112,17 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="author" content="Finova" />
         <link rel="icon" href="./assets/images/favicon.png" sizes="any" />
-        {/* Google Tag Manager Script cargado aquí */}
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+   
         <GoogleTagManager />
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
-        {/* Google Tag Manager noscript fallback */}
+      
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-T7VPCJ6J"
@@ -90,7 +131,6 @@ export default function RootLayout({ children }) {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        
         {children}
       </body>
     </html>

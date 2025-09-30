@@ -8,8 +8,8 @@ const Blog1 = () => {
             <div className="container">
                 <div className="blog-wrapper style1">
                     <div className="section-title text-center mxw-685 mx-auto">
-                        <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                            Our Blog <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                        {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                            {/* Our Blog <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                         </div>
                         <h2 className="title wow fadeInUp" data-wow-delay=".4s">Recent Articles And Latest Blog</h2>
                     </div>
@@ -100,7 +100,6 @@ const Blog1 = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     );
 };

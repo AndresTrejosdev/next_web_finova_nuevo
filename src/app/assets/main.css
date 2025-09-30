@@ -61,7 +61,7 @@ Description: Niotech - sass, App Landing Reactjs Template <
   /* --- COLORES FINOVA (OFICIALES DEL MANUAL) --- */
   --theme: #12274B;        /* Azul oscuro principal (logo, títulos, bordes) */
   --theme2: #1468B1;       /* Azul secundario (hover, acentos) */
-  --theme3: #D0EDFC;       /* Azul claro de acento (reemplaza #FAF8FF) */
+  --theme3: #D0EDFC;       /* Azul claro de acento (reemplaza #E8F4FD) */
 
   --title: #12274B;        /* Texto principal */
   --header: #12274B;       /* Uniformidad total */
@@ -197,6 +197,53 @@ p {
   margin: 0px;
   transition: all 0.4s ease-in-out;
 }
+
+/* ===== TIPOGRAFÍA FINOVA - OPEN SANS ===== */
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Títulos principales */
+h1, .hero-title {
+  font-size: 2.5rem;
+  font-weight: 800; /* ExtraBold */
+  color: #12274B;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700; /* Bold */
+  color: #12274B;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700; /* Bold */
+  color: #1468B1;
+}
+
+/* Texto sobre fondos oscuros */
+.dark-bg h1,
+.dark-bg h2,
+.dark-bg h3,
+.dark-bg p,
+[style*="background: #12274B"] h1,
+[style*="background: #12274B"] h2,
+[style*="background: #12274B"] p,
+[style*="background: #1468B1"] h1,
+[style*="background: #1468B1"] p {
+  color: #ffffff !important;
+  font-size: 1.3em !important; /* 30% más grande */
+}
+
+/* Párrafos base */
+p {
+  font-size: 1.1rem;
+  font-weight: 400; /* Regular */
+  line-height: 1.6;
+  color: #555555;
+}
+
 
 span {
   margin: 0px;
@@ -596,6 +643,74 @@ input[type=radio]:checked ~ label::before {
 }
 .theme-btn:hover:before {
   top: -96%;
+}
+
+/* ===== BOTONES FINOVA - ESTANDARIZADOS ===== */
+.theme-btn,
+.finova-cta-button,
+button[class*="btn"],
+a[class*="btn"] {
+  /* Forma estándar */
+  border-radius: 50px !important; /* Según formas redondeadas del manual */
+  padding: 16px 40px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important; /* Bold */
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  border: 2px solid transparent !important;
+  cursor: pointer !important;
+  min-height: 56px !important; /* Accesibilidad táctil */
+}
+
+/* Botón primario - Azul principal */
+.theme-btn-primary,
+.finova-cta-button,
+button.primary,
+a.primary {
+  background: #1468B1 !important;
+  color: #ffffff !important;
+  border-color: #1468B1 !important;
+}
+
+.theme-btn-primary:hover,
+.finova-cta-button:hover {
+  background: #12274B !important;
+  border-color: #12274B !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(20, 104, 177, 0.3);
+}
+
+/* Botón secundario - Outline */
+.theme-btn-secondary,
+button.secondary,
+a.secondary {
+  background: transparent !important;
+  color: #1468B1 !important;
+  border-color: #1468B1 !important;
+}
+
+.theme-btn-secondary:hover {
+  background: #1468B1 !important;
+  color: #ffffff !important;
+}
+
+/* Botón sobre fondo oscuro */
+.dark-bg .theme-btn,
+[style*="background: #12274B"] .theme-btn,
+[style*="background: #1468B1"] .theme-btn {
+  background: #ffffff !important;
+  color: #1468B1 !important;
+  border-color: #ffffff !important;
+}
+
+.dark-bg .theme-btn:hover {
+  background: #D0EDFC !important;
+  color: #12274B !important;
 }
 
 .slider-arrow-btn {
@@ -2262,6 +2377,23 @@ input[type=radio]:checked ~ label::before {
   margin-top: 30px !important;
 }
 
+/* ===== FORMAS FINOVA ===== */
+.card,
+.benefit-card,
+.team-card,
+[class*="box"],
+[class*="card"] {
+  border-radius: 24px !important;
+}
+
+/* Cards de beneficios */
+#beneficios .card,
+#beneficios > div > div > div {
+  border-radius: 24px !important;
+  box-shadow: 0 4px 20px rgba(18, 39, 75, 0.1) !important;
+}
+
+
 /* 09.MeanMenu */
 /*----------------------------------------------
     # Meanmenu style here
@@ -3814,7 +3946,7 @@ input.main-search-input::placeholder {
   -o-transition: 0.4s ease-in-out;
 }
 .gt-social.style2 a:hover {
-  background: linear-gradient(90deg, #384BFF 0%, #B42AF3 123.82%);
+  background: linear-gradient(90deg, #384BFF 0%, #ffffff 123.82%);
   color: var(--white);
   border: 1px solid var(--title);
 }
@@ -4614,7 +4746,7 @@ input.main-search-input::placeholder {
   background-color: var(--theme2);
 }
 .header-main .main-menu ul li .has-homemenu .homemenu-items .homemenu .homemenu-thumb::before {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(20, 19, 19, 0)), to(#5e5ef6));
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(20, 19, 19, 0)), to(#ffffff));
   background: linear-gradient(to bottom, rgba(99, 92, 92, 0) 0%, #252527 100%);
   background-repeat: no-repeat;
   background-size: cover;
@@ -5774,7 +5906,7 @@ input.main-search-input::placeholder {
 .intro-wrapper.style1 {
   position: relative;
   border-radius: 50px;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
   margin-top: 40px;
 }
 @media (max-width: 767px) {
@@ -5835,7 +5967,7 @@ input.main-search-input::placeholder {
   align-items: center;
   gap: 10px;
   border-radius: 30px;
-  background: rgba(116, 68, 253, 0.15);
+  background: rgba(208, 237, 252, 0.5);
   backdrop-filter: blur(2px);
   color: var(--theme);
   font-family: var(--font-open-sans), 'Open Sans', sans-serif;
@@ -5952,7 +6084,7 @@ input.main-search-input::placeholder {
 }
 .intro-wrapper.style2 {
   position: relative;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
 }
 .intro-wrapper.style2 .intro-content {
   position: relative;
@@ -6665,7 +6797,7 @@ input.main-search-input::placeholder {
 /* 20.Advantage */
 .advantage-wrapper.style1 {
   border-radius: 50px;
-  background: #FAF8FF;
+  background: #E8F4FD;
 }
 .advantage-wrapper.style1 .advantage-content .checklist-wrapper {
   margin-bottom: 30px;
@@ -6827,7 +6959,7 @@ input.main-search-input::placeholder {
   z-index: 3;
   padding: 12px 35px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #AC60E5 0%, #0C87F0 100%);
+  background: linear-gradient(135deg, #0C87F0 0%, #0C87F0 100%);
 }
 .wcu-wrapper.style3 .wcu-thumb .thumb-box h5 {
   color: var(--white);
@@ -7102,7 +7234,7 @@ input.main-search-input::placeholder {
 .testimonial-wrapper.style1 {
   position: relative;
   border-radius: 50px;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
 }
 .testimonial-wrapper.style1 .section-title {
   position: relative;
@@ -7130,7 +7262,7 @@ input.main-search-input::placeholder {
   position: relative;
   padding: 506px 0 120px;
   border-radius: 50px;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
 }
 .testimonial-wrapper.style2 .shape1 {
   position: absolute;
@@ -7653,7 +7785,7 @@ input.main-search-input::placeholder {
   font-size: 17px;
   font-weight: 500;
   color: var(--header);
-  background-color: #FAF8FF;
+  background-color: #E8F4FD;
   padding: 17px 35px;
   line-height: 1;
   border-radius: 10px;
@@ -7662,7 +7794,7 @@ input.main-search-input::placeholder {
 /* 26.Pricing */
 .pricing-container-wrapper.style3 {
   position: relative;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
 }
 .pricing-container-wrapper.style3 .shape1 {
   position: absolute;
@@ -7681,7 +7813,7 @@ input.main-search-input::placeholder {
   position: relative;
   padding: 40px;
   border-radius: 30px;
-  background: #FAF8FF;
+  background: #E8F4FD;
   z-index: 5;
 }
 @media (max-width: 1199px) {
@@ -8810,7 +8942,7 @@ input.main-search-input::placeholder {
 
 .service-container-wrapper.style3 {
   position: relative;
-  background: rgba(116, 68, 253, 0.06);
+  background: rgba(208, 237, 252, 0.5);
   padding-top: 300px;
 }
 @media (max-width: 767px) {
@@ -9393,7 +9525,7 @@ input.main-search-input::placeholder {
 .team-simple-history {
   padding-top: 60px;
   padding-bottom: 120px;
-  background-color: #FAF8FF;
+  background-color: #E8F4FD;
 }
 @media (max-width: 991px) {
   .team-simple-history {
@@ -9807,7 +9939,7 @@ input.main-search-input::placeholder {
 /* 34.Contact */
 .contact-info-box.style1 {
   padding: 12px;
-  background-color: #FAF8FF;
+  background-color: #E8F4FD;
   border-radius: 10px;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -9819,7 +9951,7 @@ input.main-search-input::placeholder {
   padding: 50px 30px 30px;
   text-align: center;
   border-radius: 10px;
-  background-color: #FAF8FF;
+  background-color: #E8F4FD;
   border: 1px solid #E6E5E5;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -10326,7 +10458,7 @@ textarea.is-invalid {
   font-size: 17px;
   font-weight: 500;
   color: var(--title);
-  background-color: #FAF8FF;
+  background-color: #E8F4FD;
   padding: 17px 35px;
   line-height: 1;
   border-radius: 10px;
@@ -11424,16 +11556,6 @@ div[id] {
 
 /* ===== MÓVILES PEQUEÑOS (hasta 480px) ===== */
 @media (max-width: 480px) {
-  .brand-logo {
-    height: 50px;
-    padding: 6px;
-  }
-  
-  .brand-logo img {
-    max-width: 100px;
-    max-height: 35px;
-  }
-  
   .navbar-collapse {
     background: #ffffff !important;
     padding: 20px;
@@ -11448,195 +11570,147 @@ div[id] {
     padding: 12px 16px !important;
   }
   
-  .navbar-nav .nav-link:hover {
-    background: rgba(20, 104, 177, 0.1);
+  .cs_nav_list {
+    background: #ffffff !important;
+    padding: 20px !important;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    list-style: none;
+  }
+  
+  .cs_nav_list li {
+    margin-bottom: 8px;
+  }
+  
+  .cs_nav_list a {
+    color: #12274B !important;
+    font-weight: 500;
+    padding: 12px 16px !important;
+    text-decoration: none !important;
+    display: block;
     border-radius: 6px;
+    transition: background 0.3s ease;
   }
   
-  /* Ajustes de contenido */
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
+  .cs_nav_list a:hover {
+    background: rgba(20, 104, 177, 0.1);
   }
   
-  h1, .hero-title {
-    font-size: 1.8rem !important;
-  }
-  
-  h2 {
-    font-size: 1.5rem !important;
-  }
-  
-  .section-padding {
-    padding: 40px 0 !important;
+  /* ✅ Ocultar onda en móviles pequeños */
+  #beneficios {
+    background-image: none !important;
+    padding-bottom: 50px !important;
   }
 }
 
 /* ===== MÓVILES GRANDES (481px - 767px) ===== */
 @media (min-width: 481px) and (max-width: 767px) {
-  .brand-logo {
-    height: 60px;
-    padding: 8px;
-  }
-  
-  .brand-logo img {
-    max-width: 120px;
-    max-height: 40px;
-  }
-  
-  .navbar-collapse {
+  .cs_nav_list {
     background: #ffffff !important;
-    padding: 25px;
+    padding: 25px !important;
     border-radius: 10px;
     margin-top: 10px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    list-style: none;
   }
   
-  .navbar-nav .nav-link {
+  .cs_nav_list li {
+    margin-bottom: 10px;
+  }
+  
+  .cs_nav_list a {
     color: #12274B !important;
     font-weight: 500;
     padding: 14px 18px !important;
     font-size: 1rem;
-  }
-  
-  .navbar-nav .nav-link:hover {
-    background: rgba(20, 104, 177, 0.1);
+    text-decoration: none !important;
+    display: block;
     border-radius: 6px;
+    transition: background 0.3s ease;
   }
   
-  .mobile-bg-white {
-    background: white !important;
+  .cs_nav_list a:hover {
+    background: rgba(20, 104, 177, 0.1);
   }
   
-  h1, .hero-title {
-    font-size: 2.2rem !important;
+  #beneficios {
+    background-image: none !important;
+    padding-bottom: 50px !important;
   }
-  
-  h2 {
-    font-size: 1.8rem !important;
+}
+
+/* ===== TABLETS Y SUPERIORES (768px+) ===== */
+@media (min-width: 768px) {
+  #beneficios {
+    background-image: url(/assets/images/shape/workProcessShape1_1.webp) !important;
+    background-position: bottom center !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% auto !important;
+    padding-bottom: 150px !important;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+/* Móviles - SIN onda */
+@media (max-width: 767px) {
+  #beneficios {
+    background-image: none !important;
+    padding-bottom: 50px !important;
   }
 }
 
 /* ===== TABLETS (768px - 1023px) ===== */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .brand-logo {
-    height: 65px;
-    padding: 10px;
-  }
-  
-  .brand-logo img {
-    max-width: 140px;
-    max-height: 45px;
-  }
-  
-  .navbar-collapse {
+  .cs_nav_list {
     background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px);
+    padding: 15px !important;
+    border-radius: 8px;
+    list-style: none;
   }
   
-  .navbar-nav .nav-link {
+  .cs_nav_list a {
     color: #12274B !important;
     font-weight: 500;
     padding: 10px 15px !important;
-  }
-  
-  .tablet-bg-white {
-    background: white !important;
-  }
-  
-  /* Ajustes específicos para tablets */
-  .container {
-    max-width: 720px;
-  }
-  
-  .section-padding {
-    padding: 60px 0 !important;
-  }
-}
-
-/* ===== LAPTOPS PEQUEÑOS (1024px - 1199px) ===== */
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .brand-logo {
-    height: 70px;
-    padding: 12px;
-  }
-  
-  .brand-logo img {
-    max-width: 160px;
-    max-height: 50px;
-  }
-  
-  .navbar-collapse {
-    background: transparent !important;
-  }
-  
-  .navbar-nav .nav-link {
-    color: #12274B !important;
-    font-weight: 500;
-    padding: 8px 12px !important;
-    margin: 0 2px;
-  }
-  
-  .small-desktop-bg-white {
-    background: white !important;
-  }
-  
-  .container {
-    max-width: 960px;
-  }
-}
-
-/* ===== LAPTOPS GRANDES Y DESKTOP (1200px+) ===== */
-@media (min-width: 1200px) {
-  .brand-logo {
-    height: 75px;
-    padding: 15px;
-  }
-  
-  .brand-logo img {
-    max-width: 180px;
-    max-height: 55px;
-  }
-  
-  .navbar-collapse {
-    background: transparent !important;
-  }
-  
-  .navbar-nav .nav-link {
-    color: #12274B !important;
-    font-weight: 500;
-    padding: 10px 15px !important;
-    margin: 0 3px;
-    transition: all 0.3s ease;
-  }
-  
-  .navbar-nav .nav-link:hover {
-    background: rgba(20, 104, 177, 0.1);
+    text-decoration: none !important;
+    display: block;
     border-radius: 6px;
-    transform: translateY(-2px);
   }
 }
 
-/* ===== PANTALLAS MUY GRANDES (1440px+) ===== */
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1320px;
-  }
-  
-  .brand-logo img {
-    max-width: 200px;
-    max-height: 60px;
-  }
-  
-  .navbar-nav .nav-link {
-    padding: 12px 18px !important;
-    font-size: 1.05rem;
-  }
-}
 
 /* ===============================================
    CORRECCIONES GENERALES PARA TODOS LOS DISPOSITIVOS
    =============================================== */
+
+/* Botones auth - Desktop por defecto (visibles) */
+.desktop-auth-buttons {
+  display: flex;
+}
+
+/* Botones dentro del menú móvil - Ocultos por defecto */
+.mobile-auth-buttons {
+  display: none;
+}
+
+/* MOBILE: Ocultar botones de escritorio, mostrar los del menú */
+@media (max-width: 991px) {
+  .desktop-auth-buttons {
+    display: none !important;
+  }
+  
+  .mobile-auth-buttons {
+    display: block !important;
+  }
+  
+  .mobile-auth-buttons a,
+  .mobile-auth-buttons > div > a {
+    width: 100%;
+  }
+}
 
 /* Navbar siempre con fondo blanco en móviles */
 @media (max-width: 1023px) {
@@ -11923,17 +11997,23 @@ div[id] {
 }
 
 /* PÁGINA 4: BENEFICIOS - Gradiente suave y moderno */
+/* ===== ESTILOS BASE PARA BENEFICIOS (Aplica a todos los tamaños) ===== */
 #beneficios {
-  background: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #f8fbff 20%, 
-    rgba(232, 244, 253, 0.8) 45%, 
-    rgba(208, 237, 252, 0.6) 70%, 
-    rgba(20, 104, 177, 0.08) 90%, 
+  background: linear-gradient(135deg,
+    #ffffff 0%,
+    #f8fbff 20%,
+    rgba(232, 244, 253, 0.8) 45%,
+    rgba(208, 237, 252, 0.6) 70%,
+    rgba(20, 104, 177, 0.08) 90%,
     rgba(18, 39, 75, 0.04) 100%
   );
   padding: 80px 0;
   position: relative;
+}
+
+#beneficios .container {
+  position: relative;
+  z-index: 2;
 }
 
 #beneficios::after {
@@ -12059,16 +12139,15 @@ div[id] {
 }
 
 /* --- BOTÓN FLOTANTE DE WHATSAPP --- */
-
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
-  right: 80px; 
+  right: 40px; 
   z-index: 1000;
-  width: 60px;
-  height: 60px;
+  width: 80px;  
+  height: 80px; 
   border-radius: 50%;
-  background-color: #25D366; /* Verde oficial de WhatsApp */
+  background-color: #25D366;
   box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
   display: flex;
   align-items: center;
@@ -12084,15 +12163,14 @@ div[id] {
   animation: none;
 }
 
-/* Ícono de WhatsApp en SVG */
 .whatsapp-float svg {
-  width: 32px;
-  height: 32px;
+  width: 80px;  
+  height: 80px; 
   fill: white;
   pointer-events: none;
 }
 
-/* Animación de pulsación */
+
 @keyframes whatsapp-pulse {
   0% {
     transform: scale(1);
@@ -12108,31 +12186,16 @@ div[id] {
   }
 }
 
-/* Responsive: Móviles */
+
 @media (max-width: 768px) {
   .whatsapp-float {
-    bottom: 90px;   
-    right: 20px;    
-    width: 50px;
-    height: 50px;
+    bottom: 90px;
+    right: 20px;   
+    width: 60px;    
+    height: 60px;
   }
   .whatsapp-float svg {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,8 +24,8 @@ const Choose2 = ({img1,img2,img3,subtitle,title,content,boximg1,boxtitle1,boxcon
                             <div className="col-xl-6">
                                 <div className="wcu-content">
                                     <div className="section-title">
-                                        <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                            {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                        {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                                            {/* {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                         </div>
                                         <h2 className="title wow fadeInUp" data-wow-delay=".4s">{title}</h2>
                                         <p className="text1 wow fadeInUp" data-wow-delay=".6s">{content}
@@ -55,8 +55,7 @@ const Choose2 = ({img1,img2,img3,subtitle,title,content,boximg1,boxtitle1,boxcon
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+     </section>
     );
 };
 

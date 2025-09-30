@@ -11,8 +11,8 @@ const Choose4 = () => {
                         <div className="col-xl-6">
                             <div className="wcu-content">
                                 <div className="section-title">
-                                    <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                        Customizations & Analysis <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                    {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s"> */}
+                                        {/* Customizations & Analysis <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                     </div>
                                     <h2 className="title wow fadeInUp" data-wow-delay=".4s">Manage your Traffic Growth
                                         Easily</h2>
@@ -85,7 +85,6 @@ const Choose4 = () => {
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     );
 };

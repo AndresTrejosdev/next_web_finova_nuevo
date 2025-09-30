@@ -14,7 +14,7 @@ const Choose1 = ({subtitle,title,content,FeatureList,FeatureList2,btnname,btnurl
                                     <div className="advantage-content">
                                         <div className="section-title wow fadeInUp" data-wow-delay=".2s">
                                             <div className="subtitle">
-                                                {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                                {/* {subtitle} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                             </div>
                                             <h2 className="title">{title}</h2>
                                             <p className="section-desc">{content}</p>

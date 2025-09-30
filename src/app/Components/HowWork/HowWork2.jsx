@@ -32,8 +32,8 @@ const HowWork2 = () => {
                     <div className="col-xl-4 order-2 order-xl-1">
                         <div className="wp-content style2">
                             <div className="section-title">
-                                <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
-                                    How It Works <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   />
+                                {/* <div className="subtitle wow fadeInUp" data-wow-delay=".2s">
+                                    {/* How It Works <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17}   /> */}
                                 </div>
                                 <h2 className="title wow fadeInUp" data-wow-delay=".4s">Work smarter with easy access for
                                     user..</h2>
@@ -68,7 +68,7 @@ const HowWork2 = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        
     </section>
     );
 };

@@ -19,7 +19,7 @@ const Footer = () => {
           
           <div className="col-xl-3 col-lg-3 col-md-6">
             <div className="single-footer-widget">
-              <h3 style={{ fontSize: '16px', marginBottom: '15px' }}>Servicios</h3>
+              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#ffffff'}}>Servicios</h3>
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 <li style={{ marginBottom: '8px' }}>Créditos personales</li>
                 <li style={{ marginBottom: '8px' }}>Asesoría financiera</li>
@@ -30,7 +30,7 @@ const Footer = () => {
           
           <div className="col-xl-3 col-lg-3 col-md-6">
             <div className="single-footer-widget">
-              <h3 style={{ fontSize: '16px', marginBottom: '15px' }}>Empresa</h3>
+              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#ffffff' }}>Empresa</h3>
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 <li style={{ marginBottom: '8px' }}>Términos y condiciones</li>
                 <li style={{ marginBottom: '8px' }}>Políticas de privacidad</li>
@@ -40,7 +40,7 @@ const Footer = () => {
           
           <div className="col-xl-3 col-lg-3 col-md-6">
             <div className="single-footer-widget">
-              <h3 style={{ fontSize: '16px', marginBottom: '15px' }}>Contacto</h3>
+              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#ffffff' }}>Contacto</h3>
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 <li style={{ marginBottom: '8px' }}>+57 3226962139</li>
                 <li style={{ marginBottom: '8px' }}>info@finova.com.co</li>

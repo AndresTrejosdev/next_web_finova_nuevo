@@ -25,9 +25,9 @@ const ServiceDetails = () => {
                         </div>
                     </div>
                     <div className="details-box1">
-                        <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s">
+                        {/* <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s">
                             Service Overview
-                        </h3>
+                        </h3> */}
                         <div className="row gy-3">
                             <div className="col-xl-7">
                                 <p className="text wow fadeInUp" data-wow-delay=".3s">Nam posuere mauris enim, quis pretium
@@ -47,9 +47,9 @@ const ServiceDetails = () => {
                         </div>
                     </div>
                     <div className="details-box2">
-                        <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s">
+                        {/* <h3 className="subtitle wow fadeInUp" data-wow-delay=".3s"> */}
                             Benefits With Our Service
-                        </h3>
+                        
                         <div className="row gy-3">
                             <div className="col-xl-6">
                                 <div className="feature-wrapper wow fadeInUp" data-wow-delay=".3s">
