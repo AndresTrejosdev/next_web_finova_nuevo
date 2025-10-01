@@ -10,7 +10,7 @@ export const finovaData = {
     { name: 'Beneficios', href: '#beneficios', isButton: false },
     { name: 'Nosotros', href: '#nosotros', isButton: false },
     { name: 'Preguntas frecuentes', href: '#preguntas-frecuentes', isButton: false },
-    { name: 'Contacto', href: '#contacto', isButton: false }, 
+    { name: 'Contacto', href: '/contact', isButton: false }, 
     { name: 'Registrarse', href: 'https://app.finova.com.co/auth/register', isButton: true },
     { name: 'Iniciar sesión', href: 'https://app.finova.com.co/auth/boxed-signin', isButton: true }
   ],
@@ -110,6 +110,10 @@ export const finovaData = {
     {
       question: "¿En cuánto tiempo desembolsan mi crédito?",
       answer: "En Finova recibes tu dinero en menos de 24 horas."
+    },
+    {
+      question: "¿En cuanto tiempo desembolsan mi crédito?",
+      answer: "En Finova recibes tu dinero en menos de 24 horas"
     }
   ],
 
@@ -120,7 +124,7 @@ export const finovaData = {
     title: "¿Listo para empezar?",
     subtitle: "Estamos aquí para ayudarte a hacer realidad tus proyectos",
     phone: "+57 322 696 2139",
-    email: "contacto@finova.com.co", // ← CORREGIDO (era info@)
+    email: "contacto@finova.com.co",
     address: "Calle 24 # 7-29, Oficina 613, Pereira, Risaralda, Colombia",
     whatsapp: "https://wa.me/573226962139",
     googleMaps: "https://maps.app.goo.gl/8vYx8KqHfZ8A9sJd9",

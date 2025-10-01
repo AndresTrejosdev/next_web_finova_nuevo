@@ -99,9 +99,8 @@ const CreditCalculator = () => {
               marginBottom: '24px'
             }}
           >
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 7H6C4.89543 7 4 7.89543 4 9V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V9C20 7.89543 19.1046 7 18 7H15M9 7V5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7M9 7H15M9 12H15M9 16H12" stroke="#1468B1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            
+
           </div>
           <h1 
             style={{ 

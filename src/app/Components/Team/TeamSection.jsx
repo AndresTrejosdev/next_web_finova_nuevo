@@ -1,12 +1,11 @@
-// Components/Team/TeamSection.jsx
 import React from 'react';
 
 export default function TeamSection() {
   const teamMembers = [
     {
       name: "Viviana",
-      role: "Analista de crédito.", // Reemplazar con el cargo real
-      image: "/assets/images/team/viviana.jpg" // Descargar del Google Drive
+      role: "Analista de crédito.",
+      image: "/assets/images/team/viviana.jpg" 
     },
     {
       name: "Melissa",
@@ -66,7 +65,7 @@ export default function TeamSection() {
         }}>
           {teamMembers.map((member, index) => (
             <div key={index} style={{
-              backgroundColor: '#fff',
+              backgroundColor: '#12274B',
               padding: '20px',
               borderRadius: '12px',
               boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
@@ -86,12 +85,12 @@ export default function TeamSection() {
               <h3 style={{
                 fontSize: '1.3rem',
                 fontWeight: '600',
-                color: '#12274B',
+                color: '#ffffff',
                 marginBottom: '5px'
               }}>
                 {member.name}
               </h3>
-              <p style={{ color: '#1468B1', fontSize: '0.95rem' }}>
+              <p style={{ color: '#a0c8f0', fontSize: '0.95rem' }}>
                 {member.role}
               </p>
             </div>
