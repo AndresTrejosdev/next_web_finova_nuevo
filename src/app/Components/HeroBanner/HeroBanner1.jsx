@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FinovaButton from '../Common/FinovaButton';
 
-const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusimg,cusnumber,cuscontent,rating,ratingcon,img}) => {
+const HeroBanner1 = ({subtitle, title, content, btnname, btnurl, btntwo, btn2url, cusimg, cusnumber, cuscontent, rating, ratingcon, img}) => {
     return (
         <section className="intro-section">
             <div className="intro-container-wrapper style1">
@@ -55,12 +55,56 @@ const HeroBanner1 = ({subtitle,title,content,btnname,btnurl,btntwo,btn2url,cusim
                                 </div>
                             </div>
 
-                            {/* Columna de la imagen - SE MANTIENE A LA DERECHA */}
+                            {/* Columna de la imagen - MEJORADA */}
                             <div className="col-xl-5 order-1 order-xl-2">
-                                <div className="intro-thumb">
-                                    <div className="thumbShape1"><Image src="/assets/images/shape/introThumbShape1_1.webp" alt="img" width={624} height={624} /></div>
-                                    <div className="thumbShape2"><Image src="/assets/images/shape/wcuThumbShape1_1.webp" alt="img" width={536} height={537} /></div>
-                                    <Image className="main-thumb img-custom-anim-right wow fadeInUp" src={img} alt="img" width={726} height={709} />
+                                <div className="intro-thumb" style={{
+                                    position: 'relative',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '40px 20px'
+                                }}>
+                                    {/* Círculo de fondo suave y redondeado */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        width: '520px',
+                                        height: '520px',
+                                        borderRadius: '50%',
+                                        background: 'radial-gradient(circle, rgba(20, 104, 177, 0.12) 0%, rgba(20, 104, 177, 0.06) 40%, transparent 70%)',
+                                        right: '-80px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        zIndex: 1,
+                                        filter: 'blur(30px)'
+                                    }} />
+                                    
+                                    {/* Contenedor con bordes redondeados para armonía */}
+                                    <div style={{
+                                        position: 'relative',
+                                        zIndex: 2,
+                                        borderRadius: '40px',
+                                        padding: '20px',
+                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                                        backdropFilter: 'blur(10px)',
+                                        boxShadow: '0 20px 60px rgba(20, 104, 177, 0.15)'
+                                    }}>
+                                        <Image 
+                                            className="main-thumb img-custom-anim-right wow fadeInUp" 
+                                            src={img} 
+                                            alt="Finova App" 
+                                            width={600} 
+                                            height={585}
+                                            style={{
+                                                width: '100%',
+                                                height: 'auto',
+                                                maxWidth: '450px',
+                                                transform: 'scale(0.95)',
+                                                borderRadius: '30px',
+                                                filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'
+                                            }}
+                                            priority
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

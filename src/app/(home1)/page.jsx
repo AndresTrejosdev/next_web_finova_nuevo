@@ -35,9 +35,7 @@ const page = () => {
       </div>
 
       {/* Página 4: BENEFICIOS */}
-      <div id="beneficios">
-        <BenefitsSection />
-      </div>
+      <BenefitsSection />
 
       {/* Página 5: NOSOTROS */}
       <div id="nosotros">

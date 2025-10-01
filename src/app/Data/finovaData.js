@@ -91,9 +91,9 @@ export const finovaData = {
     ]
   },
 
-  // ==================================================
-  // Preguntas frecuentes
-  // ==================================================
+  // // ==================================================
+  // // Preguntas frecuentes
+  // // ==================================================
   faq: [
     {
       question: "¿Debo pagar cuota inicial para solicitar un crédito?",
@@ -110,10 +110,6 @@ export const finovaData = {
     {
       question: "¿En cuánto tiempo desembolsan mi crédito?",
       answer: "En Finova recibes tu dinero en menos de 24 horas."
-    },
-    {
-      question: "¿En cuanto tiempo desembolsan mi crédito?",
-      answer: "En Finova recibes tu dinero en menos de 24 horas"
     }
   ],
 
