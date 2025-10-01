@@ -55,58 +55,60 @@ const HeroBanner1 = ({subtitle, title, content, btnname, btnurl, btntwo, btn2url
                                 </div>
                             </div>
 
-                            {/* Columna de la imagen - MEJORADA */}
+
+                          {/* Columna de la imagen - MEJORADA Y MÁS GRANDE */}
                             <div className="col-xl-5 order-1 order-xl-2">
                                 <div className="intro-thumb" style={{
                                     position: 'relative',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    padding: '40px 20px'
+                                    padding: '20px'
                                 }}>
-                                    {/* Círculo de fondo suave y redondeado */}
+                                    {/* Círculo de fondo suave */}
                                     <div style={{
                                         position: 'absolute',
-                                        width: '520px',
-                                        height: '520px',
+                                        width: '650px',
+                                        height: '650px',
                                         borderRadius: '50%',
-                                        background: 'radial-gradient(circle, rgba(20, 104, 177, 0.12) 0%, rgba(20, 104, 177, 0.06) 40%, transparent 70%)',
-                                        right: '-80px',
+                                        background: 'radial-gradient(circle, rgba(20, 104, 177, 0.15) 0%, rgba(20, 104, 177, 0.08) 40%, transparent 70%)',
+                                        right: '-100px',
                                         top: '50%',
                                         transform: 'translateY(-50%)',
                                         zIndex: 1,
-                                        filter: 'blur(30px)'
+                                        filter: 'blur(40px)'
                                     }} />
                                     
-                                    {/* Contenedor con bordes redondeados para armonía */}
+                                    {/* Contenedor con bordes redondeados */}
                                     <div style={{
                                         position: 'relative',
                                         zIndex: 2,
-                                        borderRadius: '40px',
-                                        padding: '20px',
-                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                                        borderRadius: '50px',
+                                        padding: '30px',
+                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
                                         backdropFilter: 'blur(10px)',
-                                        boxShadow: '0 20px 60px rgba(20, 104, 177, 0.15)'
+                                        boxShadow: '0 25px 70px rgba(20, 104, 177, 0.2)',
+                                        width: '100%',
+                                        maxWidth: '600px'
                                     }}>
                                         <Image 
                                             className="main-thumb img-custom-anim-right wow fadeInUp" 
                                             src={img} 
                                             alt="Finova App" 
-                                            width={600} 
-                                            height={585}
+                                            width={726} 
+                                            height={709}
                                             style={{
                                                 width: '100%',
                                                 height: 'auto',
-                                                maxWidth: '450px',
-                                                transform: 'scale(0.95)',
-                                                borderRadius: '30px',
-                                                filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'
+                                                borderRadius: '35px',
+                                                filter: 'drop-shadow(0 15px 40px rgba(0,0,0,0.15))'
                                             }}
                                             priority
                                         />
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
