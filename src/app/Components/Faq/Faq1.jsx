@@ -33,7 +33,6 @@ const Faq1 = () => {
       }
 
     return (
-        
         <section className="faq-section section-padding fix" id="preguntas-frecuentes">
             <div className="container">
                 <div className="faq-wrapper style1">

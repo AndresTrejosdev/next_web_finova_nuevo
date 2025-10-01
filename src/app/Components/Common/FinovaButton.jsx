@@ -62,7 +62,31 @@ const FinovaButton = ({
     navbar: {
       text: 'Solicitar Crédito',
       href: 'https://app.finova.com.co/auth/register',
-      showArrow: true,
+      showArrow: false,
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px',
+        padding: '12px 32px',
+        fontSize: '1rem',
+        fontWeight: '700',
+        fontFamily: "'Open Sans', sans-serif",
+        borderRadius: '50px',
+        backgroundColor: '#1468B1',
+        color: '#ffffff',
+        border: '2px solid #1468B1',
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
+        textDecoration: 'none',
+        textAlign: 'center',
+        minHeight: '48px'
+      }
+    },
+    navbarSolid: {
+      text: 'Iniciar sesión',
+      href: 'https://app.finova.com.co/auth/boxed-signin',
+      showArrow: false,
       style: {
         display: 'inline-flex',
         alignItems: 'center',
@@ -136,7 +160,7 @@ const FinovaButton = ({
       e.target.style.borderColor = '#12274B';
       e.target.style.transform = 'translateY(-2px)';
       e.target.style.boxShadow = '0 8px 24px rgba(18, 39, 75, 0.3)';
-    } else if (variant === 'navbar') {
+    } else if (['navbar', 'navbarSolid'].includes(variant)) {
       e.target.style.backgroundColor = '#12274B';
       e.target.style.borderColor = '#12274B';
       e.target.style.transform = 'translateY(-1px)';
@@ -158,7 +182,7 @@ const FinovaButton = ({
       e.target.style.borderColor = '#1468B1';
       e.target.style.transform = 'translateY(0)';
       e.target.style.boxShadow = '0 4px 12px rgba(20, 104, 177, 0.2)';
-    } else if (variant === 'navbar') {
+    } else if (['navbar', 'navbarSolid'].includes(variant)) {
       e.target.style.backgroundColor = '#1468B1';
       e.target.style.borderColor = '#1468B1';
       e.target.style.transform = 'translateY(0)';

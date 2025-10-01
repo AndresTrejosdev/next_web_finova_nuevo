@@ -1,16 +1,37 @@
 "use client"
-import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { finovaData } from '../../Data/finovaData';
 import FinovaButton from '../Common/FinovaButton';
 
 export default function Nav({ setMobileToggle }) {
-  const handleSmoothScroll = (e, href) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLinkClick = (e, href) => {
     e.preventDefault();
-    const targetId = href.substring(1);
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Si es un ancla (#)
+    if (href.startsWith('#')) {
+      // Si NO estamos en home, ir a home primero con el ancla
+      if (pathname !== '/') {
+        router.push(`/${href}`);
+      } else {
+        // Estamos en home, hacer scroll suave
+        const targetId = href.substring(1);
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn(`⚠️ No se encontró el elemento con id: "${targetId}"`);
+        }
+      }
+    } else {
+      // Es una ruta completa (como /contact)
+      router.push(href);
     }
+    
+    // Cerrar menú móvil
     if (setMobileToggle) setMobileToggle(false);
   };
 
@@ -20,31 +41,28 @@ export default function Nav({ setMobileToggle }) {
         .filter(item => !item.isButton)
         .map((item, index) => (
           <li key={index}>
-            {item.href.startsWith('#') ? (
-              <a
-                href={item.href}
-                onClick={(e) => handleSmoothScroll(e, item.href)}
-                style={{ color: '#12274B', cursor: 'pointer' }}
-              >
-                {item.name}
-              </a>
-            ) : (
-              <Link
-                href={item.href}
-                onClick={() => setMobileToggle && setMobileToggle(false)}
-                style={{ color: '#12274B' }}
-              >
-                {item.name}
-              </Link>
-            )}
+            <a
+              href={item.href}
+              onClick={(e) => handleLinkClick(e, item.href)}
+              style={{ 
+                color: '#12274B', 
+                cursor: 'pointer',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#1468B1'}
+              onMouseLeave={(e) => e.target.style.color = '#12274B'}
+            >
+              {item.name}
+            </a>
           </li>
         ))}
-      
+
       {/* Botones en móvil */}
       <li className="mobile-auth-buttons">
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
           gap: '12px',
           padding: '20px 0',
           borderTop: '1px solid rgba(18, 39, 75, 0.1)',
@@ -56,7 +74,7 @@ export default function Nav({ setMobileToggle }) {
             customText="Registrarse"
           />
           <FinovaButton
-            variant="outline"
+            variant="navbarSolid"
             location="navbar_mobile"
             customText="Iniciar sesión"
           />
@@ -75,7 +93,7 @@ export function NavButtons({ setMobileToggle }) {
         customText="Registrarse"
       />
       <FinovaButton
-        variant="outline"
+        variant="navbarSolid"
         location="navbar"
         customText="Iniciar sesión"
       />

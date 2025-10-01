@@ -11517,11 +11517,21 @@ textarea.is-invalid {
 html {
   scroll-behavior: smooth;
 }
-
-/* Compensar header */
+/* Offset para header fijo en secciones clave*/
+#inicio,
+#alianzas,
+#creditos,
+#beneficios,
+#nosotros,
+#preguntas-frecuentes {
+scroll-margin-top: 100px;
+}
+/*Offset genérico de respaldo para Otros IDs*/
 div[id] {
+
   scroll-margin-top: 80px;
 }
+
 
 /* Estilos para logos de alianzas */
 .brand-logo {
