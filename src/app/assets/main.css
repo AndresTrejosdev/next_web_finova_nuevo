@@ -12260,3 +12260,93 @@ div[id] {
     height: 32px;
   }
 }
+
+/* MODIFICACIONES DE LA IMAGEN DEL TELEFONO*/
+
+/* Hero Banner - Imagen más grande y responsive */
+.intro-thumb {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1400px) {
+  .intro-thumb > div:nth-of-type(2) {
+    max-width: 550px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .intro-thumb {
+    min-height: 500px;
+  }
+  
+  .intro-thumb > div:first-of-type {
+    width: 550px !important;
+    height: 550px !important;
+    right: -80px !important;
+  }
+  
+  .intro-thumb > div:nth-of-type(2) {
+    max-width: 480px !important;
+    padding: 25px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .intro-thumb {
+    min-height: 450px;
+    margin-top: 40px;
+  }
+  
+  .intro-thumb > div:first-of-type {
+    width: 480px !important;
+    height: 480px !important;
+    right: 50% !important;
+    transform: translate(50%, -50%) !important;
+  }
+  
+  .intro-thumb > div:nth-of-type(2) {
+    max-width: 420px !important;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-thumb {
+    min-height: 400px;
+  }
+  
+  .intro-thumb > div:first-of-type {
+    width: 400px !important;
+    height: 400px !important;
+  }
+  
+  .intro-thumb > div:nth-of-type(2) {
+    max-width: 360px !important;
+    padding: 20px !important;
+    border-radius: 35px !important;
+  }
+  
+  .intro-thumb img {
+    border-radius: 25px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .intro-thumb {
+    min-height: 350px;
+    padding: 10px !important;
+  }
+  
+  .intro-thumb > div:first-of-type {
+    width: 320px !important;
+    height: 320px !important;
+  }
+  
+  .intro-thumb > div:nth-of-type(2) {
+    max-width: 300px !important;
+    padding: 15px !important;
+  }
+}
