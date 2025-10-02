@@ -20,7 +20,7 @@ const page = () => {
           content="100% online, sin filas y con respaldo legal"
           btnname={finovaData.hero.ctaButton}
           btnurl={finovaData.hero.ctaLink}
-          img="/assets/images/imagenesfinova/.svg"
+           img="/assets/images/imagenesfinova/hero-finova.svg"
         />
       </div>
 
