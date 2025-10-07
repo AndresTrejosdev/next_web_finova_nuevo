@@ -119,6 +119,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
    
+        {/* Google Tag Manager */}
         <GoogleTagManager />
 
         {/* Meta Pixel */}
@@ -140,9 +141,29 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+
+        {/* Google Ads Tag */}
+        <Script
+          id="google-ads"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17534959511"
+        />
+        <Script
+          id="google-ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-17534959511');
+            `,
+          }}
+        />
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
       
+        {/* GTM noscript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-T7VPCJ6J"
@@ -151,7 +172,9 @@ export default function RootLayout({ children }) {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+
         {children}
+
         {/* Meta Pixel noscript */}
         <noscript>
           <img
