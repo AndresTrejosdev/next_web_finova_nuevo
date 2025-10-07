@@ -160,6 +160,30 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+        
+        {/* Google Ads Conversion Tracking */}
+        <Script
+          id="google-ads-conversion"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) != 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17534959511/Y24WCJLwyZUbEJf_qKlB',
+                    'value': 1.0,
+                    'currency': 'COP',
+                    'event_callback': callback
+                });
+                return false;
+              }
+            `,
+          }}
+        />
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
       
