@@ -121,69 +121,6 @@ export default function RootLayout({ children }) {
    
         {/* Google Tag Manager */}
         <GoogleTagManager />
-
-        {/* Meta Pixel */}
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '767787196141415');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-
-        {/* Google Ads Tag */}
-        <Script
-          id="google-ads"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17534959511"
-        />
-        <Script
-          id="google-ads-config"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-17534959511');
-            `,
-          }}
-        />
-        
-        {/* Google Ads Conversion Tracking */}
-        <Script
-          id="google-ads-conversion"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              function gtag_report_conversion(url) {
-                var callback = function () {
-                  if (typeof(url) != 'undefined') {
-                    window.location = url;
-                  }
-                };
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17534959511/Y24WCJLwyZUbEJf_qKlB',
-                    'value': 1.0,
-                    'currency': 'COP',
-                    'event_callback': callback
-                });
-                return false;
-              }
-            `,
-          }}
-        />
       </head>
       <body className={`${urbanist.variable} ${nunito.variable}`}>
       
@@ -198,6 +135,57 @@ export default function RootLayout({ children }) {
         </noscript>
 
         {children}
+
+        {/* Google Ads + GA4 - CARGA AL FINAL DEL BODY */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17534959511"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17534959511');
+            gtag('config', 'G-M5Z5EYF1ZZ');
+          `}
+        </Script>
+
+        {/* Google Ads Conversion */}
+        <Script id="gtag-conversion" strategy="afterInteractive">
+          {`
+            function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                'send_to': 'AW-17534959511/Y24WCJLwyZUbEJf_qKlB',
+                'value': 1.0,
+                'currency': 'COP',
+                'event_callback': callback
+              });
+              return false;
+            }
+          `}
+        </Script>
+
+        {/* Meta Pixel */}
+        <Script id="fb-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '767787196141415');
+            fbq('track', 'PageView');
+          `}
+        </Script>
 
         {/* Meta Pixel noscript */}
         <noscript>

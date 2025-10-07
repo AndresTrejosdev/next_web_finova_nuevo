@@ -12,15 +12,30 @@ export function useFinovaEvents() {
 
   // Función para trackear registro con conversión de Google Ads
   const trackRegistroGoogleAds = useCallback(() => {
+    if (typeof window === 'undefined') return;
+
+    // GTM/GA4
     FinovaEvents.register();
-    console.log('Evento de registro enviado a Google Analytics');
-    
-    // Disparar conversión de Google Ads
-    if (typeof window !== 'undefined' && typeof window.gtag_report_conversion === 'function') {
-      window.gtag_report_conversion();
-      console.log('Conversión de Google Ads enviada');
+    console.log('✅ Evento de registro enviado a GA4');
+
+    // Google Ads Conversion
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-17534959511/Y24WCJLwyZUbEJf_qKlB',
+        'value': 1.0,
+        'currency': 'COP'
+      });
+      console.log('✅ Conversión de Google Ads enviada');
     } else {
-      console.warn('gtag_report_conversion no está disponible');
+      console.warn('⚠️ gtag no está disponible aún');
+    }
+
+    // Meta Pixel
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'CompleteRegistration');
+      console.log('✅ Evento de registro enviado a Meta Pixel');
+    } else {
+      console.warn('⚠️ fbq no está disponible aún');
     }
   }, []);
 
