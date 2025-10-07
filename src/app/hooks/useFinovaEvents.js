@@ -56,7 +56,7 @@ export function useFinovaEvents() {
 
   return {
     trackRegister,
-    trackRegistroGoogleAds,  // ← NUEVA: Usa esta para el botón de registro
+    trackRegistroGoogleAds,
     trackLogin,
     trackSolicitarCredito,
     trackContact,
