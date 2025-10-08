@@ -1,10 +1,9 @@
 "use client";
 
 const WhatsAppButton = () => {
-  // REEMPLAZA ESTE NÚMERO CON EL NÚMERO REAL DE FINOVA
-  const phoneNumber = "573226962139"; // Número de Finova que ya tienes
+  const phoneNumber = "573226962139";
   const message = encodeURIComponent("Hola, estoy interesado en solicitar un crédito de libre inversión");
-
+  
   return (
     <a
       href={`https://wa.me/${phoneNumber}?text=${message}`}
@@ -20,6 +19,7 @@ const WhatsAppButton = () => {
         viewBox="0 0 60 60"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="whatsapp-icon"
       >
         <circle cx="30" cy="30" r="30" fill="#25D366" />
         <path

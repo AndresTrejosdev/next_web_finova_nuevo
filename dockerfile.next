@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 5122
 
 # 6. Comando de inicio
-CMD ["npm", "dev"]
+CMD ["npm", "run", "dev"]

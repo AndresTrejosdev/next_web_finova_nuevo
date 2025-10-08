@@ -11850,13 +11850,46 @@ div[id] {
   }
 }
 
-/* WhatsApp button responsive */
+/* WhatsApp y Zadarma buttons responsive */
 @media (max-width: 768px) {
   .whatsapp-float {
-    right: 20px !important;
-    bottom: 20px !important;
+    right: 15px !important;
+    bottom: 85px !important;
+    width: 55px !important;
+    height: 55px !important;
+  }
+  
+  .whatsapp-float svg {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  #zadarma-callback-widget,
+  .zadarma-widget-container,
+  [id*="zadarma"] {
+    bottom: 15px !important;
+    right: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float {
+    right: 10px !important;
+    bottom: 80px !important;
     width: 50px !important;
     height: 50px !important;
+  }
+  
+  .whatsapp-float svg {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  #zadarma-callback-widget,
+  .zadarma-widget-container,
+  [id*="zadarma"] {
+    bottom: 10px !important;
+    right: 10px !important;
   }
 }
 

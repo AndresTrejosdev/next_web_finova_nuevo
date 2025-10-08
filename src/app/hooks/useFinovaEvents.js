@@ -16,7 +16,7 @@ export function useFinovaEvents() {
 
     // GTM/GA4
     FinovaEvents.register();
-    console.log('✅ Evento de registro enviado a GA4');
+    console.log('Evento de registro enviado a GA4');
 
     // Google Ads Conversion
     if (typeof window.gtag === 'function') {
@@ -25,17 +25,17 @@ export function useFinovaEvents() {
         'value': 1.0,
         'currency': 'COP'
       });
-      console.log('✅ Conversión de Google Ads enviada');
+      console.log('Conversión de Google Ads enviada');
     } else {
-      console.warn('⚠️ gtag no está disponible aún');
+      console.warn('gtag no está disponible aún');
     }
 
     // Meta Pixel
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'CompleteRegistration');
-      console.log('✅ Evento de registro enviado a Meta Pixel');
+      console.log('Evento de registro enviado a Meta Pixel');
     } else {
-      console.warn('⚠️ fbq no está disponible aún');
+      console.warn('fbq no está disponible aún');
     }
   }, []);
 
