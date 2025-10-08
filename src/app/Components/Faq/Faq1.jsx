@@ -38,12 +38,12 @@ const Faq1 = () => {
                 <div className="faq-wrapper style1">
                     <div className="row gy-5 gy-xl-0 gx-60 d-flex align-items-center">
                         <div className="col-xl-6">
-                            <div className="faq-content style1">
+                            <div className={`faq-content style1 ${styles.faqContent}`}>
                                 <div className="section-title">
                                     <SectionTitle
                                         Title="Preguntas Frecuentes"
                                     ></SectionTitle>                                    
-                                    <p className="section-desc wow fadeInUp" data-wow-delay=".6s">{FaqContent.Content}</p>
+                                    <p className={`section-desc wow fadeInUp ${styles.faqDescription}`} data-wow-delay=".6s">{FaqContent.Content}</p>
                                 </div>
                                 <div className="faq-accordion">
                                     <div className="accordion" id="accordion">

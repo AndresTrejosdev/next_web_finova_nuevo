@@ -11,7 +11,7 @@ export default function BenefitsSection() {
     {
       id: 2,
       title: "Créditos en línea",
-      description: "Solo necesitas conexión a internet y anexar tus datos personales"
+      description: "Solo necesitas conexión a internet y anexar tus datos personales."
     },
     {
       id: 3,
