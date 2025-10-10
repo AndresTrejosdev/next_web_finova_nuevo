@@ -3,7 +3,7 @@ import HeroBanner1 from '../Components/HeroBanner/HeroBanner1';
 import { finovaData } from '../Data/finovaData';
 import Brand1 from '../Components/Brand/Brand1';
 import CreditCalculator from '../Components/Credit/CreditCalculator';
-import BenefitsSection from '@/app/Components/Benefits/BenefitsSection';
+import BenefitsSection from '../Components/Benefits/BenefitsSection';
 import TeamSection from '../Components/Team/TeamSection';
 import Faq1 from '../Components/Faq/Faq1';
 import ContactSection from '../Components/Contact/ContactSection';

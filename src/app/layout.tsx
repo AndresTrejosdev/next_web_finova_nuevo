@@ -7,6 +7,7 @@ import "./assets/main.css";
 import { GoogleTagManager } from './components/GoogleTagManager';
 import Script from 'next/script';
 import { ReactNode } from 'react';
+import PSEButton from './components/PSEButton';
 
 const urbanist = Urbanist({
   subsets: ['latin'],
@@ -253,6 +254,10 @@ export default function RootLayout({
             alt="Meta Pixel"
           />
         </noscript>
+
+        {/* Botón flotante PSE */}
+        <PSEButton />
+          
       </body>
     </html>
   );

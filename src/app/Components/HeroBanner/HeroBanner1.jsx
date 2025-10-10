@@ -2,6 +2,7 @@ import parse from 'html-react-parser';
 import Image from 'next/image';
 import Link from 'next/link';
 import FinovaButton from '../Common/FinovaButton';
+import styles from './HeroBanner1.module.css';
 
 const HeroBanner1 = ({subtitle, title, content, btnname, btnurl, btntwo, btn2url, cusimg, cusnumber, cuscontent, rating, ratingcon, img}) => {
     return (
@@ -65,31 +66,71 @@ const HeroBanner1 = ({subtitle, title, content, btnname, btnurl, btntwo, btn2url
                                     justifyContent: 'center',
                                     padding: '20px'
                                 }}>
-                                    {/* Círculo de fondo suave */}
+                                    {/* Shapes animados de fondo */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        width: '200px',
+                                        height: '200px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(20, 104, 177, 0.1)',
+                                        right: '-50px',
+                                        top: '20%',
+                                        zIndex: 1,
+                                        animation: 'float 6s ease-in-out infinite'
+                                    }} />
+                                    
+                                    <div style={{
+                                        position: 'absolute',
+                                        width: '150px',
+                                        height: '150px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(18, 39, 75, 0.08)',
+                                        left: '-30px',
+                                        top: '60%',
+                                        zIndex: 1,
+                                        animation: 'float 8s ease-in-out infinite reverse'
+                                    }} />
+                                    
+                                    <div style={{
+                                        position: 'absolute',
+                                        width: '100px',
+                                        height: '100px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(20, 104, 177, 0.15)',
+                                        right: '20%',
+                                        bottom: '10%',
+                                        zIndex: 1,
+                                        animation: 'pulse 4s ease-in-out infinite'
+                                    }} />
+                                    
+                                    {/* Círculo de fondo principal con transparencia */}
                                     <div style={{
                                         position: 'absolute',
                                         width: '650px',
                                         height: '650px',
                                         borderRadius: '50%',
-                                        background: 'radial-gradient(circle, rgba(20, 104, 177, 0.15) 0%, rgba(20, 104, 177, 0.08) 40%, transparent 70%)',
+                                        background: 'radial-gradient(circle, rgba(20, 104, 177, 0.12) 0%, rgba(20, 104, 177, 0.06) 40%, transparent 70%)',
                                         right: '-100px',
                                         top: '50%',
                                         transform: 'translateY(-50%)',
                                         zIndex: 1,
-                                        filter: 'blur(40px)'
+                                        filter: 'blur(60px)',
+                                        animation: 'breathe 10s ease-in-out infinite'
                                     }} />
                                     
-                                    {/* Contenedor con bordes redondeados */}
+                                    {/* Contenedor con bordes redondeados y efecto glassmorphism */}
                                     <div style={{
                                         position: 'relative',
                                         zIndex: 2,
                                         borderRadius: '50px',
                                         padding: '30px',
-                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
-                                        backdropFilter: 'blur(10px)',
-                                        boxShadow: '0 25px 70px rgba(20, 104, 177, 0.2)',
+                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 50%, rgba(20,104,177,0.05) 100%)',
+                                        backdropFilter: 'blur(20px)',
+                                        border: '1px solid rgba(255,255,255,0.2)',
+                                        boxShadow: '0 25px 70px rgba(20, 104, 177, 0.25), inset 0 1px 0 rgba(255,255,255,0.3)',
                                         width: '100%',
-                                        maxWidth: '600px'
+                                        maxWidth: '600px',
+                                        animation: 'cardFloat 12s ease-in-out infinite'
                                     }}>
                                         <Image 
                                             className="main-thumb img-custom-anim-right wow fadeInUp" 
