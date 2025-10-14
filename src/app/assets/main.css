@@ -12445,3 +12445,102 @@ div[id] {
     font-size: 1.8em !important;
   }
 }
+
+/* ========================================
+   ELIMINAR CONTRASTE DEL CONTENEDOR DE LA IMAGEN
+   ======================================== */
+
+/* Forzar que el contenedor tenga el mismo fondo que el sitio */
+.hero-section,
+.main-thumb-container,
+[class*="hero"] [class*="image"],
+.img-custom-anim-right {
+  background: #e8f4f8 !important; /* Ajusta este color al fondo real de tu sitio */
+  background: linear-gradient(180deg, #e8f4f8 0%, #d8eef6 100%) !important;
+}
+
+/* Eliminar TODOS los efectos visuales de la imagen */
+.main-thumb {
+  filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+/* Si hay un contenedor parent, también hazlo transparente */
+.main-thumb-container,
+.hero-image-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Contenedor con glassmorphism - eliminarlo */
+.intro-thumb > div[style*="background"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* SOLUCIÓN RÁPIDA - Eliminar todo contraste */
+.main-thumb,
+.img-custom-anim-right {
+  background: transparent !important;
+  filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Asegurar que el contenedor parent también sea transparente */
+.main-thumb-container,
+[class*="hero-"] > div {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Fondo uniforme en toda la sección hero */
+.hero-section,
+.intro-section,
+[class*="bg-"] {
+  background: #e8f4f8 !important;
+  background-image: none !important;
+}
+
+/* FUERZA BRUTA - Eliminar cualquier estilo inline del componente */
+.intro-thumb * {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Específico para el HeroBanner1 */
+.col-xl-5 .intro-thumb {
+  background: transparent !important;
+}
+
+.col-xl-5 .intro-thumb > div {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Si quieres mantener un efecto PERO muy sutil */
+.main-thumb.sutil {
+  filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.03)) !important;
+  border-radius: 25px !important;
+}

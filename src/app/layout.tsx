@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "slick-carousel/slick/slick.css";
 import "./assets/main.css";
-import { GoogleTagManager } from './components/GoogleTagManager';
+import { GoogleTagManager } from './Components/GoogleTagManager';
 import Script from 'next/script';
 import { ReactNode } from 'react';
-import PSEButton from './components/PSEButton';
+import FloatingButtons from './Components/FloatingButtons';
 
 const urbanist = Urbanist({
   subsets: ['latin'],
@@ -157,13 +157,8 @@ export default function RootLayout({
 
         {children}
 
-        {/* Botón Back to Top */}
-        <a
-          href="#"
-          className="back-to-top d-flex align-items-center justify-content-center"
-        >
-          <i className="bi bi-arrow-up-short"></i>
-        </a>
+        {/* Botones flotantes unificados */}
+        <FloatingButtons />
 
         {/* Widget de Zadarma */}
         <Script id="zadarma-callback" strategy="afterInteractive">
@@ -254,9 +249,6 @@ export default function RootLayout({
             alt="Meta Pixel"
           />
         </noscript>
-
-        {/* Botón flotante PSE */}
-        <PSEButton />
           
       </body>
     </html>
