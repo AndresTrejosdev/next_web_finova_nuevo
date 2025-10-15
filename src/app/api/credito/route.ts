@@ -1,60 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
+import axios from 'axios';
 
-// Tipos para la respuesta
-interface Credito {
-  prestamo_ID: string;
-  tipoCredito: string;
-  estado: 'EN CURSO' | 'JURIDICO' | 'VENCIDO';
-  pagoMinimo: number;
-  pagoTotal: number;
-  pagoEnMora: number;
-}
+const API_URL = process.env.NEXT_PUBLIC_API_URL?.trim() || 'https://app.finova.com.co';
 
-export async function POST(request: NextRequest) {
-  try {
-    const { userDocumento } = await request.json();
+export async function POST (request: NextRequest) {
 
-    // Validar cédula
-    if (!userDocumento || userDocumento.length < 6) {
-      return NextResponse.json(
-        { error: 'Número de cédula inválido' },
-        { status: 400 }
-      );
-    }
+    try {
 
-    // NOTA: Aquí debes implementar la lógica real de consulta a tu base de datos
-    // Por ahora retorno datos de ejemplo para que funcione
-    
-    const creditosEjemplo: Credito[] = [
+        const body = await request.json();
+        const { userDocumento } = body;
+
+        if (!userDocumento) {
+
+            return NextResponse.json(
+                {error: 'Cédula requerida'},
+                {status: 400}
+            );
+        }
+
+        const response = await axios.post(
+
+            `${API_URL}/api/credit/cuotasPendiente`,
+      { userDocumento },
       {
-        prestamo_ID: "FIN-2024-001",
-        tipoCredito: "Crédito Personal",
-        estado: "EN CURSO",
-        pagoMinimo: 150000,
-        pagoTotal: 850000,
-        pagoEnMora: 0
-      },
-      {
-        prestamo_ID: "FIN-2024-002", 
-        tipoCredito: "Crédito Vehicular",
-        estado: "JURIDICO",
-        pagoMinimo: 280000,
-        pagoTotal: 1200000,
-        pagoEnMora: 95000
+        headers: { 'Content-Type': 'application/json' },
+        timeout: 10000,
       }
-    ];
-
-    // Simular consulta a base de datos
-    // TODO: Reemplazar con consulta real a tu base de datos
-    const creditos = creditosEjemplo.filter(() => Math.random() > 0.3);
-
-    return NextResponse.json(creditos);
-
-  } catch (error) {
-    console.error('Error en API credito:', error);
-    return NextResponse.json(
-      { error: 'Error interno del servidor' },
-      { status: 500 }
     );
-  }
-}
+    return NextResponse.json(response.data);
+     } catch (error: any){
+        console.error('Error al consultar créditos:', error.message || error);
+
+        if (error.response){
+
+            return NextResponse.json(
+
+                {error: error.response.data?.error || 'Error desde el backend'},
+                {status: error.response.status || 500}
+            );
+        }
+        return NextResponse.json(
+
+            {error: 'Error al consultar créditos'},
+            {status: 500}
+
+        );
+
+        }
+    }

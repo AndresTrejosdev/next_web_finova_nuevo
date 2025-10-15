@@ -8,7 +8,7 @@ import TeamSection from '../Components/Team/TeamSection';
 import Faq1 from '../Components/Faq/Faq1';
 import ContactSection from '../Components/Contact/ContactSection';
 import WhatsAppButton from '../Components/WhatsAppButton/WhatsAppButton';
-
+import PSEButton from '../Components/PSEButton';
 const page = () => {
   return (
     <div>
@@ -49,6 +49,8 @@ const page = () => {
 
       {/* Botón flotante de WhatsApp */}
       <WhatsAppButton />
+      <PSEButton />
+
     </div>
   );
 };
