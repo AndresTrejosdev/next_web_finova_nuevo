@@ -7,7 +7,7 @@ import "./assets/main.css";
 import { GoogleTagManager } from './Components/GoogleTagManager';
 import Script from 'next/script';
 import { ReactNode } from 'react';
-import FloatingButtons from './Components/FloatingButtons';
+import FloatingButtons from './Components/Common/FloatingButtons';
 
 const urbanist = Urbanist({
   subsets: ['latin'],
