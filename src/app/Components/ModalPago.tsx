@@ -4,135 +4,135 @@ import { useState } from 'react';
 import axios from 'axios';
 import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
 
-interface ModalPagoProps {
-  credito: Credito;
-  onClose: () => void;
-}
+  interface ModalPagoProps {
+    credito: Credito;
+    onClose: () => void;
+  }
 
-export default function ModalPago({ credito, onClose }: ModalPagoProps) {
-  const [tipoPago, setTipoPago] = useState('pago_minimo');
-  const [otroValor, setOtroValor] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [metodoPago, setMetodoPago] = useState('pse');
-  const [error, setError] = useState<string | null>(null);
-  const [emailUsuario, setEmailUsuario] = useState(credito.email || '');
-  const [nombreUsuario, setNombreUsuario] = useState(credito.nombreCompleto || '');
+  export default function ModalPago({ credito, onClose }: ModalPagoProps) {
+    const [tipoPago, setTipoPago] = useState('pago_minimo');
+    const [otroValor, setOtroValor] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [metodoPago, setMetodoPago] = useState('pse');
+    const [error, setError] = useState<string | null>(null);
+    const [emailUsuario, setEmailUsuario] = useState(credito.email || '');
+    const [nombreUsuario, setNombreUsuario] = useState(credito.nombreCompleto || '');
 
-  const obtenerMonto = () => {
-    switch (tipoPago) {
-      case 'pago_minimo':
-        return credito.pagoMinimo;
-      case 'pago_total':
-        return credito.pagoTotal;
-      case 'pago_mora':
-        return credito.pagoEnMora;
-      case 'otro_valor':
-        return Number(otroValor);
-      default:
-        return 0;
-    }
-  };
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0
-    }).format(value);
-  };
-
-  const generarOrdenId = (): string => {
-    // Generación más robusta del ID de orden
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substr(2, 9);
-    return `FIN-${credito.prestamo_ID}-${timestamp}-${random}`;
-  };
-
-  const normalizarMetodoPago = (metodo: string): string => {
-    const metodoMap: Record<string, string> = {
-      pse: 'PSE',
-      nequi: 'NEQUI',
-      bancolombia: 'BANCOLOMBIA'
+    const obtenerMonto = () => {
+      switch (tipoPago) {
+        case 'pago_minimo':
+          return credito.pagoMinimo;
+        case 'pago_total':
+          return credito.pagoTotal;
+        case 'pago_mora':
+          return credito.pagoEnMora;
+        case 'otro_valor':
+          return Number(otroValor);
+        default:
+          return 0;
+      }
     };
-    return metodoMap[metodo] || 'PSE';
-  };
 
-  const validarFormulario = (): string | null => {
+    const formatCurrency = (value: number) => {
+      return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+      }).format(value);
+    };
+
+    const generarOrdenId = (): string => {
+      // Generación más robusta del ID de orden
+      const timestamp = Date.now();
+      const random = Math.random().toString(36).substr(2, 9);
+      return `FIN-${credito.prestamo_ID}-${timestamp}-${random}`;
+    };
+
+    const normalizarMetodoPago = (metodo: string): string => {
+      const metodoMap: Record<string, string> = {
+        pse: 'PSE',
+        nequi: 'NEQUI',
+        bancolombia: 'BANCOLOMBIA'
+      };
+      return metodoMap[metodo] || 'PSE';
+    };
+
+    const validarFormulario = (): string | null => {
+      const monto = obtenerMonto();
+      
+      if (monto < 1000) {
+        return 'El monto mínimo es de $1,000';
+      }
+
+      if (tipoPago === 'otro_valor' && (!otroValor || Number(otroValor) < 1000)) {
+        return 'Por favor ingresa un monto válido (mínimo $1,000)';
+      }
+
+      if (!nombreUsuario.trim()) {
+        return 'Por favor ingresa tu nombre completo';
+      }
+
+      if (!emailUsuario.trim()) {
+        return 'Por favor ingresa tu email';
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailUsuario)) {
+        return 'Por favor ingresa un email válido';
+      }
+
+      return null;
+    };
+
+    const handlePagar = async () => {
     const monto = obtenerMonto();
-    
+
     if (monto < 1000) {
-      return 'El monto mínimo es de $1,000';
+      alert('El monto mínimo es de $1,000');
+      return;
     }
 
-    if (tipoPago === 'otro_valor' && (!otroValor || Number(otroValor) < 1000)) {
-      return 'Por favor ingresa un monto válido (mínimo $1,000)';
-    }
-
-    if (!nombreUsuario.trim()) {
-      return 'Por favor ingresa tu nombre completo';
-    }
-
-    if (!emailUsuario.trim()) {
-      return 'Por favor ingresa tu email';
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailUsuario)) {
-      return 'Por favor ingresa un email válido';
-    }
-
-    return null;
-  };
-
-  const handlePagar = async () => {
-    setError(null);
-    
-    const errorValidacion = validarFormulario();
-    if (errorValidacion) {
-      setError(errorValidacion);
+    if (tipoPago === 'otro_valor' && !otroValor) {
+      alert('Por favor ingresa un monto');
       return;
     }
 
     setLoading(true);
 
     try {
-      const ordenId = generarOrdenId();
-      const monto = obtenerMonto();
+      const hoy = new Date();
+      const ordenId = `${credito.prestamo_ID}T${hoy.getMonth() + 1}${hoy.getDate()}${Math.floor(Math.random() * 1000)}`;
 
-      const requestData: PayValidaRequest = {
-        nombreCliente: nombreUsuario.trim(),
-        email: emailUsuario.trim(),
+      console.log('Iniciando pago con datos:', {
+        nombreCliente: credito.nombreCompleto,
+        email: credito.email,
+        amount: monto,
+        identification: credito.documento,
+        ordenId
+      });
+
+      const response = await axios.post('/api/payvalida', {
+        nombreCliente: credito.nombreCompleto || 'Cliente Finova',
+        email: credito.email || 'cliente@finova.com.co',
         amount: monto,
         identification: credito.documento,
         identificationType: 'CC',
-        metodoPago: normalizarMetodoPago(metodoPago),
+        metodoPago: metodoPago,
         ordenId: ordenId,
         prestamoId: credito.prestamo_ID
-      };
+      });
 
-      const response = await axios.post<PayValidaResponse>('/api/payvalida', requestData);
+      console.log('Respuesta de API:', response.data);
 
-      if (response.data.success && response.data.url) {
-        // Guardamos información del pago en localStorage para tracking
-        localStorage.setItem('ultimoPago', JSON.stringify({
-          ordenId,
-          prestamoId: credito.prestamo_ID,
-          monto,
-          fecha: new Date().toISOString()
-        }));
-
-        // Redirigir a PayValida
+      // Redirigir a PayValida
+      if (response.data.url) {
         window.location.href = response.data.url;
       } else {
-        setError(response.data.message || 'Error al procesar el pago');
+        throw new Error('No se recibió URL de pago');
       }
     } catch (error: any) {
       console.error('Error al procesar el pago:', error);
-      setError(
-        error.response?.data?.error || 
-        error.response?.data?.message || 
-        'Error de conexión. Por favor intenta nuevamente.'
-      );
+      alert(error.response?.data?.error || 'Error al procesar el pago. Por favor intenta de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -156,7 +156,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
           {/* Error global */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-r-lg">
-              <p className="text-red-800 text-sm font-medium">⚠️ {error}</p>
+              <p className="text-red-800 text-sm font-medium"> {error}</p>
             </div>
           )}
 
@@ -336,14 +336,14 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   Procesando...
                 </>
               ) : (
-                <>💳 Pagar con {normalizarMetodoPago(metodoPago)}</>
+                <>Pagar con {normalizarMetodoPago(metodoPago)}</>
               )}
             </button>
           </div>
 
           {/* Nota de seguridad */}
           <p className="text-xs text-gray-500 text-center mt-4">
-            🔒 Tu información está protegida. Serás redirigido a PayValida para completar el pago de forma segura.
+            Tu información está protegida. Serás redirigido a PayValida para completar el pago de forma segura.
           </p>
         </div>
       </div>

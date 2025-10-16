@@ -26,7 +26,7 @@ export default function ConsultaDeuda() {
     setError('');
 
     try {
-      const response = await axios.post('https://demo-server-user.finova.com.co/api/credit/cuotasPendiente', {
+      const response = await axios.post('panel.finova.com.co/api/menu/index', {
         "userDocumento": cedula
       });
 

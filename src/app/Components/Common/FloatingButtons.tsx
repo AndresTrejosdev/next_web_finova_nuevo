@@ -4,16 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 
 const FloatingButtons: React.FC = () => {
-
-  const handleBackToTop = (e: React.MouseEvent) => {
-
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
   return (
     <div
       style={{
@@ -27,7 +17,7 @@ const FloatingButtons: React.FC = () => {
         alignItems: 'flex-end',
       }}
     >
-      {/* Botón PSE - Redirige a consulta-deuda */}
+      {/* Botón PSE */}
       <Link
         href="/consulta-deuda"
         aria-label="Pagar con PSE"
@@ -62,7 +52,7 @@ const FloatingButtons: React.FC = () => {
 
       {/* Botón WhatsApp */}
       <a
-        href="https://wa.me/573226962139"
+        href="https://wa.me/573006009480"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp"
@@ -96,7 +86,6 @@ const FloatingButtons: React.FC = () => {
       {/* Botón Back to Top */}
       <a
         href="#"
-        onClick={handleBackToTop}
         aria-label="Volver arriba"
         title="Volver arriba"
         style={{
