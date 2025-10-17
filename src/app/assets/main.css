@@ -12544,3 +12544,657 @@ div[id] {
   filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.03)) !important;
   border-radius: 25px !important;
 }
+
+/* ============================================
+   FINOVA - CONSULTA DE DEUDA
+   ============================================ */
+
+/* Variables corporativas Finova */
+:root {
+  --finova-dark: #12274B;
+  --finova-primary: #1468B1;
+  --finova-medium: #2A7ABF;
+  --finova-light: #4C97D2;
+  --finova-pale: #D0EDFC;
+  --finova-radius: 20px;
+  --finova-shadow: 0 10px 30px rgba(18, 39, 75, 0.1);
+  --finova-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   PÁGINA DE CONSULTA
+   ============================================ */
+
+/* Contenedor principal con gradiente corporativo */
+.consulta-deuda-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--finova-pale) 0%, #ffffff 50%, var(--finova-pale) 100%);
+  padding: 4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Formas decorativas de fondo (según manual) */
+.consulta-deuda-container::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: var(--finova-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.consulta-deuda-container::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  background: var(--finova-medium);
+  opacity: 0.05;
+  border-radius: var(--finova-radius);
+  z-index: 0;
+}
+
+/* Tarjeta principal */
+.consulta-deuda-card {
+  background: white;
+  border-radius: var(--finova-radius);
+  box-shadow: var(--finova-shadow);
+  padding: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 2px solid var(--finova-pale);
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+}
+
+/* Título principal - Open Sans Bold */
+.consulta-deuda-title {
+  color: var(--finova-dark);
+  font-size: 2.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.consulta-deuda-subtitle {
+  color: var(--finova-medium);
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* ============================================
+   FORMULARIO DE BÚSQUEDA
+   ============================================ */
+
+.consulta-form-group {
+  margin-bottom: 2rem;
+}
+
+.consulta-label {
+  display: block;
+  color: var(--finova-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input de cédula - estilo corporativo */
+.consulta-input {
+  width: 100%;
+  padding: 1.25rem 1.75rem;
+  border: 2px solid var(--finova-light);
+  border-radius: var(--finova-radius);
+  font-size: 1.1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  transition: var(--finova-transition);
+  background: white;
+  color: var(--finova-dark);
+  box-shadow: 0 2px 8px rgba(18, 39, 75, 0.05);
+}
+
+.consulta-input:focus {
+  outline: none;
+  border-color: var(--finova-primary);
+  box-shadow: 0 0 0 4px rgba(20, 104, 177, 0.15);
+  transform: translateY(-1px);
+}
+
+.consulta-input::placeholder {
+  color: var(--finova-medium);
+  opacity: 0.6;
+}
+
+/* Contenedor de botón */
+.consulta-btn-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Botón consultar - gradiente corporativo */
+.consulta-btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--finova-primary) 0%, var(--finova-medium) 100%);
+  color: white;
+  padding: 1.25rem 3rem;
+  border-radius: var(--finova-radius);
+  border: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: var(--finova-transition);
+  box-shadow: 0 6px 20px rgba(20, 104, 177, 0.35);
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.consulta-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.consulta-btn-primary:hover::before {
+  left: 100%;
+}
+
+.consulta-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(20, 104, 177, 0.45);
+}
+
+.consulta-btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.consulta-btn-primary:disabled {
+  background: linear-gradient(135deg, var(--finova-light) 0%, #9fc5e8 100%);
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   TARJETAS DE CRÉDITO
+   ============================================ */
+
+.creditos-grid {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+}
+
+/* Tarjeta individual de crédito */
+.credito-card {
+  background: white;
+  border: 2px solid var(--finova-pale);
+  border-radius: var(--finova-radius);
+  padding: 2rem;
+  transition: var(--finova-transition);
+  box-shadow: 0 4px 15px rgba(18, 39, 75, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.credito-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--finova-primary), var(--finova-medium));
+  opacity: 0;
+  transition: var(--finova-transition);
+}
+
+.credito-card:hover {
+  border-color: var(--finova-primary);
+  box-shadow: 0 12px 35px rgba(18, 39, 75, 0.15);
+  transform: translateY(-6px);
+}
+
+.credito-card:hover::before {
+  opacity: 1;
+}
+
+/* Header de la tarjeta */
+.credito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--finova-pale);
+}
+
+.credito-info h3 {
+  color: var(--finova-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.credito-id {
+  color: var(--finova-medium);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Badges de estado - según manual */
+.credito-badge {
+  padding: 0.6rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.badge-en-curso {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.badge-juridico {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.badge-prejuridico {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.badge-cancelado {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+}
+
+.badge-finalizado {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+}
+
+/* Grid de montos - formas redondeadas del manual */
+.montos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.monto-box {
+  background: linear-gradient(135deg, var(--finova-pale) 0%, #ffffff 100%);
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(20, 104, 177, 0.15);
+  transition: var(--finova-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.monto-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--finova-primary) 0%, transparent 70%);
+  opacity: 0.03;
+  transition: var(--finova-transition);
+}
+
+.monto-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(20, 104, 177, 0.15);
+  border-color: var(--finova-primary);
+}
+
+.monto-box:hover::before {
+  opacity: 0.08;
+}
+
+.monto-label {
+  color: var(--finova-medium);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.monto-value {
+  color: var(--finova-dark);
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Colores específicos por tipo de monto */
+.monto-minimo .monto-value {
+  color: var(--finova-primary);
+}
+
+.monto-total .monto-value {
+  color: var(--finova-dark);
+}
+
+.monto-mora .monto-value {
+  color: #ef4444;
+}
+
+/* Botón Pagar con PSE - verde corporativo */
+.btn-pagar-pse {
+  width: 100%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 1.25rem;
+  border-radius: var(--finova-radius);
+  border: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: var(--finova-transition);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pagar-pse::before {
+  content: '💳';
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.btn-pagar-pse:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.45);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.btn-pagar-pse:active {
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   ESTADOS Y MENSAJES
+   ============================================ */
+
+/* Mensaje de error */
+.consulta-error {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border: 2px solid #fca5a5;
+  color: #991b1b;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--finova-radius);
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+/* Loading state */
+.consulta-loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-spinner {
+  border: 5px solid var(--finova-pale);
+  border-top: 5px solid var(--finova-primary);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: var(--finova-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Mensaje de sin resultados */
+.no-results {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--finova-medium);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-results-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--finova-dark);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .consulta-deuda-container {
+    padding: 2rem 1rem;
+  }
+
+  .consulta-deuda-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .consulta-deuda-title {
+    font-size: 2rem;
+  }
+
+  .consulta-deuda-subtitle {
+    font-size: 1rem;
+  }
+
+  .credito-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .montos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .consulta-btn-primary {
+    padding: 1.1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .consulta-deuda-title {
+    font-size: 1.65rem;
+  }
+
+  .consulta-input {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  .credito-card {
+    padding: 1.5rem;
+  }
+
+  .monto-value {
+    font-size: 1.4rem;
+  }
+}
+
+/* ============================================
+   ESTILOS TABLA DE AMORTIZACIÓN
+   ============================================ */
+
+/* Tabla de amortización simplificada */
+.tabla-amortizacion-container {
+  margin-top: 1.5rem;
+  border-top: 2px solid var(--finova-pale);
+  padding-top: 1.5rem;
+}
+
+.btn-ver-tabla {
+  width: 100%;
+  background: var(--finova-pale);
+  color: var(--finova-primary);
+  padding: 0.875rem;
+  border-radius: 12px;
+  border: 2px solid var(--finova-light);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--finova-transition);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.btn-ver-tabla:hover {
+  background: var(--finova-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.tabla-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 2px solid var(--finova-pale);
+}
+
+.tabla-amortizacion {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.tabla-amortizacion thead {
+  background: linear-gradient(135deg, var(--finova-dark) 0%, var(--finova-primary) 100%);
+  color: white;
+}
+
+.tabla-amortizacion th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.tabla-amortizacion td {
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid var(--finova-pale);
+}
+
+.tabla-amortizacion tbody tr:hover {
+  background: var(--finova-pale);
+}
+
+.fila-pagada {
+  background: #f0fdf4 !important;
+  opacity: 0.7;
+}
+
+.mora-activa {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.estado-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.estado-badge.pagada {
+  background: #10b981;
+  color: white;
+}
+
+.estado-badge.pendiente {
+  background: #f59e0b;
+  color: white;
+}
+
+.estado-badge.vencida {
+  background: #ef4444;
+  color: white;
+}
+
+.creditos-info-header {
+  background: var(--finova-pale);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--finova-light);
+  font-family: 'Open Sans', sans-serif;
+  color: var(--finova-dark);
+}
+
+.alerta-mora {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ============================================
+   FIN ESTILOS CONSULTA DE DEUDA
+   ============================================ */

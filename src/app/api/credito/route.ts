@@ -4,6 +4,7 @@ import axios from 'axios';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.finova.com.co';
 const PANEL_URL = process.env.NEXT_PUBLIC_PANEL_URL || 'https://panel.finova.com.co';
 
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

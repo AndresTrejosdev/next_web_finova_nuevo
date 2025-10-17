@@ -9,6 +9,15 @@ import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
     onClose: () => void;
   }
 
+  // Métodos de pago disponibles
+  const metodosPago = [
+    { value: 'pse', label: 'PSE', icon: '🏦' },
+    { value: 'nequi', label: 'Nequi', icon: '💜' },
+    { value: '.ref', label: 'Referenciado', icon: '📄' },
+    { value: 'daviplata', label: 'Daviplata', icon: '🔴' },
+    { value: 'bancolombia', label: 'Bancolombia', icon: '🟡' }
+  ];
+
   export default function ModalPago({ credito, onClose }: ModalPagoProps) {
     const [tipoPago, setTipoPago] = useState('pago_minimo');
     const [otroValor, setOtroValor] = useState('');
@@ -41,11 +50,35 @@ import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
       }).format(value);
     };
 
-    const generarOrdenId = (): string => {
-      // Generación más robusta del ID de orden
-      const timestamp = Date.now();
-      const random = Math.random().toString(36).substr(2, 9);
-      return `FIN-${credito.prestamo_ID}-${timestamp}-${random}`;
+    // Función para generar ordenId dinámico
+    const generarOrdenId = (prestamoId: number, metodoPago: string): string => {
+      const fecha = new Date();
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      
+      // Generar código único según método de pago
+      let codigoMetodo = '';
+      switch(metodoPago) {
+        case 'pse':
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+          break;
+        case 'nequi':
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+          break;
+        case '.ref':
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+          break;
+        case 'daviplata':
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+          break;
+        case 'bancolombia':
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+          break;
+        default:
+          codigoMetodo = Math.floor(Math.random() * 900000 + 100000).toString();
+      }
+      
+      return `${prestamoId}T${mes}${dia}${codigoMetodo}`;
     };
 
     const normalizarMetodoPago = (metodo: string): string => {
@@ -85,58 +118,56 @@ import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
     };
 
     const handlePagar = async () => {
-    const monto = obtenerMonto();
+      const monto = obtenerMonto();
 
-    if (monto < 1000) {
-      alert('El monto mínimo es de $1,000');
-      return;
-    }
-
-    if (tipoPago === 'otro_valor' && !otroValor) {
-      alert('Por favor ingresa un monto');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const hoy = new Date();
-      const ordenId = `${credito.prestamo_ID}T${hoy.getMonth() + 1}${hoy.getDate()}${Math.floor(Math.random() * 1000)}`;
-
-      console.log('Iniciando pago con datos:', {
-        nombreCliente: credito.nombreCompleto,
-        email: credito.email,
-        amount: monto,
-        identification: credito.documento,
-        ordenId
-      });
-
-      const response = await axios.post('/api/payvalida', {
-        nombreCliente: credito.nombreCompleto || 'Cliente Finova',
-        email: credito.email || 'cliente@finova.com.co',
-        amount: monto,
-        identification: credito.documento,
-        identificationType: 'CC',
-        metodoPago: metodoPago,
-        ordenId: ordenId,
-        prestamoId: credito.prestamo_ID
-      });
-
-      console.log('Respuesta de API:', response.data);
-
-      // Redirigir a PayValida
-      if (response.data.url) {
-        window.location.href = response.data.url;
-      } else {
-        throw new Error('No se recibió URL de pago');
+      if (monto < 1000) {
+        alert('El monto mínimo es de $1,000');
+        return;
       }
-    } catch (error: any) {
-      console.error('Error al procesar el pago:', error);
-      alert(error.response?.data?.error || 'Error al procesar el pago. Por favor intenta de nuevo.');
-    } finally {
-      setLoading(false);
-    }
-  };
+
+      if (tipoPago === 'otro_valor' && !otroValor) {
+        alert('Por favor ingresa un monto');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        // Generar ordenId dinámico basado en método de pago
+        const ordenId = generarOrdenId(credito.prestamo_ID, metodoPago);
+
+        console.log('🔵 Generando pago:', {
+          ordenId,
+          metodoPago,
+          monto,
+          prestamoId: credito.prestamo_ID
+        });
+
+        const response = await axios.post('/api/payvalida', {
+          nombreCliente: credito.nombreCompleto || 'Cliente Finova',
+          email: credito.email || 'cliente@finova.com.co',
+          amount: monto,
+          identification: credito.documento,
+          identificationType: 'CC',
+          metodoPago: metodoPago,
+          ordenId: ordenId,
+          prestamoId: credito.prestamo_ID
+        });
+
+        console.log('✅ Respuesta PayValida:', response.data);
+
+        if (response.data.url) {
+          window.location.href = response.data.url;
+        } else {
+          throw new Error('No se recibió URL de pago');
+        }
+      } catch (error: any) {
+        console.error('❌ Error al procesar el pago:', error);
+        alert(error.response?.data?.error || 'Error al procesar el pago. Intenta de nuevo.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -204,85 +235,61 @@ import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
             </label>
 
             <div className="space-y-3">
-              {credito.pagoMinimo > 0 && (
-                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <input
-                    type="radio"
-                    name="tipoPago"
-                    value="pago_minimo"
-                    checked={tipoPago === 'pago_minimo'}
-                    onChange={(e) => setTipoPago(e.target.value)}
-                    className="mr-3 text-blue-600"
-                  />
-                  <div className="flex-1">
-                    <span className="font-medium">Pago Mínimo</span>
-                    <span className="float-right text-blue-600 font-bold">
-                      {formatCurrency(credito.pagoMinimo)}
-                    </span>
-                  </div>
-                </label>
-              )}
+              {/* Pago Mínimo */}
+              <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <input
+                  type="radio"
+                  name="tipoPago"
+                  value="pago_minimo"
+                  checked={tipoPago === 'pago_minimo'}
+                  onChange={(e) => setTipoPago(e.target.value)}
+                  className="mr-3"
+                />
+                <div className="flex-1">
+                  <span className="font-medium">Pago Mínimo</span>
+                  <span className="float-right text-blue-600 font-bold">
+                    ${credito.pagoMinimo?.toLocaleString()}
+                  </span>
+                </div>
+              </label>
 
-              {credito.pagoTotal > 0 && (
-                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <input
-                    type="radio"
-                    name="tipoPago"
-                    value="pago_total"
-                    checked={tipoPago === 'pago_total'}
-                    onChange={(e) => setTipoPago(e.target.value)}
-                    className="mr-3 text-blue-600"
-                  />
-                  <div className="flex-1">
-                    <span className="font-medium">Pago Total</span>
-                    <span className="float-right text-green-600 font-bold">
-                      {formatCurrency(credito.pagoTotal)}
-                    </span>
-                  </div>
-                </label>
-              )}
+              {/* Pago Total */}
+              <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <input
+                  type="radio"
+                  name="tipoPago"
+                  value="pago_total"
+                  checked={tipoPago === 'pago_total'}
+                  onChange={(e) => setTipoPago(e.target.value)}
+                  className="mr-3"
+                />
+                <div className="flex-1">
+                  <span className="font-medium">Pago Total</span>
+                  <span className="float-right text-green-600 font-bold">
+                    ${credito.pagoTotal?.toLocaleString()}
+                  </span>
+                </div>
+              </label>
 
+              {/* Pago en Mora - SOLO si hay mora */}
               {credito.pagoEnMora > 0 && (
-                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
                     type="radio"
                     name="tipoPago"
                     value="pago_mora"
                     checked={tipoPago === 'pago_mora'}
                     onChange={(e) => setTipoPago(e.target.value)}
-                    className="mr-3 text-blue-600"
+                    className="mr-3"
                   />
                   <div className="flex-1">
                     <span className="font-medium">Pago en Mora</span>
                     <span className="float-right text-red-600 font-bold">
-                      {formatCurrency(credito.pagoEnMora)}
+                      ${credito.pagoEnMora?.toLocaleString()}
                     </span>
                   </div>
                 </label>
               )}
-
-              <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <input
-                  type="radio"
-                  name="tipoPago"
-                  value="otro_valor"
-                  checked={tipoPago === 'otro_valor'}
-                  onChange={(e) => setTipoPago(e.target.value)}
-                  className="mr-3 text-blue-600"
-                />
-                <div className="flex-1 flex items-center gap-2">
-                  <span className="font-medium">Otro valor:</span>
-                  <input
-                    type="number"
-                    value={otroValor}
-                    onChange={(e) => setOtroValor(e.target.value)}
-                    placeholder="Mínimo $1,000"
-                    disabled={tipoPago !== 'otro_valor'}
-                    className="flex-1 px-3 py-1 border rounded disabled:bg-gray-100 focus:ring-1 focus:ring-blue-500"
-                    min="1000"
-                  />
-                </div>
-              </label>
             </div>
           </div>
 
@@ -294,11 +301,13 @@ import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
             <select
               value={metodoPago}
               onChange={(e) => setMetodoPago(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="pse">PSE - Débito a Cuenta Corriente/Ahorros</option>
-              <option value="nequi">Nequi</option>
-              <option value="bancolombia">Bancolombia a la Mano</option>
+              {metodosPago.map((metodo) => (
+                <option key={metodo.value} value={metodo.value}>
+                  {metodo.icon} {metodo.label}
+                </option>
+              ))}
             </select>
           </div>
 
