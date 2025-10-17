@@ -2,22 +2,8 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import type { Credito } from '@/lib/types';
 import ModalPago from '../Components/ModalPago';
-
-interface Credito {
-  prestamo_ID: number;
-  tipoCredito: string;
-  estado: string;
-  pagoMinimo: number;
-  pagoTotal: number;
-  pagoEnMora: number;
-  documento: string;
-  nombreCompleto?: string;
-  email?: string;
-  telefono?: string;
-  ciudad?: string;
-  amortizacion?: any[];
-}
 
 export default function ConsultaDeuda() {
   const [cedula, setCedula] = useState('');
@@ -43,7 +29,6 @@ export default function ConsultaDeuda() {
         userDocumento: cedula
       });
 
-      // FILTRAR SOLO CRÉDITOS EN CURSO
       const creditosEnCurso = response.data.filter(
         (credito: Credito) => credito.estado === 'EN CURSO'
       );
@@ -86,7 +71,7 @@ export default function ConsultaDeuda() {
             type="text"
             value={cedula}
             onChange={(e) => setCedula(e.target.value.replace(/\D/g, ''))}
-            placeholder="Ejemplo: 1088282985"
+            placeholder="Ingrese su cédula"
             maxLength={15}
             onKeyPress={(e) => e.key === 'Enter' && handleConsultar()}
           />
@@ -134,26 +119,25 @@ export default function ConsultaDeuda() {
                 <div className="montos-grid">
                   <div className="monto-box monto-minimo">
                     <p className="monto-label">Pago Mínimo</p>
-                    <p className="monto-value">${credito.pagoMinimo?.toLocaleString()}</p>
+                    <p className="monto-value">${credito.pagoMinimo?.toLocaleString() || '0'}</p>
                   </div>
                   
                   <div className="monto-box monto-total">
                     <p className="monto-label">Pago Total</p>
-                    <p className="monto-value">${credito.pagoTotal?.toLocaleString()}</p>
+                    <p className="monto-value">${credito.pagoTotal?.toLocaleString() || '0'}</p>
                   </div>
 
                   {credito.pagoEnMora > 0 && (
                     <div className="monto-box monto-mora">
                       <p className="monto-label">Pago en Mora</p>
-                      <p className="monto-value">${credito.pagoEnMora?.toLocaleString()}</p>
+                      <p className="monto-value">${credito.pagoEnMora?.toLocaleString() || '0'}</p>
                       <div className="alerta-mora">
-                        ⚠️ Tienes pagos pendientes en mora
+                        Tienes pagos pendientes en mora
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Tabla de amortización simplificada */}
                 {credito.amortizacion && credito.amortizacion.length > 0 && (
                   <div className="tabla-amortizacion-container">
                     <button
@@ -178,17 +162,24 @@ export default function ConsultaDeuda() {
                           </thead>
                           <tbody>
                             {credito.amortizacion.map((cuota: any, index: number) => (
-                              <tr key={index} className={cuota.estado === 'PAGADA' ? 'fila-pagada' : ''}>
+                              <tr 
+                                key={`${credito.prestamo_ID}-${index}`} 
+                                className={cuota.estado === 'PAGADA' ? 'fila-pagada' : ''}
+                              >
                                 <td>{index + 1}</td>
-                                <td>{new Date(cuota.fecha).toLocaleDateString('es-CO')}</td>
-                                <td>${cuota.valorCuota?.toLocaleString()}</td>
-                                <td className={cuota.mora > 0 ? 'mora-activa' : ''}>
-                                  ${cuota.mora?.toLocaleString()}
+                                <td>
+                                  {cuota.fecha 
+                                    ? new Date(cuota.fecha).toLocaleDateString('es-CO')
+                                    : 'N/A'}
+                                </td>
+                                <td>${cuota.valorCuota?.toLocaleString() || '0'}</td>
+                                <td className={(cuota.mora || 0) > 0 ? 'mora-activa' : ''}>
+                                  ${cuota.mora?.toLocaleString() || '0'}
                                 </td>
                                 <td>${cuota.sancion?.toLocaleString() || '0'}</td>
                                 <td>
-                                  <span className={`estado-badge ${cuota.estado.toLowerCase()}`}>
-                                    {cuota.estado}
+                                  <span className={`estado-badge ${(cuota.estado || 'pendiente').toLowerCase()}`}>
+                                    {cuota.estado || 'PENDIENTE'}
                                   </span>
                                 </td>
                               </tr>
@@ -207,7 +198,7 @@ export default function ConsultaDeuda() {
                     setMostrarModal(true);
                   }}
                 >
-                  💳 Pagar Cuota
+                  Pagar Cuota
                 </button>
               </div>
             ))}
