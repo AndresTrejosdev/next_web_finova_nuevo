@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.finova.com.co';
-const PANEL_URL = process.env.NEXT_PUBLIC_PANEL_URL || 'https://panel.finova.com.co';
-
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -12,58 +8,97 @@ export async function POST(request: NextRequest) {
 
     if (!userDocumento) {
       return NextResponse.json(
-        { error: 'Cédula requerida' },
+        { error: 'Número de documento requerido' },
         { status: 400 }
       );
     }
 
-    // Llamar a ambos endpoints en paralelo
-    const [creditosResponse, userDataResponse] = await Promise.all([
-      // 1. Consultar créditos
-      axios.post(
-        `${API_URL}/api/credit/cuotasPendiente`,
-        { userDocumento: userDocumento },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          timeout: 10000
-        }
-      ),
-      // 2. Consultar datos del usuario
-      axios.post(
-        `${PANEL_URL}/api/menu/index`,
-        { userDocumento: parseInt(userDocumento) },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          timeout: 10000
-        }
-      )
-    ]);
+    // 1. Consultar créditos
+    const responseCreditos = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/credit/cuotasPendiente`,
+      { userDocumento },
+      {
+        headers: { 'Content-Type': 'application/json' },
+        timeout: 10000,
+      }
+    );
 
-    // Combinar respuestas
-    const creditos = creditosResponse.data;
-    const userData = userDataResponse.data;
+    // 2. Obtener datos del usuario (nombre, email)
+    const responseUsuario = await axios.post(
+      `${process.env.NEXT_PUBLIC_PANEL_URL}/api/menu/index`,
+      { userDocumento },
+      {
+        headers: { 'Content-Type': 'application/json' },
+        timeout: 10000,
+      }
+    );
 
-    // Agregar datos de usuario a cada crédito
-    const creditosEnriquecidos = Array.isArray(creditos) 
-      ? creditos.map(credito => ({
-          ...credito,
-          nombreCompleto: `${userData.nombre || ''} ${userData.apellido || ''}`.trim(),
-          email: userData.email || '',
-          telefono: userData.celular || '',
-          ciudad: userData.ciudad || ''
-        }))
-      : [];
+    const creditos = responseCreditos.data;
+    const datosUsuario = responseUsuario.data;
 
-    return NextResponse.json(creditosEnriquecidos);
+    // 3. Enriquecer cada crédito con datos del usuario y calcular mora correctamente
+    const creditosEnriquecidos = creditos.map((credito: any) => {
+      // CORRECCIÓN CRÍTICA: Calcular mora solo de cuotas VENCIDAS
+      const fechaHoy = new Date();
+      fechaHoy.setHours(0, 0, 0, 0);
+
+      let pagoEnMoraCorregido = 0;
+      
+      if (credito.amortizacion && Array.isArray(credito.amortizacion)) {
+        credito.amortizacion.forEach((cuota: any) => {
+          const fechaVencimiento = new Date(cuota.fecha);
+          fechaVencimiento.setHours(0, 0, 0, 0);
+
+          // Solo incluir si:
+          // 1. Está vencida (fecha <= hoy)
+          // 2. NO está pagada
+          // 3. Tiene mora > 0
+          if (
+            fechaVencimiento <= fechaHoy &&
+            cuota.estado !== 'PAGADA' &&
+            cuota.mora > 0
+          ) {
+            pagoEnMoraCorregido += cuota.mora + (cuota.sancion || 0);
+          }
+        });
+      }
+
+      return {
+        ...credito,
+        documento: userDocumento,
+        nombreCompleto: datosUsuario.nombre || 'Cliente Finova',
+        email: datosUsuario.email || 'cliente@finova.com.co',
+        telefono: datosUsuario.telefono || '',
+        ciudad: datosUsuario.ciudad || '',
+        // Sobrescribir con el cálculo correcto
+        pagoEnMora: pagoEnMoraCorregido,
+        // Agregar flag para identificar tipo de crédito
+        esAmortizacion: credito.tipoCredito?.toLowerCase().includes('amortizacion'),
+        esExpressCredito: credito.tipoCredito?.toLowerCase().includes('express')
+      };
+    });
+
+    // 4. Filtrar solo créditos EN CURSO
+    const creditosActivos = creditosEnriquecidos.filter(
+      (c: any) => c.estado === 'EN CURSO'
+    );
+
+    return NextResponse.json(creditosActivos);
 
   } catch (error: any) {
-    console.error('Error al consultar créditos:', error.message);
+    console.error('Error en API de crédito:', error.message);
     
-    // Retornar error detallado
+    if (error.code === 'ECONNABORTED') {
+      return NextResponse.json(
+        { error: 'Tiempo de espera agotado. Intenta nuevamente.' },
+        { status: 504 }
+      );
+    }
+
     return NextResponse.json(
       { 
         error: 'Error al consultar los créditos',
-        details: error.response?.data || error.message
+        details: error.response?.data || error.message 
       },
       { status: error.response?.status || 500 }
     );

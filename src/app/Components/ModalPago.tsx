@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import type { Credito, PayValidaRequest, PayValidaResponse } from '@/lib/types';
+import type { Credito } from '@/lib/types';
 
 interface ModalPagoProps {
   credito: Credito;
@@ -10,13 +10,17 @@ interface ModalPagoProps {
 }
 
 // Métodos de pago disponibles
-const metodosPago = [
-  { value: 'pse', label: 'PSE' },
-  { value: 'nequi', label: 'Nequi' },
-  { value: '.ref', label: 'Referenciado' },
-  { value: 'daviplata', label: 'Daviplata' },
-  { value: 'bancolombia', label: 'Bancolombia' }
+const metodosPagoBase = [
+  { value: 'pse', label: 'PSE', gopagos: false },
+  { value: 'nequi', label: 'Nequi', gopagos: false },
+  { value: '.ref', label: 'Referenciado', gopagos: false },
+  { value: 'daviplata', label: 'Daviplata', gopagos: false },
+  { value: 'bancolombia', label: 'Bancolombia', gopagos: false },
+  { value: 'puntored', label: 'PuntoRed', gopagos: true } // Solo GoPagos
 ];
+
+// Constantes
+const MONTO_MINIMO = 1000;
 
 export default function ModalPago({ credito, onClose }: ModalPagoProps) {
   const [tipoPago, setTipoPago] = useState('pago_minimo');
@@ -27,29 +31,45 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
   const [emailUsuario, setEmailUsuario] = useState(credito.email || '');
   const [nombreUsuario, setNombreUsuario] = useState(credito.nombreCompleto || '');
 
-  const obtenerMonto = () => {
+  // Determinar métodos disponibles según tipo de crédito
+  const metodosPagoDisponibles = credito.amortizacion 
+    ? metodosPagoBase // Todos los métodos incluyendo PuntoRed
+    : metodosPagoBase.filter(m => m.value !== 'puntored'); // Sin PuntoRed
+
+  /**
+   * Obtiene el monto a pagar según el tipo seleccionado
+   */
+  const obtenerMonto = (): number => {
     switch (tipoPago) {
       case 'pago_minimo':
-        return credito.pagoMinimo;
+        return credito.pagoMinimo || 0;
       case 'pago_total':
-        return credito.pagoTotal;
+        return credito.pagoTotal || 0;
       case 'pago_mora':
-        return credito.pagoEnMora;
+        return credito.pagoEnMora || 0;
       case 'otro_valor':
-        return Number(otroValor);
+        const valor = Number(otroValor);
+        return isNaN(valor) ? 0 : valor;
       default:
         return 0;
     }
   };
 
-  const formatCurrency = (value: number) => {
+  /**
+   * Formatea un número a formato de moneda colombiana
+   */
+  const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'COP',
-      minimumFractionDigits: 0
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     }).format(value);
   };
 
+  /**
+   * Genera un ID único para la orden de pago
+   */
   const generarOrdenId = (prestamoId: number, metodoPago: string): string => {
     const fecha = new Date();
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
@@ -58,32 +78,68 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
     return `${prestamoId}T${mes}${dia}${codigoMetodo}`;
   };
 
+  /**
+   * Normaliza el método de pago a su etiqueta legible
+   */
   const normalizarMetodoPago = (metodo: string): string => {
-    const metodoSeleccionado = metodosPago.find(m => m.value === metodo);
+    const metodoSeleccionado = metodosPagoDisponibles.find(m => m.value === metodo);
     return metodoSeleccionado?.label || 'PSE';
   };
 
+  /**
+   * Verifica si el método de pago es de GoPagos
+   */
+  const esMetodoGoPagos = (metodo: string): boolean => {
+    const metodoObj = metodosPagoDisponibles.find(m => m.value === metodo);
+    return metodoObj?.gopagos || false;
+  };
+
+  /**
+   * Valida los datos del formulario antes de procesar el pago
+   */
+  const validarFormulario = (monto: number): string | null => {
+    // Validar nombre
+    if (!nombreUsuario.trim()) {
+      return 'Por favor ingresa tu nombre completo';
+    }
+
+    if (nombreUsuario.trim().length < 3) {
+      return 'El nombre debe tener al menos 3 caracteres';
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailUsuario.trim() || !emailRegex.test(emailUsuario)) {
+      return 'Por favor ingresa un email válido';
+    }
+
+    // Validar monto
+    if (monto < MONTO_MINIMO) {
+      return `El monto mínimo es de ${formatCurrency(MONTO_MINIMO)}`;
+    }
+
+    // Validar otro valor si está seleccionado
+    if (tipoPago === 'otro_valor' && !otroValor) {
+      return 'Por favor ingresa un monto';
+    }
+
+    if (tipoPago === 'otro_valor' && isNaN(Number(otroValor))) {
+      return 'El monto ingresado no es válido';
+    }
+
+    return null;
+  };
+
+  /**
+   * Maneja el proceso de pago
+   */
   const handlePagar = async () => {
     const monto = obtenerMonto();
 
-    if (!nombreUsuario.trim()) {
-      setError('Por favor ingresa tu nombre completo');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailUsuario.trim() || !emailRegex.test(emailUsuario)) {
-      setError('Por favor ingresa un email válido');
-      return;
-    }
-
-    if (monto < 1000) {
-      setError('El monto mínimo es de $1,000');
-      return;
-    }
-
-    if (tipoPago === 'otro_valor' && !otroValor) {
-      setError('Por favor ingresa un monto');
+    // Validar formulario
+    const errorValidacion = validarFormulario(monto);
+    if (errorValidacion) {
+      setError(errorValidacion);
       return;
     }
 
@@ -92,45 +148,81 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
 
     try {
       const ordenId = generarOrdenId(credito.prestamo_ID, metodoPago);
+      const usaGoPagos = esMetodoGoPagos(metodoPago);
 
       console.log('🔵 Iniciando pago con datos:', {
         ordenId,
-        metodoPago,
-        monto,
+        metodoPago: normalizarMetodoPago(metodoPago),
+        monto: formatCurrency(monto),
         prestamoId: credito.prestamo_ID,
         nombre: nombreUsuario,
-        email: emailUsuario
+        email: emailUsuario,
+        documento: credito.documento,
+        gopagos: usaGoPagos,
+        tipoCredito: credito.tipoCredito
       });
 
-      const response = await axios.post('/api/payvalida', {
-        nombreCliente: nombreUsuario,
-        email: emailUsuario,
+      // Determinar endpoint según método de pago
+      const endpoint = usaGoPagos 
+        ? '/api/gopagos'    // Endpoint para PuntoRed → GoPagos
+        : '/api/payvalida'; // Endpoint para otros métodos → PayValida
+
+      const payload = {
+        nombreCliente: nombreUsuario.trim(),
+        email: emailUsuario.trim().toLowerCase(),
         amount: monto,
         identification: credito.documento,
         identificationType: 'CC',
         metodoPago: metodoPago,
         ordenId: ordenId,
-        prestamoId: credito.prestamo_ID
+        prestamoId: credito.prestamo_ID,
+        tipoPago: tipoPago
+      };
+
+      const response = await axios.post(endpoint, payload, {
+        timeout: 15000,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
       console.log('✅ Respuesta de API:', response.data);
 
       if (response.data.url) {
+        // Redirigir a la URL de pago
         window.location.href = response.data.url;
       } else {
-        throw new Error('No se recibió URL de pago');
+        throw new Error(`No se recibió URL de pago de ${usaGoPagos ? 'GoPagos' : 'PayValida'}`);
       }
     } catch (error: any) {
       console.error('❌ Error al procesar el pago:', error);
-      setError(error.response?.data?.error || 'Error al procesar el pago. Intenta de nuevo.');
+      
+      let mensajeError = 'Error al procesar el pago. Intenta de nuevo.';
+      
+      if (error.code === 'ECONNABORTED') {
+        mensajeError = 'Tiempo de espera agotado. Verifica tu conexión e intenta nuevamente.';
+      } else if (error.response?.data?.error) {
+        mensajeError = error.response.data.error;
+      } else if (error.message) {
+        mensajeError = error.message;
+      }
+      
+      setError(mensajeError);
     } finally {
       setLoading(false);
     }
   };
 
+  /**
+   * Determina si el botón de pago debe estar deshabilitado
+   */
+  const isPagarDisabled = (): boolean => {
+    return loading || obtenerMonto() < MONTO_MINIMO || !nombreUsuario.trim() || !emailUsuario.trim();
+  };
+
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         {/* Header del modal */}
         <div className="modal-header">
           <div className="modal-header-content">
@@ -143,6 +235,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
             onClick={onClose}
             className="modal-close-btn"
             aria-label="Cerrar modal"
+            disabled={loading}
           >
             ✕
           </button>
@@ -151,7 +244,8 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
         <div className="modal-body">
           {/* Error global */}
           {error && (
-            <div className="modal-error">
+            <div className="modal-error" role="alert">
+              <span>⚠️</span>
               <p>{error}</p>
             </div>
           )}
@@ -174,25 +268,35 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
             <h4 className="section-title">Información del Titular</h4>
             <div className="form-grid">
               <div className="form-group">
-                <label className="form-label">Nombre Completo *</label>
+                <label className="form-label" htmlFor="nombre">
+                  Nombre Completo *
+                </label>
                 <input
+                  id="nombre"
                   type="text"
                   value={nombreUsuario}
                   onChange={(e) => setNombreUsuario(e.target.value)}
                   placeholder="Ingresa tu nombre completo"
                   className="form-input"
                   required
+                  disabled={loading}
+                  autoComplete="name"
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Email *</label>
+                <label className="form-label" htmlFor="email">
+                  Email *
+                </label>
                 <input
+                  id="email"
                   type="email"
                   value={emailUsuario}
                   onChange={(e) => setEmailUsuario(e.target.value)}
                   placeholder="tu@email.com"
                   className="form-input"
                   required
+                  disabled={loading}
+                  autoComplete="email"
                 />
               </div>
             </div>
@@ -211,6 +315,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   checked={tipoPago === 'pago_minimo'}
                   onChange={(e) => setTipoPago(e.target.value)}
                   className="payment-radio"
+                  disabled={loading}
                 />
                 <div className="payment-option-content">
                   <div className="payment-option-info">
@@ -218,7 +323,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     <span className="payment-option-desc">Mantén tu crédito al día</span>
                   </div>
                   <span className="payment-option-amount">
-                    ${credito.pagoMinimo?.toLocaleString()}
+                    {formatCurrency(credito.pagoMinimo || 0)}
                   </span>
                 </div>
               </label>
@@ -232,6 +337,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   checked={tipoPago === 'pago_total'}
                   onChange={(e) => setTipoPago(e.target.value)}
                   className="payment-radio"
+                  disabled={loading}
                 />
                 <div className="payment-option-content">
                   <div className="payment-option-info">
@@ -239,12 +345,12 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     <span className="payment-option-desc">Liquida completamente</span>
                   </div>
                   <span className="payment-option-amount total">
-                    ${credito.pagoTotal?.toLocaleString()}
+                    {formatCurrency(credito.pagoTotal || 0)}
                   </span>
                 </div>
               </label>
 
-              {/* Pago en Mora */}
+              {/* Pago en Mora - SOLO si hay mora > 0 */}
               {credito.pagoEnMora > 0 && (
                 <label className={`payment-option mora ${tipoPago === 'pago_mora' ? 'active' : ''}`}>
                   <input
@@ -254,15 +360,49 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     checked={tipoPago === 'pago_mora'}
                     onChange={(e) => setTipoPago(e.target.value)}
                     className="payment-radio"
+                    disabled={loading}
                   />
                   <div className="payment-option-content">
                     <div className="payment-option-info">
-                      <span className="payment-option-label">Pago en Mora</span>
-                      <span className="payment-option-desc">Pago urgente</span>
+                      <span className="payment-option-label">Pago de Mora</span>
+                      <span className="payment-option-desc">Pago urgente - Solo cuotas vencidas</span>
                     </div>
                     <span className="payment-option-amount mora">
-                      ${credito.pagoEnMora?.toLocaleString()}
+                      {formatCurrency(credito.pagoEnMora)}
                     </span>
+                  </div>
+                </label>
+              )}
+
+              {/* Otro Valor - Solo para amortización */}
+              {credito.amortizacion && (
+                <label className={`payment-option ${tipoPago === 'otro_valor' ? 'active' : ''}`}>
+                  <input
+                    type="radio"
+                    name="tipoPago"
+                    value="otro_valor"
+                    checked={tipoPago === 'otro_valor'}
+                    onChange={(e) => setTipoPago(e.target.value)}
+                    className="payment-radio"
+                    disabled={loading}
+                  />
+                  <div className="payment-option-content">
+                    <div className="payment-option-info">
+                      <span className="payment-option-label">Otro Valor</span>
+                      <span className="payment-option-desc">Ingresa el monto que deseas pagar</span>
+                    </div>
+                    {tipoPago === 'otro_valor' && (
+                      <input
+                        type="number"
+                        value={otroValor}
+                        onChange={(e) => setOtroValor(e.target.value)}
+                        placeholder="Monto"
+                        className="form-input"
+                        min={MONTO_MINIMO}
+                        disabled={loading}
+                        style={{ maxWidth: '150px' }}
+                      />
+                    )}
                   </div>
                 </label>
               )}
@@ -273,10 +413,10 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
           <div className="form-section">
             <h4 className="section-title">Método de Pago</h4>
             <div className="payment-methods">
-              {metodosPago.map((metodo) => (
+              {metodosPagoDisponibles.map((metodo) => (
                 <label
                   key={metodo.value}
-                  className={`payment-method ${metodoPago === metodo.value ? 'active' : ''}`}
+                  className={`payment-method ${metodoPago === metodo.value ? 'active' : ''} ${metodo.gopagos ? 'gopagos' : ''}`}
                 >
                   <input
                     type="radio"
@@ -285,9 +425,13 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     checked={metodoPago === metodo.value}
                     onChange={(e) => setMetodoPago(e.target.value)}
                     className="payment-method-radio"
+                    disabled={loading}
                   />
                   <div className="payment-method-content">
                     <span className="payment-method-label">{metodo.label}</span>
+                    {metodo.gopagos && (
+                      <span className="payment-method-badge">GoPagos</span>
+                    )}
                   </div>
                 </label>
               ))}
@@ -305,7 +449,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                 <span>Método: {normalizarMetodoPago(metodoPago)}</span>
               </div>
               <div className="total-info-item">
-                <span>Monto mínimo: $1,000</span>
+                <span>Monto mínimo: {formatCurrency(MONTO_MINIMO)}</span>
               </div>
             </div>
           </div>
@@ -316,13 +460,15 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
               onClick={onClose}
               disabled={loading}
               className="btn-secondary"
+              type="button"
             >
               Cancelar
             </button>
             <button
               onClick={handlePagar}
-              disabled={loading || obtenerMonto() < 1000}
+              disabled={isPagarDisabled()}
               className="btn-primary"
+              type="button"
             >
               {loading ? (
                 <>
@@ -338,7 +484,9 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
           {/* Nota de seguridad */}
           <div className="security-note">
             <p>
-              Tu información está protegida. Serás redirigido a <strong>PayValida</strong> para completar el pago de forma segura.
+              🔒 Tu información está protegida. Serás redirigido a{' '}
+              <strong>{esMetodoGoPagos(metodoPago) ? 'GoPagos' : 'PayValida'}</strong>{' '}
+              para completar el pago de forma segura.
             </p>
           </div>
         </div>
