@@ -9,13 +9,13 @@ interface ModalPagoProps {
   onClose: () => void;
 }
 
-// Métodos de pago disponibles con iconos
+// Métodos de pago disponibles
 const metodosPago = [
-  { value: 'pse', label: 'PSE', icon: '🏦', color: '#1468B1' },
-  { value: 'nequi', label: 'Nequi', icon: '💜', color: '#8B2F97' },
-  { value: '.ref', label: 'Referenciado', icon: '📄', color: '#12274B' },
-  { value: 'daviplata', label: 'Daviplata', icon: '🔴', color: '#ED1C24' },
-  { value: 'bancolombia', label: 'Bancolombia', icon: '🟡', color: '#FDDA24' }
+  { value: 'pse', label: 'PSE' },
+  { value: 'nequi', label: 'Nequi' },
+  { value: '.ref', label: 'Referenciado' },
+  { value: 'daviplata', label: 'Daviplata' },
+  { value: 'bancolombia', label: 'Bancolombia' }
 ];
 
 export default function ModalPago({ credito, onClose }: ModalPagoProps) {
@@ -134,7 +134,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
         {/* Header del modal */}
         <div className="modal-header">
           <div className="modal-header-content">
-            <div className="modal-icon">💳</div>
             <div>
               <h2 className="modal-title">Realizar Pago</h2>
               <p className="modal-subtitle">Completa la información para procesar tu pago</p>
@@ -153,7 +152,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
           {/* Error global */}
           {error && (
             <div className="modal-error">
-              <span className="modal-error-icon">⚠️</span>
               <p>{error}</p>
             </div>
           )}
@@ -161,23 +159,19 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
           {/* Información del crédito */}
           <div className="credito-info-box">
             <div className="credito-info-header">
-              <span className="credito-info-icon">📋</span>
               <div>
                 <h3>{credito.tipoCredito}</h3>
                 <p>Préstamo #{credito.prestamo_ID}</p>
               </div>
             </div>
             <div className="credito-info-badge">
-              <span>CC: {credito.documento}</span>
+              <span>Documento: {credito.documento}</span>
             </div>
           </div>
 
           {/* Datos del usuario */}
           <div className="form-section">
-            <h4 className="section-title">
-              <span className="section-icon">👤</span>
-              Información del Titular
-            </h4>
+            <h4 className="section-title">Información del Titular</h4>
             <div className="form-grid">
               <div className="form-group">
                 <label className="form-label">Nombre Completo *</label>
@@ -206,10 +200,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
 
           {/* Tipo de pago */}
           <div className="form-section">
-            <h4 className="section-title">
-              <span className="section-icon">💰</span>
-              Selecciona el Tipo de Pago
-            </h4>
+            <h4 className="section-title">Selecciona el Tipo de Pago</h4>
             <div className="payment-options">
               {/* Pago Mínimo */}
               <label className={`payment-option ${tipoPago === 'pago_minimo' ? 'active' : ''}`}>
@@ -222,7 +213,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   className="payment-radio"
                 />
                 <div className="payment-option-content">
-                  <span className="payment-option-icon">💵</span>
                   <div className="payment-option-info">
                     <span className="payment-option-label">Pago Mínimo</span>
                     <span className="payment-option-desc">Mantén tu crédito al día</span>
@@ -244,7 +234,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   className="payment-radio"
                 />
                 <div className="payment-option-content">
-                  <span className="payment-option-icon">✅</span>
                   <div className="payment-option-info">
                     <span className="payment-option-label">Pago Total</span>
                     <span className="payment-option-desc">Liquida completamente</span>
@@ -267,7 +256,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     className="payment-radio"
                   />
                   <div className="payment-option-content">
-                    <span className="payment-option-icon">⚠️</span>
                     <div className="payment-option-info">
                       <span className="payment-option-label">Pago en Mora</span>
                       <span className="payment-option-desc">Pago urgente</span>
@@ -283,10 +271,7 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
 
           {/* Método de pago */}
           <div className="form-section">
-            <h4 className="section-title">
-              <span className="section-icon">🏦</span>
-              Método de Pago
-            </h4>
+            <h4 className="section-title">Método de Pago</h4>
             <div className="payment-methods">
               {metodosPago.map((metodo) => (
                 <label
@@ -302,7 +287,6 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                     className="payment-method-radio"
                   />
                   <div className="payment-method-content">
-                    <span className="payment-method-icon">{metodo.icon}</span>
                     <span className="payment-method-label">{metodo.label}</span>
                   </div>
                 </label>
@@ -318,11 +302,9 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
             </div>
             <div className="total-info">
               <div className="total-info-item">
-                <span className="total-info-icon">🏦</span>
                 <span>Método: {normalizarMetodoPago(metodoPago)}</span>
               </div>
               <div className="total-info-item">
-                <span className="total-info-icon">💵</span>
                 <span>Monto mínimo: $1,000</span>
               </div>
             </div>
@@ -348,17 +330,13 @@ export default function ModalPago({ credito, onClose }: ModalPagoProps) {
                   Procesando...
                 </>
               ) : (
-                <>
-                  <span>🔒</span>
-                  Pagar con {normalizarMetodoPago(metodoPago)}
-                </>
+                <>Pagar con {normalizarMetodoPago(metodoPago)}</>
               )}
             </button>
           </div>
 
           {/* Nota de seguridad */}
           <div className="security-note">
-            <span className="security-icon">🔒</span>
             <p>
               Tu información está protegida. Serás redirigido a <strong>PayValida</strong> para completar el pago de forma segura.
             </p>
