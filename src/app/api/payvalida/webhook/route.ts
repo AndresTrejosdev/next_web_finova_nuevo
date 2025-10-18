@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { validatePayValidaEnvVars } from '@/lib/env-validator';
 
 export async function POST(req: NextRequest) {
   try {
+    // 🚨 VALIDACIÓN CRÍTICA: Variables de entorno
+    validatePayValidaEnvVars();
+    
     const body = await req.json();
     
     console.log('Webhook PayValida recibido:', body);

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-
-const PAYVALIDA_API = process.env.NEXT_PUBLIC_PAYVALIDA_API || 'https://pago.finova.com.co';
+import { validatePayValidaEnvVars, getUrls } from '@/lib/env-validator';
+import { apiRequest } from '@/lib/api-retry';
 
 export async function POST(request: NextRequest) {
   try {
+    // 🚨 VALIDACIÓN CRÍTICA: Variables de entorno
+    validatePayValidaEnvVars();
+    const urls = getUrls();
+    
     const body = await request.json();
     const {
       nombreCliente,
@@ -47,9 +51,9 @@ export async function POST(request: NextRequest) {
       ordenId
     });
 
-    // Llamar a PayValida
-    const response = await axios.post(
-      `${PAYVALIDA_API}/generarLink`,
+    // Llamar a PayValida con reintentos automáticos
+    const response = await apiRequest.postPaymentData(
+      `${urls.payvalidaApi}/generarLink`,
       {
         nombreCliente,
         email,
@@ -58,12 +62,6 @@ export async function POST(request: NextRequest) {
         identificationType,
         metodoPago: metodoPago || 'pse',
         ordenId
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 15000
       }
     );
 

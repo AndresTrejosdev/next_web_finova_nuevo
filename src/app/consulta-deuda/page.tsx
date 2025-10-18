@@ -29,17 +29,57 @@ export default function ConsultaDeuda() {
         userDocumento: cedula
       });
 
-      const creditosEnCurso = response.data.filter(
-        (credito: Credito) => credito.estado === 'EN CURSO'
-      );
-
-      setCreditos(creditosEnCurso);
-      
-      if (creditosEnCurso.length === 0) {
-        setError('No se encontraron créditos activos (EN CURSO) para esta cédula');
+      // Manejar diferentes tipos de respuesta de la API
+      if (response.data.creditos !== undefined) {
+        // Respuesta con metadata (casos especiales)
+        const { creditos, error, message, metadata, creditosInactivos } = response.data;
+        
+        setCreditos(creditos);
+        
+        if (error === 'NO_CREDITS_FOUND') {
+          setError(`❌ ${message}`);
+        } else if (error === 'NO_ACTIVE_CREDITS') {
+          // Mensaje más informativo para créditos inactivos
+          let mensajeDetallado = `⚠️ ${message}`;
+          
+          if (creditosInactivos && creditosInactivos.length > 0) {
+            mensajeDetallado += '\n\nCréditos encontrados (inactivos):';
+            creditosInactivos.forEach((c: any) => {
+              mensajeDetallado += `\n• Préstamo #${c.prestamo_ID} - ${c.tipoCredito} (${c.estado})`;
+            });
+            mensajeDetallado += '\n\nPara más información sobre estos créditos, contacta a soporte.';
+          }
+          
+          setError(mensajeDetallado);
+        }
+        
+        console.log('📊 Metadata de consulta:', metadata);
+      } else {
+        // Respuesta directa con array de créditos (caso exitoso normal)
+        const creditosEnCurso = Array.isArray(response.data) 
+          ? response.data.filter((credito: Credito) => credito.estado === 'EN CURSO')
+          : [];
+        
+        setCreditos(creditosEnCurso);
+        
+        if (creditosEnCurso.length === 0) {
+          setError('No se encontraron créditos activos (EN CURSO) para esta cédula');
+        }
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Error al consultar los créditos');
+      console.error('❌ Error al consultar créditos:', err);
+      
+      // Manejo específico de errores de la API
+      if (err.response?.status === 404) {
+        setError('❌ No se encontraron créditos para este documento. Verifica que el número de cédula sea correcto.');
+      } else if (err.response?.status === 504) {
+        setError('⏱️ Tiempo de espera agotado. Los servicios están experimentando alta demanda. Intenta nuevamente en unos minutos.');
+      } else if (err.response?.status === 503) {
+        setError('🔌 Error de conectividad. Verifica tu conexión a internet e intenta nuevamente.');
+      } else {
+        const errorMessage = err.response?.data?.message || err.response?.data?.error || 'Error al consultar los créditos';
+        setError(`❌ ${errorMessage}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -78,7 +118,13 @@ export default function ConsultaDeuda() {
         </div>
 
         {error && (
-          <div className="consulta-error">{error}</div>
+          <div className="consulta-error">
+            {error.split('\n').map((linea, index) => (
+              <div key={index} style={{ marginBottom: index < error.split('\n').length - 1 ? '8px' : '0' }}>
+                {linea}
+              </div>
+            ))}
+          </div>
         )}
 
         <div className="consulta-btn-container">
