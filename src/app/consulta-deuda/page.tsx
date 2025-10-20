@@ -37,10 +37,10 @@ export default function ConsultaDeuda() {
         setCreditos(creditos);
         
         if (error === 'NO_CREDITS_FOUND') {
-          setError(`❌ ${message}`);
+          setError(` ${message}`);
         } else if (error === 'NO_ACTIVE_CREDITS') {
           // Mensaje más informativo para créditos inactivos
-          let mensajeDetallado = `⚠️ ${message}`;
+          let mensajeDetallado = ` ${message}`;
           
           if (creditosInactivos && creditosInactivos.length > 0) {
             mensajeDetallado += '\n\nCréditos encontrados (inactivos):';
@@ -53,7 +53,7 @@ export default function ConsultaDeuda() {
           setError(mensajeDetallado);
         }
         
-        console.log('📊 Metadata de consulta:', metadata);
+        console.log('Metadata de consulta:', metadata);
       } else {
         // Respuesta directa con array de créditos (caso exitoso normal)
         const creditosEnCurso = Array.isArray(response.data) 
@@ -67,18 +67,18 @@ export default function ConsultaDeuda() {
         }
       }
     } catch (err: any) {
-      console.error('❌ Error al consultar créditos:', err);
+      console.error(' Error al consultar créditos:', err);
       
       // Manejo específico de errores de la API
       if (err.response?.status === 404) {
-        setError('❌ No se encontraron créditos para este documento. Verifica que el número de cédula sea correcto.');
+        setError(' No se encontraron créditos para este documento. Verifica que el número de cédula sea correcto.');
       } else if (err.response?.status === 504) {
-        setError('⏱️ Tiempo de espera agotado. Los servicios están experimentando alta demanda. Intenta nuevamente en unos minutos.');
+        setError('Tiempo de espera agotado. Los servicios están experimentando alta demanda. Intenta nuevamente en unos minutos.');
       } else if (err.response?.status === 503) {
-        setError('🔌 Error de conectividad. Verifica tu conexión a internet e intenta nuevamente.');
+        setError(' Error de conectividad. Verifica tu conexión a internet e intenta nuevamente.');
       } else {
         const errorMessage = err.response?.data?.message || err.response?.data?.error || 'Error al consultar los créditos';
-        setError(`❌ ${errorMessage}`);
+        setError(` ${errorMessage}`);
       }
     } finally {
       setLoading(false);
