@@ -23,3 +23,5 @@ yarn-error.log*
 .vscode/
 .idea/
 CLAUDE.md
+.env.local
+.env*.local
