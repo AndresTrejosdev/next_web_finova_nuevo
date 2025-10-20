@@ -12716,7 +12716,7 @@ div[id] {
 
 .consulta-deuda-subtitle {
   color: var(--finova-medium);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   text-align: center;
   margin-bottom: 2.5rem;
@@ -13139,7 +13139,7 @@ div[id] {
   }
 
   .consulta-deuda-subtitle {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 
   .credito-header {
