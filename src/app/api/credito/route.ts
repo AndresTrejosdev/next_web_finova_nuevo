@@ -25,7 +25,7 @@ function parseFechaSafe(fecha: any): Date {
       }
     }
   } catch (error) {
-    console.error('⚠️ Error parseando fecha:', error);
+    console.error('Error parseando fecha:', error);
   }
   
   return new Date();
