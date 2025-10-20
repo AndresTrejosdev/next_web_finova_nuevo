@@ -147,7 +147,7 @@ export const finovaData = {
       { name: "Términos y condiciones", href: "/terminos" },
       { name: "Políticas de privacidad", href: "/privacidad" }
     ],
-    legalText: "Vigilado por la Superintendencia Financiera de Colombia"
+    legalText: "Vigilado por la Superintendencia de industria y comercio - SIC"
   },
 
   // ==================================================

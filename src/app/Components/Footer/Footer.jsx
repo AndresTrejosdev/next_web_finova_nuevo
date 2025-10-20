@@ -68,8 +68,8 @@ const Footer = () => {
             height={100}
             style={{ objectFit: 'contain' }}
           />
-          <p style={{ fontSize: '11px', color: '#ffffff', margin: 0 }}>
-            Vigilado por la Superintendencia Financiera de Colombia
+          <p style={{ fontSize: '12px', color: '#ffffff', margin: 0 }}>
+            Vigilado por la Superintendencia de industria y comercio - SIC
           </p>
         </div>
       </div>
