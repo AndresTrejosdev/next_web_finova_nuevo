@@ -27,58 +27,33 @@ export default function ConsultaDeuda() {
     try {
       const response = await axios.post('/api/credito', {
         userDocumento: cedula
+      }, {
+        timeout: 20000 // 20 segundos
       });
 
-      // Manejar diferentes tipos de respuesta de la API
-      if (response.data.creditos !== undefined) {
-        // Respuesta con metadata (casos especiales)
-        const { creditos, error, message, metadata, creditosInactivos } = response.data;
-        
-        setCreditos(creditos);
-        
-        if (error === 'NO_CREDITS_FOUND') {
-          setError(` ${message}`);
-        } else if (error === 'NO_ACTIVE_CREDITS') {
-          // Mensaje más informativo para créditos inactivos
-          let mensajeDetallado = ` ${message}`;
-          
-          if (creditosInactivos && creditosInactivos.length > 0) {
-            mensajeDetallado += '\n\nCréditos encontrados (inactivos):';
-            creditosInactivos.forEach((c: any) => {
-              mensajeDetallado += `\n• Préstamo #${c.prestamo_ID} - ${c.tipoCredito} (${c.estado})`;
-            });
-            mensajeDetallado += '\n\nPara más información sobre estos créditos, contacta a soporte.';
-          }
-          
-          setError(mensajeDetallado);
-        }
-        
-        console.log('Metadata de consulta:', metadata);
-      } else {
-        // Respuesta directa con array de créditos (caso exitoso normal)
-        const creditosEnCurso = Array.isArray(response.data) 
-          ? response.data.filter((credito: Credito) => credito.estado === 'EN CURSO')
-          : [];
-        
-        setCreditos(creditosEnCurso);
-        
-        if (creditosEnCurso.length === 0) {
-          setError('No se encontraron créditos activos (EN CURSO) para esta cédula');
-        }
+      const creditosEnCurso = response.data.filter(
+        (credito: Credito) => credito.estado === 'EN CURSO'
+      );
+
+      setCreditos(creditosEnCurso);
+      
+      if (creditosEnCurso.length === 0) {
+        setError('No se encontraron créditos activos para esta cédula');
       }
     } catch (err: any) {
-      console.error(' Error al consultar créditos:', err);
+      console.error('Error completo:', err);
       
-      // Manejo específico de errores de la API
-      if (err.response?.status === 404) {
-        setError(' No se encontraron créditos para este documento. Verifica que el número de cédula sea correcto.');
-      } else if (err.response?.status === 504) {
-        setError('Tiempo de espera agotado. Los servicios están experimentando alta demanda. Intenta nuevamente en unos minutos.');
+      // Mensajes de error más específicos
+      if (err.code === 'ECONNABORTED') {
+        setError('La consulta está tardando mucho. Por favor intenta nuevamente.');
+      } else if (err.response?.status === 404) {
+        setError('No se encontraron créditos para este documento.');
       } else if (err.response?.status === 503) {
-        setError(' Error de conectividad. Verifica tu conexión a internet e intenta nuevamente.');
+        setError('El sistema está temporalmente no disponible. Por favor intenta en unos momentos.');
+      } else if (err.response?.data?.error) {
+        setError(err.response.data.error);
       } else {
-        const errorMessage = err.response?.data?.message || err.response?.data?.error || 'Error al consultar los créditos';
-        setError(` ${errorMessage}`);
+        setError('Error al consultar los créditos. Por favor intenta nuevamente.');
       }
     } finally {
       setLoading(false);
@@ -188,7 +163,35 @@ export default function ConsultaDeuda() {
                   <div className="tabla-amortizacion-container">
                     <button
                       className="btn-ver-tabla"
-                      onClick={() => toggleTabla(credito.prestamo_ID)}
+                      onClick={() => {
+                        // DIAGNÓSTICO: Log detallado al mostrar tabla
+                        console.log(` [DIAGNÓSTICO] Mostrando tabla para crédito ${credito.prestamo_ID}`);
+                        console.log(` [DIAGNÓSTICO] Total cuotas en tabla:`, credito.amortizacion.length);
+                        console.log(` [DIAGNÓSTICO] Estructura completa de cuotas:`, credito.amortizacion);
+                        
+                        // Análisis de cada cuota
+                        credito.amortizacion.forEach((cuota: any, index: number) => {
+                          console.log(` [DIAGNÓSTICO] Cuota ${index + 1}:`, {
+                            camposDisponibles: Object.keys(cuota),
+                            fecha: cuota.fecha,
+                            fecha_vencimiento: cuota.fecha_vencimiento,
+                            fechaVencimiento: cuota.fechaVencimiento,
+                            valorCuota: cuota.valorCuota,
+                            monto: cuota.monto,
+                            montoCuota: cuota.montoCuota,
+                            mora: cuota.mora,
+                            interes: cuota.interes,
+                            interesMoratorio: cuota.interesMoratorio,
+                            sancion: cuota.sancion,
+                            multa: cuota.multa,
+                            estado: cuota.estado,
+                            state: cuota.state,
+                            status: cuota.status
+                          });
+                        });
+                        
+                        toggleTabla(credito.prestamo_ID);
+                      }}
                     >
                       {tablaVisible[credito.prestamo_ID] ? '▼ Ocultar' : '▶ Ver'} Detalle de Cuotas
                     </button>
