@@ -62,14 +62,14 @@ const Footer = () => {
           flexWrap: 'wrap'
         }}>
           <Image 
-            src="/assets/images/logo/superfinanciera.png" 
-            alt="Superintendencia Financiera de Colombia" 
+            src="/assets/images/logo/superintendencia.png" 
+            alt="Superintendencia de industria y comercio - SIC" 
             width={100} 
             height={100}
             style={{ objectFit: 'contain' }}
           />
           <p style={{ fontSize: '12px', color: '#ffffff', margin: 0 }}>
-            Vigilado por la Superintendencia de industria y comercio - SIC
+            Vigilado por la Superintendencia de industria y Comercio - SIC
           </p>
         </div>
       </div>
