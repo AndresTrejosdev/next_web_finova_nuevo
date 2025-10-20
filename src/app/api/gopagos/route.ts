@@ -12,7 +12,7 @@ import {
 
 export async function POST(request: NextRequest) {
   try {
-    // 🚨 VALIDACIÓN CRÍTICA: Variables de entorno
+    // VALIDACIÓN CRÍTICA: Variables de entorno
     validateEnvironment();
     validateGoPageEnvVars();
     const urls = getUrls();
