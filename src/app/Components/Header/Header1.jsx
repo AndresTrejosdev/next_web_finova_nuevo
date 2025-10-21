@@ -49,8 +49,9 @@ export default function Header1({ variant }) {
                   <Image
                     src="/assets/images/logo/logo.svg"
                     alt="img"
-                    width={190}
-                    height={90}
+                    width={250}
+                    height={120}
+                    className="logo-responsive"
                   />
                 </Link>
               </div>

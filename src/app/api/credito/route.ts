@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
         axiosConfig
       );
 
-      console.log('📊 [DIAGNÓSTICO] Respuesta del backend:', {
+      console.log('[DIAGNÓSTICO] Respuesta del backend:', {
         status: responseCreditos.status,
         hasData: !!responseCreditos.data,
         dataType: typeof responseCreditos.data,
@@ -77,14 +77,14 @@ export async function POST(request: NextRequest) {
 
       // Si el backend retorna error, manejarlo
       if (responseCreditos.status >= 400) {
-        console.error('❌ Backend retornó error:', responseCreditos.status, responseCreditos.data);
+        console.error(' Backend retornó error:', responseCreditos.status, responseCreditos.data);
         return NextResponse.json(
           { error: 'Error al consultar créditos en el sistema', details: responseCreditos.data },
           { status: responseCreditos.status }
         );
       }
     } catch (error: any) {
-      console.error('❌ Error en consulta de créditos:', error.message);
+      console.error(' Error en consulta de créditos:', error.message);
       return NextResponse.json(
         { error: 'No se pudo conectar con el servidor de créditos', details: error.message },
         { status: 503 }
@@ -101,18 +101,18 @@ export async function POST(request: NextRequest) {
       );
 
       if (responseUsuario.status >= 400) {
-        console.warn('⚠️ No se pudo obtener datos del usuario, usando defaults');
+        console.warn(' No se pudo obtener datos del usuario, usando defaults');
         responseUsuario = { data: {} };
       }
     } catch (error) {
-      console.warn('⚠️ Error al consultar usuario, continuando con defaults');
+      console.warn(' Error al consultar usuario, continuando con defaults');
       responseUsuario = { data: {} };
     }
 
     const creditos = Array.isArray(responseCreditos.data) ? responseCreditos.data : [];
     const datosUsuario = responseUsuario.data || {};
 
-    console.log(`📊 [DIAGNÓSTICO] Datos recibidos:`, {
+    console.log(` [DIAGNÓSTICO] Datos recibidos:`, {
       creditosCount: creditos.length,
       hasUsuario: !!datosUsuario.nombre,
       primerosCreditos: creditos.slice(0, 2).map(c => ({
@@ -129,24 +129,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`📊 Procesando ${creditos.length} créditos`);
+    console.log(`Procesando ${creditos.length} créditos`);
 
     // Procesar créditos con protección contra errores
     const creditosProcesados = creditos.map((credito: any, index: number) => {
       try {
         // Validación básica
         if (!credito || typeof credito !== 'object') {
-          console.warn(`⚠️ Crédito ${index} inválido`);
+          console.warn(` Crédito ${index} inválido`);
           return null;
         }
 
         const prestamoId = credito.prestamo_ID || credito.prestamoId || credito.id;
         if (!prestamoId) {
-          console.warn(`⚠️ Crédito ${index} sin ID`);
+          console.warn(` Crédito ${index} sin ID`);
           return null;
         }
 
-        console.log(`🔍 [DIAGNÓSTICO] Procesando crédito ${prestamoId}:`, {
+        console.log(` [DIAGNÓSTICO] Procesando crédito ${prestamoId}:`, {
           camposDisponibles: Object.keys(credito),
           tipoCredito: credito.tipoCredito,
           estado: credito.estado
@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
             || credito.schedule
             || [];
 
-          console.log(`🔍 [DIAGNÓSTICO] Amortización encontrada en ${prestamoId}:`, {
+          console.log(` [DIAGNÓSTICO] Amortización encontrada en ${prestamoId}:`, {
             campo: credito.amortizacion ? 'amortizacion' : 
                    credito.cuotas ? 'cuotas' :
                    credito.pagos ? 'pagos' : 
@@ -186,20 +186,20 @@ export async function POST(request: NextRequest) {
           if (typeof amortizacion === 'string') {
             try {
               amortizacion = JSON.parse(amortizacion);
-              console.log(`✅ JSON parseado exitosamente para ${prestamoId}`);
+              console.log(` JSON parseado exitosamente para ${prestamoId}`);
             } catch (e) {
-              console.warn(`⚠️ No se pudo parsear JSON para ${prestamoId}`);
+              console.warn(` No se pudo parsear JSON para ${prestamoId}`);
               amortizacion = [];
             }
           }
 
           // Asegurar que sea array
           if (!Array.isArray(amortizacion)) {
-            console.warn(`⚠️ Amortización no es array para ${prestamoId}, convirtiendo`);
+            console.warn(` Amortización no es array para ${prestamoId}, convirtiendo`);
             amortizacion = [];
           }
         } catch (error) {
-          console.error(`⚠️ Error procesando amortización de crédito ${prestamoId}:`, error);
+          console.error(` Error procesando amortización de crédito ${prestamoId}:`, error);
           amortizacion = [];
         }
 
@@ -207,7 +207,7 @@ export async function POST(request: NextRequest) {
         const amortizacionNormalizada = amortizacion.map((cuota: any, idx: number) => {
           try {
             if (!cuota || typeof cuota !== 'object') {
-              console.warn(`⚠️ Cuota ${idx} inválida en ${prestamoId}`);
+              console.warn(` Cuota ${idx} inválida en ${prestamoId}`);
               return {
                 numeroCuota: idx + 1,
                 fecha: new Date().toISOString(),
@@ -260,7 +260,7 @@ export async function POST(request: NextRequest) {
             // Normalizar estado
             let estado = String(cuota.estado || cuota.status || cuota.state || 'PENDIENTE').toUpperCase();
 
-            console.log(`🔍 [DIAGNÓSTICO] Cuota ${idx} normalizada para ${prestamoId}:`, {
+            console.log(` [DIAGNÓSTICO] Cuota ${idx} normalizada para ${prestamoId}:`, {
               fecha: fechaNormalizada,
               valorCuota,
               mora,
@@ -277,7 +277,7 @@ export async function POST(request: NextRequest) {
               estado
             };
           } catch (error) {
-            console.error(`⚠️ Error normalizando cuota ${idx} en ${prestamoId}:`, error);
+            console.error(` Error normalizando cuota ${idx} en ${prestamoId}:`, error);
             return {
               numeroCuota: idx + 1,
               fecha: new Date().toISOString(),
@@ -308,7 +308,7 @@ export async function POST(request: NextRequest) {
             }
           });
         } catch (error) {
-          console.error('⚠️ Error calculando mora:', error);
+          console.error(' Error calculando mora:', error);
         }
 
         // Retornar crédito procesado con valores seguros
@@ -329,7 +329,7 @@ export async function POST(request: NextRequest) {
           esExpressCredito: String(credito.tipoCredito || '').toLowerCase().includes('express')
         };
 
-        console.log(`✅ [DIAGNÓSTICO] Crédito ${prestamoId} procesado:`, {
+        console.log(` [DIAGNÓSTICO] Crédito ${prestamoId} procesado:`, {
           pagoMinimo: creditoProcesado.pagoMinimo,
           pagoTotal: creditoProcesado.pagoTotal,
           pagoEnMora: creditoProcesado.pagoEnMora,
@@ -338,7 +338,7 @@ export async function POST(request: NextRequest) {
 
         return creditoProcesado;
       } catch (error: any) {
-        console.error(`❌ Error procesando crédito ${index}:`, error.message);
+        console.error(` Error procesando crédito ${index}:`, error.message);
         return null;
       }
     }).filter(Boolean); // Eliminar nulls
@@ -348,12 +348,12 @@ export async function POST(request: NextRequest) {
       (c: any) => c && c.estado === 'EN CURSO'
     );
 
-    console.log(`✅ Resultado final: ${creditosActivos.length} créditos activos de ${creditos.length} totales`);
+    console.log(`Resultado final: ${creditosActivos.length} créditos activos de ${creditos.length} totales`);
 
     return NextResponse.json(creditosActivos);
 
   } catch (error: any) {
-    console.error('❌ Error crítico en API:', error);
+    console.error(' Error crítico en API:', error);
     
     return NextResponse.json(
       { 

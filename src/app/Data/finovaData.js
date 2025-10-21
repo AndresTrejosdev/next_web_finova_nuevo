@@ -19,7 +19,7 @@ export const finovaData = {
   // Sección Hero
   // ==================================================
   hero: {
-    title: "Créditos de libre inversión",
+    title: "Créditos De Libre Inversión",
     subtitle: "100% online, sin filas y con respaldo legal",
     ctaButton: "Solicita tu crédito ahora",
     ctaLink: "https://app.finova.com.co/auth/register" 
@@ -96,23 +96,35 @@ export const finovaData = {
   // // ==================================================
   faq: [
     {
-      question: "¿Debo pagar cuota inicial para solicitar un crédito?",
-      answer: "¡NO! En Finova nunca pedimos pagos por adelantado."
+      question: "¿Cómo solicito un crédito?",
+      answer: "Debes ingresar a nuestra página web y hacer clic en Registrarse (parte superior). Después de registrarte, iniciaremos tu estudio y te daremos respuesta en 1 día hábil."
     },
     {
-      question: "¿Me prestan si estoy reportado?",
-      answer: "Claro que sí, te prestamos con un codeudor que te respalde."
+      question: "¿Debo pagar un anticipo o una póliza para solicitar un crédito?",
+      answer: "No. En Finova no pedimos ningún dinero por adelantado para ningún trámite."
     },
     {
-      question: "¿Puedo hacer todo el proceso desde el celular?",
-      answer: "¡Claro que sí! Solo necesitas conexión a internet."
+      question: "¿Puedo solicitar un crédito si estoy reportado?",
+      answer: "Sí, puedes hacerlo con un codeudor. Ambos deben registrarse en la página y avisarnos por WhatsApp quién será el codeudor. Importante: el codeudor no debe estar reportado en centrales de riesgo."
     },
     {
-      question: "¿En cuánto tiempo desembolsan mi crédito?",
-      answer: "En Finova recibes tu dinero en menos de 24 horas."
+      question: "¿De cuánto es el cupo?",
+      answer: "El cupo se asigna según el estudio que se te realice. Si mantienes un buen historial de pago, puedes solicitar un aumento más adelante."
+    },
+    {
+      question: "¿Si estoy en mora, qué puedo hacer?",
+      answer: "Puedes pagar directamente desde la página web, Si tienes una mora mayor a 90 días, ingresa con tu usuario y usa el chat para solicitar un acuerdo de pago con un asesor."
+    },
+    {
+      question: "¿Debo subir fotos para solicitar el crédito?",
+      answer: "Sí, una selfie actual y foto de tu cédula por ambos lados, claras y legibles."
+    },
+    {
+      question: "¿Cuánto tarda en llegar el dinero?",
+      answer: "En máximo 24 horas hábiles. Si es fin de semana, llega el siguiente día hábil."
     }
   ],
-
+  
   // ==================================================
   // Contacto
   // ==================================================

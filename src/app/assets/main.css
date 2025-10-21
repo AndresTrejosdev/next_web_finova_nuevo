@@ -14003,3 +14003,326 @@ div[id] {
   border-radius: 50px;
   margin-top: 0.25rem;
 }
+
+/* ============================================
+   LOGO RESPONSIVE - FINOVA
+   ============================================ */
+
+.logo-responsive {
+  max-width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+/* Logo responsive para tablets */
+@media (max-width: 768px) {
+  .logo-responsive {
+    width: 200px !important;
+    height: 96px !important;
+  }
+}
+
+/* Logo responsive para móviles */
+@media (max-width: 576px) {
+  .logo-responsive {
+    width: 160px !important;
+    height: 76px !important;
+  }
+  
+  .cs_site_branding {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Logo responsive para móviles pequeños */
+@media (max-width: 400px) {
+  .logo-responsive {
+    width: 140px !important;
+    height: 67px !important;
+  }
+}
+
+/* ============================================
+   ANTI-HIFENACIÓN - TÍTULOS PRINCIPALES
+   ============================================ */
+
+/* Prevenir guiones automáticos en títulos */
+.hero-title,
+.hero-title *,
+.cs_hero_title,
+.cs_hero_title *,
+.cs_hero_text,
+.cs_hero_text *,
+h1, h2, h3 {
+  -webkit-hyphens: none !important;
+     -ms-hyphens: none !important;
+         hyphens: none !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  text-align-last: left !important;
+}
+
+/* Específicamente para el título "Créditos De Libre Inversión" */
+.no-hyphen,
+.hero-main-title {
+  white-space: nowrap !important;
+  -webkit-hyphens: none !important;
+     -ms-hyphens: none !important;
+         hyphens: none !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+}
+
+/* Para mantener "Libre Inversión" juntos si es necesario */
+.keep-together {
+  white-space: nowrap !important;
+}
+
+/* Responsive - permitir salto solo donde queremos */
+@media (max-width: 768px) {
+  .hero-title-mobile-break {
+    white-space: normal !important;
+  }
+  
+  .hero-title-mobile-break .break-here {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .break-here {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   LOGO FINOVA - FORZAR TAMAÑO (SOLUCIÓN DEFINITIVA)
+   ============================================ */
+
+/* Selector general para el logo - FUERZA EL TAMAÑO */
+header img,
+.navbar-brand img,
+.header-logo,
+.cs_site_branding img,
+[alt*="img"],
+[alt*="logo"],
+[src*="logo"] {
+  width: 250px !important;
+  height: 120px !important;
+  max-width: 250px !important;
+  min-width: 200px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Responsive FORZADO */
+@media (max-width: 768px) {
+  header img,
+  .navbar-brand img,
+  .cs_site_branding img,
+  [alt*="img"],
+  [src*="logo"] {
+    width: 200px !important;
+    height: 96px !important;
+    min-width: 180px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  header img,
+  .navbar-brand img,
+  .cs_site_branding img,
+  [alt*="img"],
+  [src*="logo"] {
+    width: 180px !important;
+    height: 86px !important;
+    min-width: 160px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  header img,
+  .navbar-brand img,
+  .cs_site_branding img,
+  [alt*="img"],
+  [src*="logo"] {
+    width: 160px !important;
+    height: 76px !important;
+    min-width: 140px !important;
+  }
+}
+
+/* ============================================
+   PREGUNTAS FRECUENTES (FAQ) - FINOVA
+   ============================================ */
+
+.faq-container {
+  background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
+  padding: 4rem 0;
+  position: relative;
+}
+
+.faq-main-title {
+  color: #12274B;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.faq-subtitle {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-accordion-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(20, 104, 177, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: 1px solid rgba(20, 104, 177, 0.1);
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 16px rgba(20, 104, 177, 0.15);
+  transform: translateY(-2px);
+}
+
+.faq-item.active {
+  background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
+  border-color: #1468B1;
+  box-shadow: 0 6px 20px rgba(20, 104, 177, 0.2);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  background-color: rgba(20, 104, 177, 0.05);
+}
+
+.faq-question-text {
+  font-weight: 600;
+  color: #12274B;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.faq-arrow {
+  font-size: 1.2rem;
+  color: #1468B1;
+  transition: transform 0.3s ease;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.faq-arrow.rotated {
+  transform: rotate(90deg);
+}
+
+.faq-answer-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer-wrapper.open {
+  max-height: 300px;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  color: #555;
+  line-height: 1.7;
+  font-size: 1rem;
+  border-top: 1px solid rgba(20, 104, 177, 0.2);
+  animation: fadeInAnswer 0.3s ease;
+}
+
+@keyframes fadeInAnswer {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive FAQ */
+@media (max-width: 768px) {
+  .faq-main-title {
+    font-size: 2rem;
+  }
+  
+  .faq-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .faq-question {
+    padding: 1.2rem;
+  }
+  
+  .faq-question-text {
+    font-size: 1rem;
+  }
+  
+  .faq-answer {
+    font-size: 0.95rem;
+    padding: 0 1.2rem 1.2rem;
+  }
+  
+  .faq-accordion-wrapper {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-container {
+    padding: 3rem 0;
+  }
+  
+  .faq-main-title {
+    font-size: 1.8rem;
+  }
+  
+  .faq-question {
+    padding: 1rem;
+  }
+  
+  .faq-question-text {
+    font-size: 0.95rem;
+    margin-right: 0.5rem;
+  }
+  
+  .faq-answer {
+    padding: 0 1rem 1rem;
+    font-size: 0.9rem;
+  }
+}

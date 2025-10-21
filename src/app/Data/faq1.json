@@ -1,22 +1,30 @@
 [
   {
-    "title": "¿Debo pagar cuota inicial para solicitar un crédito?",
-    "desc": "¡NO! En Finova nunca pedimos pagos por adelantado."
+    "title": "¿Cómo solicito un crédito?",
+    "desc": "Debes ingresar a nuestra página web y hacer clic en Registrarse (parte superior). Después de registrarte, iniciaremos tu estudio y te daremos respuesta en 1 día hábil."
   },
   {
-    "title": "¿Me prestan si estoy reportado?",
-    "desc": "Claro que sí, te prestamos con un codeudor que te respalde"
+    "title": "¿Debo pagar un anticipo o una póliza para solicitar un crédito?",
+    "desc": "No. En Finova no pedimos ningún dinero por adelantado para ningún trámite."
   },
   {
-    "title": "¿Puedo hacer todo el proceso desde el celular?",
-    "desc": "¡Claro que sí! Solo necesitas conexión a internet"
+    "title": "¿Puedo solicitar un crédito si estoy reportado?",
+    "desc": "Sí, puedes hacerlo con un codeudor. Ambos deben registrarse en la página y avisarnos por WhatsApp quién será el codeudor. Importante: el codeudor no debe estar reportado en centrales de riesgo."
   },
   {
-    "title": "¿En cuánto tiempo desembolsan mi crédito?",
-    "desc": "En Finova recibes tu dinero en menos de 24 horas"
+    "title": "¿De cuánto es el cupo?",
+    "desc": "El cupo se asigna según el estudio que se te realice. Si mantienes un buen historial de pago, puedes solicitar un aumento más adelante."
   },
   {
-    "title": "¿En cuanto tiempo desembolsan mi crédito?",
-    "desc": "En Finova recibes tu dinero en menos de 24 horas"
+    "title": "¿Si estoy en mora, qué puedo hacer?",
+    "desc": "Puedes pagar directamente desde la página web, Si tienes una mora mayor a 90 días, ingresa con tu usuario y usa el chat para solicitar un acuerdo de pago con un asesor."
+  },
+  {
+    "title": "¿Debo subir fotos para solicitar el crédito?",
+    "desc": "Sí, una selfie actual y foto de tu cédula por ambos lados, claras y legibles."
+  },
+  {
+    "title": "¿Cuánto tarda en llegar el dinero?",
+    "desc": "En máximo 24 horas hábiles. Si es fin de semana, llega el siguiente día hábil."
   }
 ]

@@ -27,7 +27,9 @@ const HeroBanner1 = ({subtitle, title, content, btnname, btnurl, btntwo, btn2url
                                         <div className="intro-subtitle">
                                             {/* {parse(subtitle)} <Image src="/assets/images/icon/fireIcon.svg" alt="img" width={16} height={17} /> */}
                                         </div>
-                                        <h1 className="intro-title wow fadeInUp" data-wow-delay=".2s">{title}</h1>
+                                        <h1 className="intro-title hero-main-title no-hyphen wow fadeInUp" data-wow-delay=".2s">
+                                            {title}
+                                        </h1>
                                         <p className="intro-desc wow fadeInUp" data-wow-delay=".4s">{content}</p>
                                     </div>
                                     <div className="btn-wrapper style1 wow fadeInUp" data-wow-delay=".6s">

@@ -5,7 +5,7 @@ import Brand1 from '../Components/Brand/Brand1';
 import CreditCalculator from '../Components/Credit/CreditCalculator';
 import BenefitsSection from '../Components/Benefits/BenefitsSection';
 import TeamSection from '../Components/Team/TeamSection';
-import Faq1 from '../Components/Faq/Faq1';
+import FAQAccordion from '../Components/FAQ/FAQAccordion';
 import ContactSection from '../Components/Contact/ContactSection';
 const page = () => {
   return (
@@ -13,9 +13,9 @@ const page = () => {
       {/* Página 1: INICIO */}
       <div id="inicio">
         <HeroBanner1
-          subtitle=""
-          title="Créditos de libre inversión"
-          content="100% online, sin filas y con respaldo legal"
+          subtitle={finovaData.hero.subtitle}
+          title={finovaData.hero.title}
+          content={finovaData.hero.subtitle}
           btnname={finovaData.hero.ctaButton}
           btnurl={finovaData.hero.ctaLink}
            img="/assets/images/imagenesfinova/hero-finova.svg"
@@ -42,7 +42,7 @@ const page = () => {
 
       {/* Página 7: PREGUNTAS FRECUENTES */}
       <div id="preguntas-frecuentes">
-        <Faq1 />
+        <FAQAccordion faqs={finovaData.faq} />
       </div>
 
     </div>
