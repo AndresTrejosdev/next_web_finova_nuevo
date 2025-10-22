@@ -2,6 +2,55 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
 /**
+ * ✅ FUNCIONES AUXILIARES PARA CÁLCULO CORRECTO DE MORA
+ */
+function obtenerValorMora(cuota: any): number {
+  const camposMora = [
+    'mora', 
+    'interesMora', 
+    'interes_mora', 
+    'interes', 
+    'interesMoratorio', 
+    'moratorio'
+  ];
+  
+  for (const campo of camposMora) {
+    const valor = cuota[campo];
+    if (valor !== undefined && valor !== null && typeof valor === 'number' && valor > 0) {
+      return valor;
+    }
+  }
+  return 0;
+}
+
+function cuotaTieneMora(cuota: any): boolean {
+  // Validación 1: Debe estar PENDIENTE
+  if (cuota.estado !== 'PENDIENTE') {
+    return false;
+  }
+  
+  // Validación 2: Debe tener VALOR REAL en la cuota
+  const valorCuota = Number(cuota.valorCuota) || 0;
+  if (valorCuota <= 0) {
+    return false; // ✅ Cuotas con $0 NO son mora
+  }
+  
+  // Validación 3: Debe estar VENCIDA (fecha pasada)
+  const fechaVencimiento = parseFechaSafe(cuota.fecha);
+  const fechaHoy = new Date();
+  fechaHoy.setHours(0, 0, 0, 0);
+  fechaVencimiento.setHours(0, 0, 0, 0);
+  
+  if (fechaVencimiento >= fechaHoy) {
+    return false;
+  }
+  
+  // Validación 4: Tiene mora o está vencida con valor
+  const valorMora = obtenerValorMora(cuota);
+  return valorMora > 0 || (fechaVencimiento < fechaHoy && valorCuota > 0);
+}
+
+/**
  * FUNCIÓN HELPER PARA PARSEAR FECHAS DE FORMA SEGURA
  * Con manejo robusto de errores para evitar crashes del servidor
  */
@@ -289,8 +338,9 @@ export async function POST(request: NextRequest) {
           }
         });
 
-        // Calcular mora de forma segura
+        //  Calcular mora de forma segura - LÓGICA CORREGIDA
         let pagoEnMora = 0;
+        let cuotasEnMora = 0;
         try {
           const fechaHoy = new Date();
           fechaHoy.setHours(0, 0, 0, 0);
@@ -300,13 +350,26 @@ export async function POST(request: NextRequest) {
               const fechaVencimiento = parseFechaSafe(cuota.fecha);
               fechaVencimiento.setHours(0, 0, 0, 0);
 
-              if (fechaVencimiento <= fechaHoy && cuota.estado !== 'PAGADA' && cuota.mora > 0) {
-                pagoEnMora += cuota.mora + cuota.sancion;
+              // ✅ LÓGICA CORREGIDA: Usar función auxiliar
+              const tieneMora = cuotaTieneMora(cuota);
+
+              if (tieneMora) {
+                pagoEnMora += obtenerValorMora(cuota) + cuota.sancion;
+                cuotasEnMora++;
+                
+                console.log(`  ✓ Cuota ${cuota.numeroCuota} en mora:`, {
+                  fecha: cuota.fecha,
+                  valorCuota: cuota.valorCuota,
+                  moraCalculada: obtenerValorMora(cuota),
+                  sancion: cuota.sancion
+                });
               }
             } catch (e) {
-              // Ignorar cuotas con error
+              console.warn('  Error procesando cuota para mora:', e);
             }
           });
+
+          console.log(` [MORA] Total calculado: $${pagoEnMora} (${cuotasEnMora} cuotas)`);
         } catch (error) {
           console.error(' Error calculando mora:', error);
         }
@@ -318,7 +381,12 @@ export async function POST(request: NextRequest) {
           estado: String(credito.estado || 'DESCONOCIDO'),
           pagoMinimo: Math.abs(Number(credito.pagoMinimo || credito.pago_minimo || credito.cuotaMinima || 0) || 0),
           pagoTotal: Math.abs(Number(credito.pagoTotal || credito.pago_total || credito.saldoTotal || 0) || 0),
-          pagoEnMora: pagoEnMora,
+          
+          // ASEGURAR QUE LA MORA SEA VÁLIDA
+          pagoEnMora: Math.max(0, pagoEnMora), // No puede ser negativa
+          tieneMora: pagoEnMora > 0,
+          cuotasEnMora: cuotasEnMora,
+          
           amortizacion: amortizacionNormalizada,
           documento: userDocumento,
           nombreCompleto: String(datosUsuario.nombre || datosUsuario.nombreCompleto || 'Cliente Finova'),
