@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
   // Solo verificar en rutas de API críticas
   if (request.nextUrl.pathname.startsWith('/api/')) {
     try {
-      // Variables críticas que DEBEN existir
+      
       const criticalVars = [
         'NEXT_PUBLIC_API_URL',
         'NEXT_PUBLIC_PANEL_URL',

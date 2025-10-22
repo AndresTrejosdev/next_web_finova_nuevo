@@ -34,7 +34,7 @@ export default function ConsultaDeuda() {
       const creditosEnCurso = response.data.filter(
         (credito: Credito) => credito.estado === 'EN CURSO'
       );
-
+      console.log("Créditos en curso:", creditosEnCurso);
       setCreditos(creditosEnCurso);
       
       if (creditosEnCurso.length === 0) {
@@ -148,12 +148,17 @@ export default function ConsultaDeuda() {
                     <p className="monto-value">${credito.pagoTotal?.toLocaleString() || '0'}</p>
                   </div>
 
+                  {/* Solo mostrar mora si realmente hay */}
                   {credito.pagoEnMora > 0 && (
                     <div className="monto-box monto-mora">
                       <p className="monto-label">Pago en Mora</p>
                       <p className="monto-value">${credito.pagoEnMora?.toLocaleString() || '0'}</p>
                       <div className="alerta-mora">
-                        Tienes pagos pendientes en mora
+                        {credito.cuotasEnMora ? (
+                          `Tienes ${credito.cuotasEnMora} cuota(s) pendiente(s) en mora`
+                        ) : (
+                          'Tienes pagos pendientes en mora'
+                        )}
                       </div>
                     </div>
                   )}
@@ -210,29 +215,48 @@ export default function ConsultaDeuda() {
                             </tr>
                           </thead>
                           <tbody>
-                            {credito.amortizacion.map((cuota: any, index: number) => (
-                              <tr 
-                                key={`${credito.prestamo_ID}-${index}`} 
-                                className={cuota.estado === 'PAGADA' ? 'fila-pagada' : ''}
-                              >
-                                <td>{index + 1}</td>
-                                <td>
-                                  {cuota.fecha 
-                                    ? new Date(cuota.fecha).toLocaleDateString('es-CO')
-                                    : 'N/A'}
-                                </td>
-                                <td>${cuota.valorCuota?.toLocaleString() || '0'}</td>
-                                <td className={(cuota.mora || 0) > 0 ? 'mora-activa' : ''}>
-                                  ${cuota.mora?.toLocaleString() || '0'}
-                                </td>
-                                <td>${cuota.sancion?.toLocaleString() || '0'}</td>
-                                <td>
-                                  <span className={`estado-badge ${(cuota.estado || 'pendiente').toLowerCase()}`}>
-                                    {cuota.estado || 'PENDIENTE'}
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
+                            {credito.amortizacion.map((cuota: any, index: number) => {
+                              // Calcular si está en mora real
+                              const fechaHoy = new Date();
+                              fechaHoy.setHours(0, 0, 0, 0);
+                              const fechaCuota = cuota.fecha ? new Date(cuota.fecha) : new Date();
+                              fechaCuota.setHours(0, 0, 0, 0);
+                              
+                              const enMoraReal = 
+                                fechaCuota < fechaHoy && 
+                                cuota.estado === 'PENDIENTE' &&
+                                (cuota.valorCuota > 0 || cuota.mora > 0);
+
+                              return (
+                                <tr 
+                                  key={`${credito.prestamo_ID}-${index}`} 
+                                  className={
+                                    cuota.estado === 'PAGADA' ? 'fila-pagada' : 
+                                    enMoraReal ? 'fila-mora' : // ✅ Nueva clase
+                                    ''
+                                  }
+                                >
+                                  <td>{index + 1}</td>
+                                  <td>
+                                    {cuota.fecha 
+                                      ? new Date(cuota.fecha).toLocaleDateString('es-CO')
+                                      : 'N/A'}
+                                  </td>
+                                  <td className={cuota.valorCuota === 0 ? 'valor-cero' : ''}>
+                                    ${cuota.valorCuota?.toLocaleString() || '0'}
+                                  </td>
+                                  <td className={(cuota.mora || 0) > 0 ? 'mora-activa' : ''}>
+                                    ${cuota.mora?.toLocaleString() || '0'}
+                                  </td>
+                                  <td>${cuota.sancion?.toLocaleString() || '0'}</td>
+                                  <td>
+                                    <span className={`estado-badge ${(cuota.estado || 'pendiente').toLowerCase()}`}>
+                                      {cuota.estado || 'PENDIENTE'}
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })}
                           </tbody>
                         </table>
                       </div>

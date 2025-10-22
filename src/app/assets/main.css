@@ -3370,7 +3370,7 @@ a.secondary {
   .contact-meta {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
 }
 
@@ -3614,7 +3614,7 @@ a.secondary {
 .slider-arrow-button.style2 {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 20px;
 }
 @media (max-width: 1199px) {
@@ -5713,7 +5713,7 @@ input.main-search-input::placeholder {
 @media (max-width: 1199px) {
   .footer-widgets-wrapper.style1 .single-footer-widget .footer-content .store-links {
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
 }
 .footer-widgets-wrapper.style1 .single-footer-widget .footer-content .store-links .apple a {
@@ -5804,7 +5804,7 @@ input.main-search-input::placeholder {
 }
 .footer-widgets-wrapper.style1 .single-footer-widget .contact-box .info {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: 15px;
   margin-top: 30px;
 }
@@ -6521,7 +6521,7 @@ input.main-search-input::placeholder {
   position: relative;
   z-index: 3;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 @media (max-width: 767px) {
   .about-wrapper.style1 .about-thumb .main-thumb img {
@@ -6745,7 +6745,7 @@ input.main-search-input::placeholder {
 }
 .wp-wrapper.style2 .feature-box-wrapper.style2 .feature-box.style2 {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: 20px;
 }
 .wp-wrapper.style2 .feature-box-wrapper.style2 .feature-box.style2 .content h5 {
@@ -14325,4 +14325,47 @@ header img,
     padding: 0 1rem 1rem;
     font-size: 0.9rem;
   }
+}
+
+/* ✅ ESTILOS PARA FILAS EN MORA - CONSULTA DEUDA */
+.fila-mora {
+  background-color: rgba(255, 87, 51, 0.05) !important;
+  border-left: 3px solid #ff5733;
+}
+
+.fila-mora:hover {
+  background-color: rgba(255, 87, 51, 0.1) !important;
+}
+
+/* Valores en cero (cuotas sin valor) */
+.valor-cero {
+  color: #999;
+  font-style: italic;
+}
+
+/* Mora activa */
+.mora-activa {
+  color: #ff5733;
+  font-weight: 600;
+}
+
+/* Mejorar visibilidad de cuotas pagadas */
+.fila-pagada {
+  background-color: rgba(40, 167, 69, 0.05) !important;
+  border-left: 3px solid #28a745;
+}
+
+.fila-pagada:hover {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+/* Estado badge mejorado */
+.estado-badge.pagada {
+  background-color: #28a745;
+  color: white;
+}
+
+.estado-badge.pendiente {
+  background-color: #ffc107;
+  color: #212529;
 }

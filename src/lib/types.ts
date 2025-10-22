@@ -45,6 +45,11 @@ export interface Credito {
   saldo_ultimaFecha: number;
   saldoUltimaCuota: number;
   pagoTotal: number;
+  
+  // ✅ Campos adicionales para mora corregida
+  tieneMora?: boolean;
+  cuotasEnMora?: number;
+  
   // Campos adicionales que necesitamos para pagos
   nombreCompleto?: string;
   email?: string;

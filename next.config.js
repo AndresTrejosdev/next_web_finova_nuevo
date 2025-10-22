@@ -1,18 +1,14 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone', // ✅ CRÍTICO para Docker producción
-  
-  // ✅ IGNORAR ERRORES DURANTE BUILD
+  output: 'standalone',
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_PANEL_URL: process.env.NEXT_PUBLIC_PANEL_URL,
@@ -21,7 +17,6 @@ const nextConfig = {
     NEXT_PUBLIC_RETURN_URL: process.env.NEXT_PUBLIC_RETURN_URL,
     NEXT_PUBLIC_CANCEL_URL: process.env.NEXT_PUBLIC_CANCEL_URL,
   },
-  
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [360, 414, 768, 1024, 1920],
@@ -42,4 +37,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
