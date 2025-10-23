@@ -6,6 +6,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
+#  AGREGAR SHARP PARA PRODUCCIÓN
+RUN npm install sharp
 
 # Builder
 FROM base AS builder
