@@ -25,20 +25,22 @@ export default function ConsultaDeuda() {
     setCreditos([]);
 
     try {
-      const response = await axios.post('/api/credito', {
-        userDocumento: cedula
-      }, {
+      const response = await axios.get(`/api/credito?cedula=${cedula}`, {
         timeout: 20000 // 20 segundos
       });
 
-      const creditosEnCurso = response.data.filter(
-        (credito: Credito) => credito.estado === 'EN CURSO'
-      );
-      console.log("Créditos en curso:", creditosEnCurso);
-      setCreditos(creditosEnCurso);
-      
-      if (creditosEnCurso.length === 0) {
-        setError('No se encontraron créditos activos para esta cédula');
+      if (response.data.success && response.data.creditos) {
+        const creditosEnCurso = response.data.creditos.filter(
+          (credito: Credito) => credito.estado === 'EN CURSO'
+        );
+        console.log("Créditos en curso:", creditosEnCurso);
+        setCreditos(creditosEnCurso);
+        
+        if (creditosEnCurso.length === 0) {
+          setError('No se encontraron créditos activos para esta cédula');
+        }
+      } else {
+        setError(response.data.message || 'No se encontraron créditos');
       }
     } catch (err: any) {
       console.error('Error completo:', err);
