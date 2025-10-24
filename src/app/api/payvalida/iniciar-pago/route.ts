@@ -14,8 +14,8 @@ export async function POST(request: Request) {
 
     console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
 
-    // USAR IP DIRECTA DEL GATEWAY - CAMPOS CORRECTOS SEGÚN LinkInfo
-    const GATEWAY_URL = 'http://10.10.11.111:5151';
+    // USAR HOST DOCKER INTERNAL PARA ACCEDER AL GATEWAY
+    const GATEWAY_URL = 'http://host.docker.internal:5151';
 
     // Generar ordenId único
     const ordenId = `ORD_${prestamo_ID}_${Date.now()}`;
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
         amount: monto,
         identification: cedula,
         identificationType: "CC",
-        metodoPago: "PSE" // o el método apropiado
+        metodoPago: "PSE"
       })
     });
 
@@ -46,16 +46,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const data = await response.json();
+    const data = await response.text(); // PayValida retorna texto, no JSON
     console.log('Respuesta del gateway:', data);
 
-    // Extraer URL de pago de la respuesta
-    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url || data.link || data.paymentUrl;
+    // La respuesta es directamente la URL de PayValida
+    const urlPago = data.trim();
 
-    if (!urlPago) {
-      console.error('No se recibió URL de pago:', data);
+    if (!urlPago.includes('payvalida.com')) {
+      console.error('Respuesta inesperada del gateway:', data);
       return NextResponse.json(
-        { success: false, error: 'No se recibió URL de pago del gateway', data: data },
+        { success: false, error: 'Respuesta inesperada del gateway', data: data },
         { status: 500 }
       );
     }
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       urlPago: urlPago,
-      transaccion: data.transaccion_id || data.transaction_id || data.id || data.ordenId || ordenId
+      transaccion: ordenId
     });
 
   } catch (error: any) {
