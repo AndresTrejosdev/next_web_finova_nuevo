@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import './styles.css';
 
 interface Cuota {
   numero: number;
@@ -102,26 +103,26 @@ export default function ConsultaDeuda() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+    <div className="consulta-container">
+      <div className="consulta-content">
+        <h1 className="consulta-title">
           Consulta tu Crédito
         </h1>
 
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex gap-3">
+        <div className="consulta-card">
+          <div className="consulta-input-group">
             <input
               type="text"
               value={cedula}
               onChange={(e) => setCedula(e.target.value.replace(/\D/g, ''))}
               placeholder="Número de cédula"
-              className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-lg"
+              className="consulta-input"
               onKeyPress={(e) => e.key === 'Enter' && handleConsultar()}
             />
             <button
               onClick={handleConsultar}
               disabled={loading}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+              className="consulta-button"
             >
               {loading ? 'Consultando...' : 'Consultar'}
             </button>
@@ -129,81 +130,79 @@ export default function ConsultaDeuda() {
         </div>
 
         {error && (
-          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
-            <p className="font-semibold">{error}</p>
+          <div className="consulta-error">
+            <p>{error}</p>
           </div>
         )}
 
         {loading && (
-          <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-600">Consultando créditos...</p>
+          <div className="consulta-loading">
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Consultando créditos...</p>
           </div>
         )}
 
         {creditos.length > 0 && creditos.map((credito) => (
-          <div key={credito.prestamo_ID} className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <div className="border-b pb-4 mb-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-3">
+          <div key={credito.prestamo_ID} className="credito-card">
+            <div className="credito-header">
+              <h2 className="credito-title">
                 Crédito #{credito.prestamo_ID}
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div className="credito-info-grid">
                 <div>
-                  <p className="text-sm text-gray-600">Tipo</p>
-                  <p className="font-semibold">{credito.tipoCredito}</p>
+                  <p className="info-label">Tipo</p>
+                  <p className="info-value">{credito.tipoCredito}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Estado</p>
-                  <p className="font-semibold">{credito.estado}</p>
+                  <p className="info-label">Estado</p>
+                  <p className="info-value">{credito.estado}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Valor Préstamo</p>
-                  <p className="font-semibold">${credito.valorPrestamo?.toLocaleString()}</p>
+                  <p className="info-label">Valor Préstamo</p>
+                  <p className="info-value">${credito.valorPrestamo?.toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Días en Mora</p>
-                  <p className="font-semibold text-red-600">{credito.diasMora || 0}</p>
+                  <p className="info-label">Días en Mora</p>
+                  <p className="info-value info-mora">{credito.diasMora || 0}</p>
                 </div>
               </div>
 
               <button
                 onClick={() => handlePagar(credito)}
-                className="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                className="pagar-button"
               >
                 Realizar Pago
               </button>
             </div>
 
-            <h3 className="text-lg font-bold mb-3">Cuotas Pendientes</h3>
+            <h3 className="cuotas-title">Cuotas Pendientes</h3>
             {credito.cuotas && credito.cuotas.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="table-container">
+                <table className="cuotas-table">
                   <thead>
-                    <tr className="bg-gray-100">
-                      <th className="px-4 py-3 text-left">#</th>
-                      <th className="px-4 py-3 text-left">FECHA</th>
-                      <th className="px-4 py-3 text-right">CUOTA</th>
-                      <th className="px-4 py-3 text-right">MORA</th>
-                      <th className="px-4 py-3 text-right">SANCIÓN</th>
-                      <th className="px-4 py-3 text-center">ESTADO</th>
+                    <tr>
+                      <th>#</th>
+                      <th>FECHA</th>
+                      <th className="text-right">CUOTA</th>
+                      <th className="text-right">MORA</th>
+                      <th className="text-right">SANCIÓN</th>
+                      <th className="text-center">ESTADO</th>
                     </tr>
                   </thead>
                   <tbody>
                     {credito.cuotas.map((cuota) => (
                       <tr 
                         key={cuota.numero}
-                        className={`border-b ${cuota.estado === 'VENCIDA' ? 'bg-red-50' : ''}`}
+                        className={cuota.estado === 'VENCIDA' ? 'row-vencida' : ''}
                       >
-                        <td className="px-4 py-3">{cuota.numero}</td>
-                        <td className="px-4 py-3">{cuota.fecha}</td>
-                        <td className="px-4 py-3 text-right">${cuota.cuota?.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-right">${cuota.mora?.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-right">${cuota.sancion?.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-center">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                            cuota.estado === 'VENCIDA' 
-                              ? 'bg-red-200 text-red-800' 
-                              : 'bg-yellow-200 text-yellow-800'
+                        <td>{cuota.numero}</td>
+                        <td>{cuota.fecha}</td>
+                        <td className="text-right">${cuota.cuota?.toLocaleString()}</td>
+                        <td className="text-right">${cuota.mora?.toLocaleString()}</td>
+                        <td className="text-right">${cuota.sancion?.toLocaleString()}</td>
+                        <td className="text-center">
+                          <span className={`badge ${
+                            cuota.estado === 'VENCIDA' ? 'badge-vencida' : 'badge-pendiente'
                           }`}>
                             {cuota.estado}
                           </span>
@@ -214,21 +213,21 @@ export default function ConsultaDeuda() {
                 </table>
               </div>
             ) : (
-              <p className="text-gray-600">No hay cuotas pendientes</p>
+              <p className="no-cuotas">No hay cuotas pendientes</p>
             )}
           </div>
         ))}
       </div>
 
       {showModal && creditoSeleccionado && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
-            <h2 className="text-2xl font-bold mb-6">Opciones de Pago</h2>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">Opciones de Pago</h2>
             
-            <div className="space-y-4">
+            <div className="modal-buttons">
               <button
                 onClick={() => procesarPago('minimo')}
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"
+                className="modal-button modal-button-minimo"
               >
                 Pago Mínimo: ${creditoSeleccionado.pagoMinimo?.toLocaleString()}
               </button>
@@ -236,7 +235,7 @@ export default function ConsultaDeuda() {
               {creditoSeleccionado.pagoEnMora > 0 && (
                 <button
                   onClick={() => procesarPago('mora')}
-                  className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700"
+                  className="modal-button modal-button-mora"
                 >
                   Pago en Mora: ${creditoSeleccionado.pagoEnMora?.toLocaleString()}
                 </button>
@@ -244,14 +243,14 @@ export default function ConsultaDeuda() {
 
               <button
                 onClick={() => procesarPago('total')}
-                className="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700"
+                className="modal-button modal-button-total"
               >
                 Pago Total: ${creditoSeleccionado.pagoTotal?.toLocaleString()}
               </button>
 
               <button
                 onClick={() => setShowModal(false)}
-                className="w-full bg-gray-300 text-gray-800 py-3 px-6 rounded-lg hover:bg-gray-400"
+                className="modal-button modal-button-cancel"
               >
                 Cancelar
               </button>
