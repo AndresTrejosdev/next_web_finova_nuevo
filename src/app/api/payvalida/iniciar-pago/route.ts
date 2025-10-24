@@ -2,22 +2,16 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    // Leer datos del body
     const body = await request.json();
     const { prestamo_ID, cedula, monto, tipoPago } = body;
 
-    // Validar datos requeridos
     if (!prestamo_ID || !cedula || !monto) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Faltan datos requeridos (prestamo_ID, cedula, monto)' 
-        },
+        { success: false, error: 'Faltan datos requeridos (prestamo_ID, cedula, monto)' },
         { status: 400 }
       );
     }
 
-    // URL del gateway interno de pagos
     const apiUrl = process.env.NEXT_PUBLIC_PAYVALIDA_API;
     
     if (!apiUrl) {
@@ -27,36 +21,10 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log('Iniciando pago con PayValida:', {
-      prestamo_ID,
-      cedula,
-      monto,
-      tipoPago
-    });
+    console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
 
-    // Llamar al gateway interno de pagos - TEMPORALMENTE SIMULADO
-    // TODO: Verificar ruta correcta del gateway
-    console.log('URL del gateway:', `${apiUrl}/api/pagos/iniciar`);
-    
-    // Por ahora simular respuesta exitosa para testing del frontend
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simular delay
-    
-    const simulatedResponse = {
-      success: true,
-      url_pago: 'https://checkout.payvalida.com/pay/test123',
-      transaccion_id: `TXN_${Date.now()}`
-    };
-    
-    console.log('Respuesta simulada del gateway:', simulatedResponse);
-    
-    return NextResponse.json({
-      success: true,
-      urlPago: simulatedResponse.url_pago,
-      transaccion: simulatedResponse.transaccion_id
-    });
-    
-    /* CÓDIGO ORIGINAL COMENTADO HASTA ENCONTRAR RUTA CORRECTA
-    const response = await fetch(`${apiUrl}/api/pagos/iniciar`, {
+    // RUTA CORRECTA ENCONTRADA: /generarLink
+    const response = await fetch(`${apiUrl}/generarLink`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -73,33 +41,23 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error del gateway de pagos:', response.status, errorText);
+      console.error('Error del gateway:', response.status, errorText);
       
       return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Error al iniciar pago en el gateway',
-          details: errorText
-        },
+        { success: false, error: 'Error al iniciar pago en el gateway', details: errorText },
         { status: response.status }
       );
     }
 
     const data = await response.json();
-    
-    console.log('Respuesta del gateway de pagos:', data);
+    console.log('Respuesta del gateway:', data);
 
-    // Extraer URL de pago (puede variar según la respuesta del gateway)
-    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url;
+    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url || data.link;
 
     if (!urlPago) {
       console.error('No se recibió URL de pago:', data);
       return NextResponse.json(
-        { 
-          success: false, 
-          error: 'No se recibió URL de pago del gateway',
-          data: data
-        },
+        { success: false, error: 'No se recibió URL de pago del gateway', data: data },
         { status: 500 }
       );
     }
@@ -107,58 +65,13 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       urlPago: urlPago,
-      transaccion: data.transaccion_id || data.transaction_id || null
-    });
-    */
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Error del gateway de pagos:', response.status, errorText);
-      
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Error al iniciar pago en el gateway',
-          details: errorText
-        },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    
-    console.log('Respuesta del gateway de pagos:', data);
-
-    // Extraer URL de pago (puede variar según la respuesta del gateway)
-    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url;
-
-    if (!urlPago) {
-      console.error('No se recibió URL de pago:', data);
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'No se recibió URL de pago del gateway',
-          data: data
-        },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      urlPago: urlPago,
-      transaccion: data.transaccion_id || data.transaction_id || null
+      transaccion: data.transaccion_id || data.transaction_id || data.id || null
     });
 
   } catch (error: any) {
     console.error('Error en endpoint de PayValida:', error);
-    
     return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Error interno al procesar el pago',
-        details: error.message 
-      },
+      { success: false, error: 'Error interno al procesar el pago', details: error.message },
       { status: 500 }
     );
   }
