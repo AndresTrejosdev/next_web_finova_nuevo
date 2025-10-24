@@ -12,30 +12,27 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_PAYVALIDA_API;
-    
-    if (!apiUrl) {
-      return NextResponse.json(
-        { success: false, error: 'API de pagos no configurada' },
-        { status: 500 }
-      );
-    }
-
     console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
 
-    // RUTA CORRECTA ENCONTRADA: /generarLink
-    const response = await fetch(`${apiUrl}/generarLink`, {
+    // USAR IP DIRECTA DEL GATEWAY - CAMPOS CORRECTOS SEGÚN LinkInfo
+    const GATEWAY_URL = 'http://10.10.11.111:5151';
+
+    // Generar ordenId único
+    const ordenId = `ORD_${prestamo_ID}_${Date.now()}`;
+
+    const response = await fetch(`${GATEWAY_URL}/generarLink`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prestamo_ID: prestamo_ID,
-        documento: cedula,
-        valor: monto,
-        tipo_pago: tipoPago,
-        return_url: process.env.NEXT_PUBLIC_RETURN_URL || 'https://finova.com.co/success',
-        cancel_url: process.env.NEXT_PUBLIC_CANCEL_URL || 'https://finova.com.co/cancel'
+        nombreCliente: `Cliente_${cedula}`,
+        email: `cliente_${cedula}@finova.com.co`,
+        ordenId: ordenId,
+        amount: monto,
+        identification: cedula,
+        identificationType: "CC",
+        metodoPago: "PSE" // o el método apropiado
       })
     });
 
@@ -52,7 +49,8 @@ export async function POST(request: Request) {
     const data = await response.json();
     console.log('Respuesta del gateway:', data);
 
-    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url || data.link;
+    // Extraer URL de pago de la respuesta
+    const urlPago = data.url_pago || data.payment_url || data.urlPago || data.redirect_url || data.link || data.paymentUrl;
 
     if (!urlPago) {
       console.error('No se recibió URL de pago:', data);
@@ -65,7 +63,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       urlPago: urlPago,
-      transaccion: data.transaccion_id || data.transaction_id || data.id || null
+      transaccion: data.transaccion_id || data.transaction_id || data.id || data.ordenId || ordenId
     });
 
   } catch (error: any) {
