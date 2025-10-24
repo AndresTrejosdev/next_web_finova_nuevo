@@ -14,10 +14,9 @@ export async function POST(request: Request) {
 
     console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
 
-    // USAR HOST DOCKER INTERNAL PARA ACCEDER AL GATEWAY
-    const GATEWAY_URL = 'http://host.docker.internal:5151';
+    // IP del contenedor de pagos en la red Docker
+    const GATEWAY_URL = 'http://solucredito-pagos-1:5151';
 
-    // Generar ordenId único
     const ordenId = `ORD_${prestamo_ID}_${Date.now()}`;
 
     const response = await fetch(`${GATEWAY_URL}/generarLink`, {
@@ -46,10 +45,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const data = await response.text(); // PayValida retorna texto, no JSON
+    const data = await response.text();
     console.log('Respuesta del gateway:', data);
 
-    // La respuesta es directamente la URL de PayValida
     const urlPago = data.trim();
 
     if (!urlPago.includes('payvalida.com')) {
