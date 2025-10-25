@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
 
     // IP del contenedor de pagos en la red Docker
-    const GATEWAY_URL = 'http://solucredito-pagos-1:5151';
+    const GATEWAY_URL = 'https://pago.finova.com.co';
 
     const ordenId = `ORD_${prestamo_ID}_${Date.now()}`;
 
@@ -46,9 +46,15 @@ export async function POST(request: Request) {
     }
 
     const data = await response.text();
-    console.log('Respuesta del gateway:', data);
+    
 
-    const urlPago = data.trim();
+    let urlPago = data.trim();
+
+    // Si la URL no tiene protocolo, agregar https://
+    if (!urlPago.startsWith('http://') && !urlPago.startsWith('https://')) {
+      urlPago = `https://${urlPago}`;
+      console.log('✅ Protocolo agregado a la URL:', urlPago);
+    }
 
     if (!urlPago.includes('payvalida.com')) {
       console.error('Respuesta inesperada del gateway:', data);
@@ -57,6 +63,8 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    console.log('🔗 URL final de pago:', urlPago);
 
     return NextResponse.json({
       success: true,

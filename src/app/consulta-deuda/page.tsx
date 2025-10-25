@@ -92,7 +92,16 @@ export default function ConsultaDeuda() {
       });
 
       if (responsePago.data.success && responsePago.data.urlPago) {
-        window.location.href = responsePago.data.urlPago;
+        console.log('✅ Respuesta del API de PayValida:', responsePago.data);
+        console.log('🔗 URL de redirección:', responsePago.data.urlPago);
+        
+        // Verificar que la URL tenga el protocolo correcto
+        if (responsePago.data.urlPago.startsWith('http://') || responsePago.data.urlPago.startsWith('https://')) {
+          window.location.href = responsePago.data.urlPago;
+        } else {
+          console.error('❌ URL sin protocolo detectada:', responsePago.data.urlPago);
+          alert('Error: URL de pago inválida');
+        }
       } else {
         alert('Error al procesar el pago');
       }

@@ -14,6 +14,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Cedula requerida' }, { status: 400 });
     }
 
+    console.log('🔍 Consultando API externa:', `${apiUrl}/api/credit/cuotasPendiente`);
+    console.log('📄 Documento:', cedula);
+
     const response = await fetch(`${apiUrl}/api/credit/cuotasPendiente`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,10 +24,17 @@ export async function GET(request: Request) {
     });
 
     if (!response.ok) {
-      throw new Error(`Error del API: ${response.status}`);
+      const errorText = await response.text();
+      console.error('❌ Error del API externo:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText
+      });
+      throw new Error(`Error del API: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('✅ Respuesta del API externo:', data);
     
     if (!Array.isArray(data) || data.length === 0) {
       return NextResponse.json({ 
