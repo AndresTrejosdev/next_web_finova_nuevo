@@ -108,7 +108,7 @@ export default function ConsultaDeuda() {
     } catch (error) {
       console.error('Error al procesar pago:', error);
       alert('Error al procesar el pago');
-    }
+    }  
   };
 
   return (
