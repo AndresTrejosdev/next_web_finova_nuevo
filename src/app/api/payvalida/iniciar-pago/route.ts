@@ -3,27 +3,23 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { prestamo_ID, cedula, monto, tipoPago } = body;
+    const { prestamo_ID, cedula, monto, tipoPago, metodoPago } = body;
 
     if (!prestamo_ID || !cedula || !monto) {
       return NextResponse.json(
-        { success: false, error: 'Faltan datos requeridos (prestamo_ID, cedula, monto)' },
+        { success: false, error: 'Faltan datos requeridos' },
         { status: 400 }
       );
     }
 
-    console.log('Iniciando pago con PayValida:', { prestamo_ID, cedula, monto, tipoPago });
+    console.log('Iniciando pago:', { prestamo_ID, cedula, monto, metodoPago });
 
-    // IP del contenedor de pagos en la red Docker
     const GATEWAY_URL = 'https://pago.finova.com.co';
-
     const ordenId = `ORD_${prestamo_ID}_${Date.now()}`;
 
     const response = await fetch(`${GATEWAY_URL}/generarLink`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         nombreCliente: `Cliente_${cedula}`,
         email: `cliente_${cedula}@finova.com.co`,
@@ -31,40 +27,27 @@ export async function POST(request: Request) {
         amount: monto,
         identification: cedula,
         identificationType: "CC",
-        metodoPago: "PSE"
+        metodoPago: metodoPago || "PSE"
       })
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error del gateway:', response.status, errorText);
-      
+      console.error('Error gateway:', errorText);
       return NextResponse.json(
-        { success: false, error: 'Error al iniciar pago en el gateway', details: errorText },
+        { success: false, error: 'Error al iniciar pago' },
         { status: response.status }
       );
     }
 
     const data = await response.text();
-    
-
     let urlPago = data.trim();
 
-    // Si la URL no tiene protocolo, agregar https://
-    if (!urlPago.startsWith('http://') && !urlPago.startsWith('https://')) {
+    if (!urlPago.startsWith('http')) {
       urlPago = `https://${urlPago}`;
-      console.log('✅ Protocolo agregado a la URL:', urlPago);
     }
 
-    if (!urlPago.includes('payvalida.com')) {
-      console.error('Respuesta inesperada del gateway:', data);
-      return NextResponse.json(
-        { success: false, error: 'Respuesta inesperada del gateway', data: data },
-        { status: 500 }
-      );
-    }
-
-    console.log('🔗 URL final de pago:', urlPago);
+    console.log('URL generada:', urlPago);
 
     return NextResponse.json({
       success: true,
@@ -73,9 +56,9 @@ export async function POST(request: Request) {
     });
 
   } catch (error: any) {
-    console.error('Error en endpoint de PayValida:', error);
+    console.error('Error:', error);
     return NextResponse.json(
-      { success: false, error: 'Error interno al procesar el pago', details: error.message },
+      { success: false, error: 'Error al procesar pago' },
       { status: 500 }
     );
   }

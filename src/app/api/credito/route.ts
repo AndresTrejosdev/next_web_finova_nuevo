@@ -14,8 +14,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Cedula requerida' }, { status: 400 });
     }
 
-    console.log('🔍 Consultando API externa:', `${apiUrl}/api/credit/cuotasPendiente`);
-    console.log('📄 Documento:', cedula);
+    console.log('Consultando API externa:', `${apiUrl}/api/credit/cuotasPendiente`);
+    console.log('Documento:', cedula);
 
     const response = await fetch(`${apiUrl}/api/credit/cuotasPendiente`, {
       method: 'POST',
@@ -25,7 +25,7 @@ export async function GET(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ Error del API externo:', {
+      console.error('Error del API externo:', {
         status: response.status,
         statusText: response.statusText,
         body: errorText
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json();
-    console.log('✅ Respuesta del API externo:', data);
+    console.log('Respuesta del API externo:', data);
     
     if (!Array.isArray(data) || data.length === 0) {
       return NextResponse.json({ 
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
         message: 'No se encontraron créditos',
         creditos: [] 
       });
-    }
+    } 
 
     const creditosActivos = data.filter((credito: any) => 
       credito.estado !== 'CANCELADO' && credito.estado !== 'PAGADO'
