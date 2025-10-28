@@ -391,3 +391,49 @@
     font-size: 1rem;
   }
 }
+
+/* Colores corporativos Finova */
+:root {
+  --finova-primary: #12274B;
+  --finova-secondary: #1468B1;
+  --finova-accent: #2A7ABF;
+  --finova-light: #4C97D2;
+  --finova-bg: #D0EDFC;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Aplicar gradiente Finova al fondo */
+.consulta-deuda-container {
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 50%, var(--finova-light) 100%) !important;
+}
+
+/* Botones con colores Finova */
+.consulta-btn-primary {
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 100%) !important;
+}
+
+.btn-pagar-pse {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+/* Headers de tabla con gradiente Finova */
+.tabla-amortizacion thead {
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 100%) !important;
+}
+
+/* Badges con colores corporativos */
+.credito-badge {
+  background: var(--finova-bg) !important;
+  color: var(--finova-primary) !important;
+}
+
+/* Títulos con color primario */
+.consulta-deuda-title {
+  color: var(--finova-primary) !important;
+  font-weight: 800 !important;
+}
