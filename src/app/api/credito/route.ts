@@ -39,8 +39,8 @@ export async function POST(request: Request) {
     }
 
     //  CORRECTO - Sin NEXT_PUBLIC_
-    const API_URL = process.env.API_URL || 'https://server.facilcreditos.co';
-    const endpoint = `${API_URL}/api/credit/cuotasPendiente`;
+    const API_URL = process.env.API_URL || 'https://server.finova.com.co';
+    const endpoint = `${API_URL}/api/credito`;
     
     console.log(' [CREDITO] Backend URL:', endpoint);
 
