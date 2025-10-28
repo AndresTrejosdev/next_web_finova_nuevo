@@ -1,7 +1,7 @@
 import './globals.css';
 import { Urbanist, Nunito, Inter } from "next/font/google";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+// import 'bootstrap/dist/css/bootstrap.min.css'; // Comentado - usar CDN en <head>
+// import 'bootstrap-icons/font/bootstrap-icons.css'; // Comentado - usar CDN en <head>
 import "slick-carousel/slick/slick.css";
 import "./assets/main.css";
 import { GoogleTagManager } from './Components/GoogleTagManager';
@@ -127,6 +127,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+         {/* Bootstrap CSS */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossOrigin="anonymous"
+        />
 
          {/* Font Awesome para íconos */}
         <link
