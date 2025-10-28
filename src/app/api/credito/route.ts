@@ -1,118 +1,120 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+interface Cuota {
+  numero: number;
+  fecha: string;
+  cuota: number;
+  mora: number;
+  sancion: number;
+  estado: string;
+}
+
+interface Credito {
+  prestamo_ID: number;
+  documento: string;
+  tipoCredito: string;
+  estado: string;
+  valorPrestamo: number;
+  numeroCuotas: number;
+  diasMora: number;
+  pagoMinimo: number;
+  pagoTotal: number;
+  pagoEnMora: number;
+  cuotas: Cuota[];
+}
+
+export async function POST(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const cedula = searchParams.get('cedula');
+    const body = await request.json();
+    const { userDocumento } = body;
+
+    console.log(' [CREDITO] Consulta para documento:', userDocumento);
+
+    if (!userDocumento) {
+      console.error(' [CREDITO] Falta documento');
+      return NextResponse.json(
+        { error: 'El documento es requerido' },
+        { status: 400 }
+      );
+    }
+
+    //  CORRECTO - Sin NEXT_PUBLIC_
+    const API_URL = process.env.API_URL || 'https://server.facilcreditos.co';
+    const endpoint = `${API_URL}/api/credit/cuotasPendiente`;
     
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (!apiUrl) {
-      return NextResponse.json({ error: 'API URL no configurada' }, { status: 500 });
-    }
+    console.log(' [CREDITO] Backend URL:', endpoint);
 
-    if (!cedula) {
-      return NextResponse.json({ error: 'Cedula requerida' }, { status: 400 });
-    }
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
 
-    console.log('Consultando API externa:', `${apiUrl}/api/credit/cuotasPendiente`);
-    console.log('Documento:', cedula);
-
-    const response = await fetch(`${apiUrl}/api/credit/cuotasPendiente`, {
+    const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userDocumento: cedula })
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userDocumento }),
+      signal: controller.signal,
+      cache: 'no-store'
     });
+
+    clearTimeout(timeoutId);
+
+    console.log(' [CREDITO] Status:', response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error del API externo:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
-      });
-      throw new Error(`Error del API: ${response.status} - ${errorText}`);
+      console.error('❌ [CREDITO] Backend error:', errorText);
+      
+      return NextResponse.json(
+        { 
+          success: false,
+          error: 'Error al consultar créditos en el backend',
+          details: errorText 
+        },
+        { status: response.status }
+      );
     }
 
     const data = await response.json();
-    console.log('Respuesta del API externo:', data);
-    
-    if (!Array.isArray(data) || data.length === 0) {
-      return NextResponse.json({ 
-        success: false,
-        message: 'No se encontraron créditos',
-        creditos: [] 
-      });
-    } 
+    console.log(' [CREDITO] Datos recibidos:', {
+      type: typeof data,
+      isArray: Array.isArray(data),
+      length: Array.isArray(data) ? data.length : 'N/A'
+    });
 
-    const creditosActivos = data.filter((credito: any) => 
-      credito.estado !== 'CANCELADO' && credito.estado !== 'PAGADO'
-    );
+    // Transformar datos
+    const creditos: Credito[] = Array.isArray(data) ? data.filter(
+      (c: any) => c.estado === 'EN CURSO'
+    ).map((credito: any) => ({
+      prestamo_ID: credito.prestamo_ID,
+      documento: credito.documento || userDocumento,
+      tipoCredito: credito.tipoCredito || 'Crédito',
+      estado: credito.estado,
+      valorPrestamo: credito.valor_prestamo || 0,
+      numeroCuotas: credito.numero_cuotas || 0,
+      diasMora: credito.dias_mora || 0,
+      pagoMinimo: credito.pagoMinimo || 0,
+      pagoTotal: credito.pagoTotal || 0,
+      pagoEnMora: credito.pagoEnMora || 0,
+      cuotas: credito.amortizacion || []
+    })) : [];
 
-    if (creditosActivos.length === 0) {
-      return NextResponse.json({ 
-        success: false,
-        message: 'No hay créditos activos',
-        creditos: [] 
-      });
+    console.log(' [CREDITO] Créditos procesados:', creditos.length);
+
+    return NextResponse.json(creditos);
+
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.error('⏱️ [CREDITO] Timeout');
+      return NextResponse.json(
+        { error: 'Timeout al consultar el backend' },
+        { status: 504 }
+      );
     }
 
-    const creditosTransformados = creditosActivos.map((credito: any) => {
-      const todasLasCuotas = credito.amortizacion || [];
-      
-      const cuotasValidas = todasLasCuotas
-        .filter((c: any) => parseFloat(c.total_cuota || 0) > 0)
-        .map((cuota: any) => {
-          const fechaCuota = new Date(cuota.fecha_pago);
-          const hoy = new Date();
-          hoy.setHours(0, 0, 0, 0);
-          fechaCuota.setHours(0, 0, 0, 0);
-          
-          const estaVencida = fechaCuota < hoy;
-          const sancion = parseFloat(cuota.sancion || 0);
-          
-          return {
-            numero: parseInt(cuota.Numero_cuota || cuota.numero_cuota || 0),
-            fecha: cuota.fecha_pago,
-            cuota: parseFloat(cuota.total_cuota || 0),
-            mora: sancion,
-            sancion: sancion,
-            estado: estaVencida ? 'VENCIDA' : 'PENDIENTE',
-            capital: parseFloat(cuota.capital || 0),
-            interes: parseFloat(cuota.interes || 0),
-            aval: parseFloat(cuota.aval || 0),
-            saldo: parseFloat(cuota.saldo || 0)
-          };
-        })
-        .sort((a, b) => a.numero - b.numero);
-
-      return {
-        prestamo_ID: credito.prestamo_ID,
-        documento: credito.documento,
-        tipoCredito: credito.tipoCredito,
-        estado: credito.estado,
-        valorPrestamo: parseFloat(credito.valor_prestamo || 0),
-        numeroCuotas: parseInt(credito.numero_cuotas || 0),
-        diasMora: credito.diasMora || 0,
-        pagoMinimo: parseFloat(credito.pagoMinimo || 0),
-        pagoTotal: parseFloat(credito.pagoTotal || 0),
-        pagoEnMora: parseFloat(credito.pagoEnMora || 0),
-        cuotas: cuotasValidas
-      };
-    });
-
-    return NextResponse.json({
-      success: true,
-      creditos: creditosTransformados
-    });
-    
-  } catch (error: any) {
-    console.error('Error en API de creditos:', error);
+    console.error(' [CREDITO] Error:', error.message);
     return NextResponse.json(
-      { 
-        success: false,
-        error: 'Error al procesar la solicitud', 
-        details: error.message 
-      },
+      { error: 'Error interno', details: error.message },
       { status: 500 }
     );
   }
