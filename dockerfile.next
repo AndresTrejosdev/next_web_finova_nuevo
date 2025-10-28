@@ -15,7 +15,7 @@ COPY . .
 #RUN npm run build
 
 # 5. Puerto de la aplicación (usa el mismo que en tu compose)
-EXPOSE 5122
+EXPOSE 3000
 
 # 6. Comando de inicio
 CMD ["npm", "run", "dev"]
