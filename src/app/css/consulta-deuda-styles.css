@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap');
+
+/* Variables de colores Finova */
+:root {
+  --finova-primary: #12274B;
+  --finova-secondary: #1468B1;
+  --finova-accent: #2A7ABF;
+  --finova-light: #4C97D2;
+  --finova-bg: #D0EDFC;
+}
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Contenedor principal con gradiente Finova */
+.consulta-deuda-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 50%, var(--finova-light) 100%);
+  padding: 3rem 1.5rem;
+}
+
+/* Tarjeta principal */
+.consulta-deuda-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 32px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(18, 39, 75, 0.2);
+}
+
+/* Título principal */
+.consulta-deuda-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--finova-primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.consulta-deuda-subtitle {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--finova-accent);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Grupo de formulario */
+.consulta-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.consulta-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--finova-primary);
+  margin-bottom: 0.5rem;
+}
+
+.consulta-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  border: 2px solid var(--finova-bg);
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.consulta-input:focus {
+  outline: none;
+  border-color: var(--finova-secondary);
+  box-shadow: 0 0 0 4px rgba(20, 104, 177, 0.1);
+}
+
+/* Contenedor de botón */
+.consulta-btn-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.consulta-btn-primary {
+  padding: 1.125rem 3rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(20, 104, 177, 0.3);
+}
+
+.consulta-btn-primary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(20, 104, 177, 0.4);
+}
+
+.consulta-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error */
+.consulta-error {
+  background: #fee2e2;
+  border-left: 4px solid #ef4444;
+  border-radius: 12px;
+  color: #991b1b;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Loading */
+.consulta-loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--finova-bg);
+  border-top-color: var(--finova-secondary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: var(--finova-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* Grid de créditos */
+.creditos-grid {
+  margin-top: 2rem;
+}
+
+.creditos-info-header {
+  background: var(--finova-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--finova-primary);
+  font-weight: 600;
+}
+
+/* Card de crédito */
+.credito-card {
+  background: white;
+  border: 2px solid var(--finova-bg);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(18, 39, 75, 0.1);
+}
+
+.credito-header {
+  border-bottom: 2px solid var(--finova-bg);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.credito-info h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--finova-primary);
+  margin-bottom: 0.5rem;
+}
+
+.credito-id {
+  font-size: 0.875rem;
+  color: var(--finova-accent);
+  font-weight: 600;
+}
+
+/* Badge */
+.credito-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: var(--finova-bg);
+  color: var(--finova-primary);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Montos grid */
+.montos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.monto-box {
+  padding: 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.monto-minimo {
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 100%);
+  color: white;
+}
+
+.monto-total {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.monto-mora {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.monto-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  opacity: 0.95;
+}
+
+.monto-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.alerta-mora {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* Tabla de amortización */
+.tabla-amortizacion-container {
+  margin-top: 1.5rem;
+}
+
+.btn-ver-tabla {
+  width: 100%;
+  padding: 1rem;
+  background: var(--finova-bg);
+  color: var(--finova-primary);
+  border: 2px solid var(--finova-accent);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 1rem;
+}
+
+.btn-ver-tabla:hover {
+  background: var(--finova-accent);
+  color: white;
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(18, 39, 75, 0.1);
+}
+
+.tabla-amortizacion {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-amortizacion thead {
+  background: linear-gradient(135deg, var(--finova-secondary) 0%, var(--finova-accent) 100%);
+}
+
+.tabla-amortizacion th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tabla-amortizacion td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--finova-bg);
+  color: var(--finova-primary);
+  font-weight: 600;
+}
+
+.fila-pagada {
+  background: #f0fdf4;
+}
+
+.mora-activa {
+  color: #dc2626;
+  font-weight: 800;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.estado-badge.pagada {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado-badge.pendiente {
+  background: var(--finova-bg);
+  color: var(--finova-primary);
+}
+
+/* Botón pagar */
+.btn-pagar-pse {
+  width: 100%;
+  padding: 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  margin-top: 1.5rem;
+}
+
+.btn-pagar-pse:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .consulta-deuda-title {
+    font-size: 2rem;
+  }
+  
+  .consulta-deuda-card {
+    padding: 1.5rem;
+    border-radius: 24px;
+  }
+  
+  .montos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabla-amortizacion th,
+  .tabla-amortizacion td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
