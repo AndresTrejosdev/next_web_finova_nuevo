@@ -1,0 +1,273 @@
+"use client";
+
+import { useState } from 'react';
+import axios from 'axios';
+import ModalPago from '../Components/ModalPago/ModalPago';
+import '../css/consulta-deuda-styles.css';
+
+interface Cuota {
+  numero: number;
+  fecha: string;
+  cuota: number;
+  mora: number;
+  sancion: number;
+  estado: string;
+}
+
+interface Credito {
+  prestamo_ID: number;
+  documento: string;
+  tipoCredito: string;
+  estado: string;
+  valorPrestamo: number;
+  numeroCuotas: number;
+  diasMora: number;
+  pagoMinimo: number;
+  pagoTotal: number;
+  pagoEnMora: number;
+  cuotas: Cuota[];
+}
+
+export default function ConsultaDeuda() {
+  const [cedula, setCedula] = useState('');
+  const [creditos, setCreditos] = useState<Credito[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [creditoSeleccionado, setCreditoSeleccionado] = useState<Credito | null>(null);
+
+  const handleConsultar = async () => {
+    if (!cedula || cedula.length < 6) {
+      setError('Por favor ingresa una cédula válida');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setCreditos([]);
+
+    try {
+      console.log('Consultando con cédula:', cedula);
+      
+      const response = await axios.get(`/api/credito?cedula=${cedula}`, {
+        timeout: 20000
+      });
+
+      console.log('Respuesta completa:', response.data);
+
+      if (response.data.success && response.data.creditos && response.data.creditos.length > 0) {
+        console.log('Créditos encontrados:', response.data.creditos);
+        setCreditos(response.data.creditos);
+      } else {
+        setError('No se encontraron créditos activos para esta cédula');
+      }
+    } catch (err: any) {
+      console.error('Error completo:', err);
+      console.error('Respuesta del error:', err.response?.data);
+      setError(err.response?.data?.error || 'Error al consultar la deuda');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePagar = (credito: Credito) => {
+    setCreditoSeleccionado(credito);
+    setShowModal(true);
+  };
+
+  const procesarPago = async (tipoPago: 'minimo' | 'total' | 'mora') => {
+    if (!creditoSeleccionado) return;
+
+    const montoPagar = tipoPago === 'minimo' 
+      ? creditoSeleccionado.pagoMinimo 
+      : tipoPago === 'total' 
+        ? creditoSeleccionado.pagoTotal 
+        : creditoSeleccionado.pagoEnMora;
+
+    try {
+      const responsePago = await axios.post('/api/payvalida/iniciar-pago', {
+        prestamo_ID: creditoSeleccionado.prestamo_ID,
+        cedula: creditoSeleccionado.documento,
+        monto: montoPagar,
+        tipoPago: tipoPago
+      });
+
+      if (responsePago.data.success && responsePago.data.urlPago) {
+        console.log('✅ Respuesta del API de PayValida:', responsePago.data);
+        console.log('🔗 URL de redirección:', responsePago.data.urlPago);
+        
+        // Verificar que la URL tenga el protocolo correcto
+        if (responsePago.data.urlPago.startsWith('http://') || responsePago.data.urlPago.startsWith('https://')) {
+          window.location.href = responsePago.data.urlPago;
+        } else {
+          console.error('❌ URL sin protocolo detectada:', responsePago.data.urlPago);
+          alert('Error: URL de pago inválida');
+        }
+      } else {
+        alert('Error al procesar el pago');
+      }
+    } catch (error) {
+      console.error('Error al procesar pago:', error);
+      alert('Error al procesar el pago');
+    }  
+  };
+
+  return (
+    <div className="consulta-container">
+      <div className="consulta-content">
+        <h1 className="consulta-title">
+          Consulta tu Crédito
+        </h1>
+
+        <div className="consulta-card">
+          <div className="consulta-input-group">
+            <input
+              type="text"
+              value={cedula}
+              onChange={(e) => setCedula(e.target.value.replace(/\D/g, ''))}
+              placeholder="Número de cédula"
+              className="consulta-input"
+              onKeyPress={(e) => e.key === 'Enter' && handleConsultar()}
+            />
+            <button
+              onClick={handleConsultar}
+              disabled={loading}
+              className="consulta-button"
+            >
+              {loading ? 'Consultando...' : 'Consultar'}
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="consulta-error">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {loading && (
+          <div className="consulta-loading">
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Consultando créditos...</p>
+          </div>
+        )}
+
+        {creditos.length > 0 && creditos.map((credito) => (
+          <div key={credito.prestamo_ID} className="credito-card">
+            <div className="credito-header">
+              <h2 className="credito-title">
+                Crédito #{credito.prestamo_ID}
+              </h2>
+              <div className="credito-info-grid">
+                <div>
+                  <p className="info-label">Tipo</p>
+                  <p className="info-value">{credito.tipoCredito}</p>
+                </div>
+                <div>
+                  <p className="info-label">Estado</p>
+                  <p className="info-value">{credito.estado}</p>
+                </div>
+                <div>
+                  <p className="info-label">Valor Préstamo</p>
+                  <p className="info-value">${credito.valorPrestamo?.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="info-label">Días en Mora</p>
+                  <p className="info-value info-mora">{credito.diasMora || 0}</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => handlePagar(credito)}
+                className="pagar-button"
+              >
+                Realizar Pago
+              </button>
+            </div>
+
+            <h3 className="cuotas-title">Cuotas Pendientes</h3>
+            {credito.cuotas && credito.cuotas.length > 0 ? (
+              <div className="table-container">
+                <table className="cuotas-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>FECHA</th>
+                      <th className="text-right">CUOTA</th>
+                      <th className="text-right">MORA</th>
+                      <th className="text-right">SANCIÓN</th>
+                      <th className="text-center">ESTADO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {credito.cuotas.map((cuota) => (
+                      <tr 
+                        key={cuota.numero}
+                        className={cuota.estado === 'VENCIDA' ? 'row-vencida' : ''}
+                      >
+                        <td>{cuota.numero}</td>
+                        <td>{cuota.fecha}</td>
+                        <td className="text-right">${cuota.cuota?.toLocaleString()}</td>
+                        <td className="text-right">${cuota.mora?.toLocaleString()}</td>
+                        <td className="text-right">${cuota.sancion?.toLocaleString()}</td>
+                        <td className="text-center">
+                          <span className={`badge ${
+                            cuota.estado === 'VENCIDA' ? 'badge-vencida' : 'badge-pendiente'
+                          }`}>
+                            {cuota.estado}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="no-cuotas">No hay cuotas pendientes</p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {showModal && creditoSeleccionado && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">Opciones de Pago</h2>
+            
+            <div className="modal-buttons">
+              <button
+                onClick={() => procesarPago('minimo')}
+                className="modal-button modal-button-minimo"
+              >
+                Pago Mínimo: ${creditoSeleccionado.pagoMinimo?.toLocaleString()}
+              </button>
+
+              {creditoSeleccionado.pagoEnMora > 0 && (
+                <button
+                  onClick={() => procesarPago('mora')}
+                  className="modal-button modal-button-mora"
+                >
+                  Pago en Mora: ${creditoSeleccionado.pagoEnMora?.toLocaleString()}
+                </button>
+              )}
+
+              <button
+                onClick={() => procesarPago('total')}
+                className="modal-button modal-button-total"
+              >
+                Pago Total: ${creditoSeleccionado.pagoTotal?.toLocaleString()}
+              </button>
+
+              <button
+                onClick={() => setShowModal(false)}
+                className="modal-button modal-button-cancel"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

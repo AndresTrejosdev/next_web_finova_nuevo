@@ -1,9 +1,8 @@
-import './globals.css';
+// import './globals.css'; // Movido a public/assets/css/globals.css
 import { Urbanist, Nunito, Inter } from "next/font/google";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import "slick-carousel/slick/slick.css";
-import "./assets/main.css";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import "slick-carousel/slick/slick.css";
+// import "./assets/main.css";
 import { GoogleTagManager } from './Components/GoogleTagManager';
 import Script from 'next/script';
 import { ReactNode } from 'react';
@@ -128,6 +127,23 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
+        {/* Bootstrap CSS */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        />
+
+        {/* Slick Carousel CSS */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+        />
+
+        {/* CSS personalizado */}
+        <link rel="stylesheet" href="/assets/css/globals.css" />
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/consulta-deuda.css" />
+
          {/* Font Awesome para íconos */}
         <link
           rel="stylesheet"
@@ -137,7 +153,7 @@ export default function RootLayout({
         {/* Bootstrap Icons */}
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
    
         {/* Google Tag Manager */}
