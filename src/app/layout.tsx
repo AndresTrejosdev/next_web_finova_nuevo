@@ -44,7 +44,7 @@ export const metadata = {
   ],
   authors: [{ name: 'Finova' }],
   
-  viewport: {
+  viewport: { 
     width: 'device-width',
     initialScale: 1,
     maximumScale: 5,
